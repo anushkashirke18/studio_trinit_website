@@ -21,18 +21,19 @@ export function AdminDashboard() {
   const [announcementText, setAnnouncementText] = React.useState("")
   const [isPublishing, setIsPublishing] = React.useState(false)
   
-  // Edit State
-  const [editingSchedule, setEditingSchedule] = React.useState<any>(null)
+  // Edit/Add State for Schedules & Exams
+  const [editingItem, setEditingItem] = React.useState<any>(null)
+  const [activeTab, setActiveTab] = React.useState("schedules")
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false)
-  
-  // Add State
   const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
-  const [newSchedule, setNewSchedule] = React.useState({
+  
+  const [newItem, setNewItem] = React.useState({
     subject: "",
     day: "",
     time: "",
     room: "",
-    type: "Lecture"
+    type: "Lecture",
+    date: ""
   })
 
   const firestore = useFirestore()
@@ -48,8 +49,14 @@ export function AdminDashboard() {
     return query(collection(firestore, "schedules"), orderBy("subject", "asc"))
   }, [firestore])
 
+  const examsQuery = React.useMemo(() => {
+    if (!firestore) return null
+    return query(collection(firestore, "exams"), orderBy("date", "asc"))
+  }, [firestore])
+
   const { data: announcements } = useCollection(announcementsQuery)
   const { data: schedules } = useCollection(schedulesQuery)
+  const { data: exams } = useCollection(examsQuery)
 
   const handlePushAnnouncement = () => {
     if (!firestore || !announcementText.trim()) return
@@ -65,119 +72,80 @@ export function AdminDashboard() {
       .then(() => {
         setAnnouncementText("")
         setIsPublishing(false)
-        toast({
-          title: "Announcement Published",
-          description: "Your update has been broadcasted to all students.",
-        })
+        toast({ title: "Announcement Published", description: "Your update has been broadcasted to all students." })
       })
-      .catch(async (error) => {
+      .catch(async () => {
         setIsPublishing(false)
-        const permissionError = new FirestorePermissionError({
-          path: "announcements",
-          operation: "create",
-          requestResourceData: data,
-        })
-        errorEmitter.emit("permission-error", permissionError)
+        errorEmitter.emit("permission-error", new FirestorePermissionError({ path: "announcements", operation: "create", requestResourceData: data }))
       })
   }
 
   const handleDeleteRecord = (col: string, id: string) => {
     if (!firestore) return
     deleteDoc(doc(firestore, col, id))
-      .then(() => {
-        toast({
-          title: "Record Deleted",
-          description: "The item has been successfully removed.",
-        })
-      })
-      .catch(async () => {
-        const permissionError = new FirestorePermissionError({
-          path: `${col}/${id}`,
-          operation: "delete",
-        })
-        errorEmitter.emit("permission-error", permissionError)
-      })
+      .then(() => toast({ title: "Record Deleted", description: "The item has been successfully removed." }))
+      .catch(async () => errorEmitter.emit("permission-error", new FirestorePermissionError({ path: `${col}/${id}`, operation: "delete" })))
   }
 
-  const handleUpdateSchedule = (e: React.FormEvent) => {
+  const handleSaveItem = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!firestore || !editingSchedule) return
+    if (!firestore || !editingItem) return
 
-    const { id, ...data } = editingSchedule
-    const docRef = doc(firestore, "schedules", id)
+    const { id, ...data } = editingItem
+    const collectionName = activeTab === "schedules" ? "schedules" : "exams"
 
-    updateDoc(docRef, data)
+    updateDoc(doc(firestore, collectionName, id), data)
       .then(() => {
         setIsEditDialogOpen(false)
-        setEditingSchedule(null)
-        toast({
-          title: "Changes Saved",
-          description: "The academic schedule has been updated successfully.",
-        })
+        setEditingItem(null)
+        toast({ title: "Changes Saved", description: "The record has been updated successfully." })
       })
-      .catch(async () => {
-        const permissionError = new FirestorePermissionError({
-          path: `schedules/${id}`,
-          operation: "update",
-          requestResourceData: data,
-        })
-        errorEmitter.emit("permission-error", permissionError)
-      })
+      .catch(async () => errorEmitter.emit("permission-error", new FirestorePermissionError({ path: `${collectionName}/${id}`, operation: "update", requestResourceData: data })))
   }
 
-  const handleCreateSchedule = (e: React.FormEvent) => {
+  const handleCreateItem = (e: React.FormEvent) => {
     e.preventDefault()
     if (!firestore) return
 
-    const data = { ...newSchedule, createdAt: serverTimestamp() }
+    const collectionName = activeTab === "schedules" ? "schedules" : "exams"
+    const data = { ...newItem, createdAt: serverTimestamp() }
 
-    addDoc(collection(firestore, "schedules"), data)
+    addDoc(collection(firestore, collectionName), data)
       .then(() => {
         setIsAddDialogOpen(false)
-        setNewSchedule({ subject: "", day: "", time: "", room: "", type: "Lecture" })
-        toast({
-          title: "Schedule Created",
-          description: "New academic record added to the database.",
-        })
+        setNewItem({ subject: "", day: "", time: "", room: "", type: "Lecture", date: "" })
+        toast({ title: "Record Created", description: `New ${activeTab === 'schedules' ? 'schedule' : 'exam'} record added.` })
       })
-      .catch(async () => {
-        const permissionError = new FirestorePermissionError({
-          path: "schedules",
-          operation: "create",
-          requestResourceData: data,
-        })
-        errorEmitter.emit("permission-error", permissionError)
-      })
+      .catch(async () => errorEmitter.emit("permission-error", new FirestorePermissionError({ path: collectionName, operation: "create", requestResourceData: data })))
   }
 
   const handleSeedData = () => {
     if (!firestore) return
-    const sampleSchedules = [
-      { subject: "Intro to CS", day: "Mon/Wed", time: "11:00 - 12:30", room: "Hall A", type: "Lecture", createdAt: serverTimestamp() },
-      { subject: "History 101", day: "Tue/Thu", time: "14:00 - 15:30", room: "Room 105", type: "Lecture", createdAt: serverTimestamp() },
-      { subject: "Data Structures", day: "Friday", time: "09:00 - 11:00", room: "Lab 3", type: "Lab", createdAt: serverTimestamp() },
-    ]
-    sampleSchedules.forEach(s => addDoc(collection(firestore, "schedules"), s))
-    toast({
-      title: "Sample Data Seeded",
-      description: "Database has been populated with default records.",
-    })
+    const samples = {
+      schedules: [
+        { subject: "Intro to CS", day: "Mon/Wed", time: "11:00 - 12:30", room: "Hall A", type: "Lecture", createdAt: serverTimestamp() },
+        { subject: "Data Structures", day: "Friday", time: "09:00 - 11:00", room: "Lab 3", type: "Lab", createdAt: serverTimestamp() },
+      ],
+      exams: [
+        { subject: "Mathematics Finals", date: "2024-12-15", time: "09:00 AM", room: "Room 201", createdAt: serverTimestamp() },
+        { subject: "Advanced Physics", date: "2024-12-18", time: "01:00 PM", room: "Main Hall", createdAt: serverTimestamp() }
+      ]
+    }
+    samples.schedules.forEach(s => addDoc(collection(firestore, "schedules"), s))
+    samples.exams.forEach(e => addDoc(collection(firestore, "exams"), e))
+    toast({ title: "Sample Data Seeded", description: "Database has been populated with default records." })
   }
 
   return (
-    <div className="container mx-auto p-6 max-w-6xl space-y-8 animate-in fade-in duration-500">
+    <div className="container mx-auto p-6 max-w-6xl space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-headline font-bold">Institution Portal</h1>
           <p className="text-muted-foreground">Manage academic data and broadcasts for your students.</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="gap-2" onClick={handleSeedData}>
-            <Database className="h-4 w-4" /> Seed Samples
-          </Button>
-          <Button className="gap-2 bg-secondary hover:bg-secondary/80" onClick={() => setIsAddDialogOpen(true)}>
-            <Plus className="h-4 w-4" /> Add Record
-          </Button>
+          <Button variant="outline" className="gap-2" onClick={handleSeedData}><Database className="h-4 w-4" /> Seed Samples</Button>
+          <Button className="gap-2 bg-secondary hover:bg-secondary/80" onClick={() => setIsAddDialogOpen(true)}><Plus className="h-4 w-4" /> Add Record</Button>
         </div>
       </div>
 
@@ -188,130 +156,72 @@ export function AdminDashboard() {
             <CardDescription>Post instant updates to students.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Textarea 
-              placeholder="Enter announcement text..." 
-              value={announcementText}
-              onChange={(e) => setAnnouncementText(e.target.value)}
-              className="min-h-[120px] bg-background"
-            />
-            <Button 
-              className="w-full gap-2" 
-              onClick={handlePushAnnouncement}
-              disabled={isPublishing || !announcementText.trim()}
-            >
-              {isPublishing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-              Push Update
+            <Textarea placeholder="Enter announcement text..." value={announcementText} onChange={(e) => setAnnouncementText(e.target.value)} className="min-h-[120px]" />
+            <Button className="w-full gap-2" onClick={handlePushAnnouncement} disabled={isPublishing || !announcementText.trim()}>
+              {isPublishing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} Push Update
             </Button>
           </CardContent>
         </Card>
 
         <Card className="md:col-span-3 bg-card border-primary/10">
           <CardHeader>
-            <Tabs defaultValue="schedules" className="w-full">
-              <div className="flex items-center justify-between mb-4">
-                <TabsList className="bg-muted/30">
-                  <TabsTrigger value="schedules" className="gap-2">
-                    <Clock className="h-4 w-4" /> Timetables
-                  </TabsTrigger>
-                  <TabsTrigger value="exams" className="gap-2">
-                    <FileText className="h-4 w-4" /> Exams
-                  </TabsTrigger>
-                  <TabsTrigger value="history" className="gap-2">
-                    <Database className="h-4 w-4" /> History
-                  </TabsTrigger>
-                </TabsList>
-              </div>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="bg-muted/30 mb-4">
+                <TabsTrigger value="schedules" className="gap-2"><Clock className="h-4 w-4" /> Timetables</TabsTrigger>
+                <TabsTrigger value="exams" className="gap-2"><FileText className="h-4 w-4" /> Exams</TabsTrigger>
+                <TabsTrigger value="history" className="gap-2"><Database className="h-4 w-4" /> History</TabsTrigger>
+              </TabsList>
 
               <TabsContent value="schedules">
                 <div className="rounded-md border bg-background/50">
                   <Table>
-                    <TableHeader>
-                      <TableRow className="bg-muted/50">
-                        <TableHead>Course Name</TableHead>
-                        <TableHead>Day</TableHead>
-                        <TableHead>Time Slot</TableHead>
-                        <TableHead>Venue</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
+                    <TableHeader><TableRow className="bg-muted/50"><TableHead>Course</TableHead><TableHead>Day</TableHead><TableHead>Time</TableHead><TableHead>Venue</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                     <TableBody>
                       {schedules?.map((row: any) => (
                         <TableRow key={row.id}>
-                          <TableCell className="font-medium">
-                            <div className="flex flex-col">
-                              <span>{row.subject}</span>
-                              <span className="text-[10px] uppercase text-muted-foreground">{row.type}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell>{row.day}</TableCell>
-                          <TableCell>{row.time}</TableCell>
-                          <TableCell>{row.room}</TableCell>
+                          <TableCell className="font-medium">{row.subject} <span className="block text-[10px] uppercase text-muted-foreground">{row.type}</span></TableCell>
+                          <TableCell>{row.day}</TableCell><TableCell>{row.time}</TableCell><TableCell>{row.room}</TableCell>
                           <TableCell className="text-right space-x-2">
-                            <Button 
-                              variant="ghost" 
-                              size="icon"
-                              onClick={() => {
-                                setEditingSchedule(row)
-                                setIsEditDialogOpen(true)
-                              }}
-                            >
-                              <Edit3 className="h-4 w-4" />
-                            </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="text-destructive"
-                              onClick={() => handleDeleteRecord("schedules", row.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+                            <Button variant="ghost" size="icon" onClick={() => { setEditingItem(row); setIsEditDialogOpen(true); }}><Edit3 className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="icon" className="text-destructive" onClick={() => handleDeleteRecord("schedules", row.id)}><Trash2 className="h-4 w-4" /></Button>
                           </TableCell>
                         </TableRow>
                       ))}
-                      {(!schedules || schedules.length === 0) && (
-                        <TableRow>
-                          <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
-                            No schedules found. Click "Seed Samples" to populate.
-                          </TableCell>
-                        </TableRow>
-                      )}
                     </TableBody>
                   </Table>
                 </div>
               </TabsContent>
-              <TabsContent value="exams" className="p-12 text-center text-muted-foreground">
-                <div className="flex flex-col items-center gap-4">
-                  <FileText className="h-12 w-12 opacity-20" />
-                  <p>Exam calendar management coming soon.</p>
-                </div>
-              </TabsContent>
-              <TabsContent value="history" className="space-y-4">
+
+              <TabsContent value="exams">
                 <div className="rounded-md border bg-background/50">
                   <Table>
-                    <TableHeader>
-                      <TableRow className="bg-muted/50">
-                        <TableHead>Announcement</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
+                    <TableHeader><TableRow className="bg-muted/50"><TableHead>Subject</TableHead><TableHead>Date</TableHead><TableHead>Time</TableHead><TableHead>Room</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                    <TableBody>
+                      {exams?.map((row: any) => (
+                        <TableRow key={row.id}>
+                          <TableCell className="font-medium">{row.subject}</TableCell>
+                          <TableCell>{row.date}</TableCell><TableCell>{row.time}</TableCell><TableCell>{row.room}</TableCell>
+                          <TableCell className="text-right space-x-2">
+                            <Button variant="ghost" size="icon" onClick={() => { setEditingItem(row); setIsEditDialogOpen(true); }}><Edit3 className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="icon" className="text-destructive" onClick={() => handleDeleteRecord("exams", row.id)}><Trash2 className="h-4 w-4" /></Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="history">
+                <div className="rounded-md border bg-background/50">
+                  <Table>
+                    <TableHeader><TableRow className="bg-muted/50"><TableHead>Announcement</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                     <TableBody>
                       {announcements?.map((a: any) => (
                         <TableRow key={a.id}>
                           <TableCell className="max-w-md truncate">{a.text}</TableCell>
-                          <TableCell>
-                            {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : 'N/A'}
-                          </TableCell>
-                          <TableCell className="text-right">
-                             <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="text-destructive"
-                              onClick={() => handleDeleteRecord("announcements", a.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </TableCell>
+                          <TableCell>{a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : 'N/A'}</TableCell>
+                          <TableCell className="text-right"><Button variant="ghost" size="icon" className="text-destructive" onClick={() => handleDeleteRecord("announcements", a.id)}><Trash2 className="h-4 w-4" /></Button></TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -323,147 +233,61 @@ export function AdminDashboard() {
         </Card>
       </div>
 
-      {/* Add Schedule Dialog */}
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+      {/* Shared Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Add New Record</DialogTitle>
-            <DialogDescription>
-              Create a new entry in the academic timetable.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleCreateSchedule} className="space-y-4 py-4">
+          <DialogHeader><DialogTitle>Edit Record</DialogTitle></DialogHeader>
+          <form onSubmit={handleSaveItem} className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="new-subject">Subject</Label>
-              <Input 
-                id="new-subject" 
-                placeholder="e.g. Advanced Calculus"
-                required
-                value={newSchedule.subject} 
-                onChange={(e) => setNewSchedule({...newSchedule, subject: e.target.value})}
-              />
+              <Label>Subject / Course</Label>
+              <Input required value={editingItem?.subject || ""} onChange={(e) => setEditingItem({...editingItem, subject: e.target.value})} />
             </div>
+            {activeTab === "schedules" ? (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label>Type</Label>
+                  <Select value={editingItem?.type} onValueChange={(val) => setEditingItem({...editingItem, type: val})}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="Lecture">Lecture</SelectItem><SelectItem value="Lab">Lab</SelectItem></SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2"><Label>Day(s)</Label><Input value={editingItem?.day || ""} onChange={(e) => setEditingItem({...editingItem, day: e.target.value})} /></div>
+              </div>
+            ) : (
+              <div className="space-y-2"><Label>Exam Date</Label><Input type="date" value={editingItem?.date || ""} onChange={(e) => setEditingItem({...editingItem, date: e.target.value})} /></div>
+            )}
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="new-type">Type</Label>
-                <Select value={newSchedule.type} onValueChange={(val) => setNewSchedule({...newSchedule, type: val})}>
-                  <SelectTrigger id="new-type">
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Lecture">Lecture</SelectItem>
-                    <SelectItem value="Lab">Lab</SelectItem>
-                    <SelectItem value="Seminar">Seminar</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="new-day">Day(s)</Label>
-                <Input 
-                  id="new-day" 
-                  placeholder="e.g. Mon/Wed"
-                  required
-                  value={newSchedule.day} 
-                  onChange={(e) => setNewSchedule({...newSchedule, day: e.target.value})}
-                />
-              </div>
+              <div className="space-y-2"><Label>Room</Label><Input value={editingItem?.room || ""} onChange={(e) => setEditingItem({...editingItem, room: e.target.value})} /></div>
+              <div className="space-y-2"><Label>Time Slot</Label><Input value={editingItem?.time || ""} onChange={(e) => setEditingItem({...editingItem, time: e.target.value})} /></div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="new-room">Room</Label>
-                <Input 
-                  id="new-room" 
-                  placeholder="e.g. 302B"
-                  required
-                  value={newSchedule.room} 
-                  onChange={(e) => setNewSchedule({...newSchedule, room: e.target.value})}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="new-time">Time Slot</Label>
-                <Input 
-                  id="new-time" 
-                  placeholder="e.g. 10:00 - 11:30"
-                  required
-                  value={newSchedule.time} 
-                  onChange={(e) => setNewSchedule({...newSchedule, time: e.target.value})}
-                />
-              </div>
-            </div>
-            <DialogFooter className="pt-4">
-              <Button type="button" variant="ghost" onClick={() => setIsAddDialogOpen(false)}>Cancel</Button>
-              <Button type="submit">Create Record</Button>
-            </DialogFooter>
+            <DialogFooter><Button type="submit">Save Changes</Button></DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
 
-      {/* Edit Schedule Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+      {/* Shared Add Dialog */}
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit Schedule</DialogTitle>
-            <DialogDescription>
-              Update the details for the selected academic record.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleUpdateSchedule} className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="subject">Subject</Label>
-              <Input 
-                id="subject" 
-                value={editingSchedule?.subject || ""} 
-                onChange={(e) => setEditingSchedule({...editingSchedule, subject: e.target.value})}
-              />
-            </div>
+          <DialogHeader><DialogTitle>Add New {activeTab === "schedules" ? "Schedule" : "Exam"}</DialogTitle></DialogHeader>
+          <form onSubmit={handleCreateItem} className="space-y-4 py-4">
+            <div className="space-y-2"><Label>Subject / Course</Label><Input required value={newItem.subject} onChange={(e) => setNewItem({...newItem, subject: e.target.value})} /></div>
+            {activeTab === "schedules" ? (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label>Type</Label>
+                  <Select value={newItem.type} onValueChange={(val) => setNewItem({...newItem, type: val})}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="Lecture">Lecture</SelectItem><SelectItem value="Lab">Lab</SelectItem></SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2"><Label>Day(s)</Label><Input required value={newItem.day} onChange={(e) => setNewItem({...newItem, day: e.target.value})} /></div>
+              </div>
+            ) : (
+              <div className="space-y-2"><Label>Exam Date</Label><Input required type="date" value={newItem.date} onChange={(e) => setNewItem({...newItem, date: e.target.value})} /></div>
+            )}
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="type">Type</Label>
-                <Select value={editingSchedule?.type} onValueChange={(val) => setEditingSchedule({...editingSchedule, type: val})}>
-                  <SelectTrigger id="type">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Lecture">Lecture</SelectItem>
-                    <SelectItem value="Lab">Lab</SelectItem>
-                    <SelectItem value="Seminar">Seminar</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="day">Day(s)</Label>
-                <Input 
-                  id="day" 
-                  value={editingSchedule?.day || ""} 
-                  onChange={(e) => setEditingSchedule({...editingSchedule, day: e.target.value})}
-                />
-              </div>
+              <div className="space-y-2"><Label>Room</Label><Input required value={newItem.room} onChange={(e) => setNewItem({...newItem, room: e.target.value})} /></div>
+              <div className="space-y-2"><Label>Time Slot</Label><Input required value={newItem.time} onChange={(e) => setNewItem({...newItem, time: e.target.value})} /></div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="room">Room</Label>
-                <Input 
-                  id="room" 
-                  value={editingSchedule?.room || ""} 
-                  onChange={(e) => setEditingSchedule({...editingSchedule, room: e.target.value})}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Time Slot</Label>
-                <Input 
-                  id="time" 
-                  value={editingSchedule?.time || ""} 
-                  onChange={(e) => setEditingSchedule({...editingSchedule, time: e.target.value})}
-                />
-              </div>
-            </div>
-            <DialogFooter className="pt-4">
-              <Button type="button" variant="ghost" onClick={() => {
-                setIsEditDialogOpen(false)
-                setEditingSchedule(null)
-              }}>Cancel</Button>
-              <Button type="submit">Save Changes</Button>
-            </DialogFooter>
+            <DialogFooter><Button type="submit">Create Record</Button></DialogFooter>
           </form>
         </DialogContent>
       </Dialog>

@@ -1,7 +1,7 @@
 'use server';
 /**
  * @fileOverview An AI chatbot flow that helps students retrieve school operational data
- * like lecture timings, exam schedules, and announcements.
+ * like lecture timings, exam schedules, and announcements directly from Firestore.
  *
  * - studentInfoAssistantChat - The main function to interact with the student info assistant.
  * - StudentInfoAssistantChatInput - The input type for the studentInfoAssistantChat function.
@@ -10,6 +10,13 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { firebaseConfig } from '@/firebase/config';
+
+// Initialize Firebase for the server-side environment (Genkit flows are Server Actions)
+const firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 /**
  * Represents the input for the student info assistant chat.
@@ -28,36 +35,59 @@ const StudentInfoAssistantChatOutputSchema = z
 export type StudentInfoAssistantChatOutput = z.infer<typeof StudentInfoAssistantChatOutputSchema>;
 
 /**
- * A tool to simulate retrieving school operational data based on a query.
- * In a real application, this would connect to a database or other data source.
+ * A tool to retrieve real-time school operational data from Firestore.
  */
 const retrieveSchoolData = ai.defineTool(
   {
     name: 'retrieveSchoolData',
-    description: 'Retrieves relevant school operational data, such as lecture timings, exam schedules, and important announcements, based on a student\'s query.',
-    inputSchema: z
-      .object({
-        query: z.string().describe('The specific query or keywords to search for within the school data.'),
-      })
-      .describe('Input for retrieving school operational data.'),
-    outputSchema: z
-      .string()
-      .describe('The retrieved school data or a message indicating no relevant information was found.'),
+    description: 'Retrieves all current school operational data (schedules, announcements, exams) to provide accurate answers.',
+    inputSchema: z.object({}),
   },
-  async (input) => {
-    // This is a placeholder implementation.
-    // In a real application, you would query a database or an external API.
-    console.log(`Tool: retrieveSchoolData called with query: ${input.query}`);
-    if (input.query.includes('exam') || input.query.includes('timetable')) {
-      return 'The final exam for Mathematics is on December 15th at 9:00 AM in Room 201. The English exam is on December 17th at 10:00 AM in the Main Hall.';
-    } else if (input.query.includes('lecture') || input.query.includes('timings')) {
-      return 'Introduction to Computer Science lectures are held every Monday and Wednesday from 11:00 AM to 12:30 PM in Lecture Hall A. History 101 lectures are Tuesday and Thursday from 2:00 PM to 3:30 PM in Room 105.';
-    } else if (input.query.includes('announcement') || input.query.includes('update')) {
-      return 'Urgent Announcement: The library will close early at 5:00 PM on Friday, November 24th for maintenance. All students are advised to return books before this time.';
-    } else if (input.query.includes('holiday') || input.query.includes('break')) {
-      return 'The winter break starts on December 20th and classes resume on January 5th.';
-    } else {
-      return 'No specific information found for your query. Please try rephrasing or asking about exams, lectures, or announcements.';
+  async () => {
+    try {
+      // Fetch all relevant collections in parallel
+      const [schedulesSnap, announcementsSnap, examsSnap] = await Promise.all([
+        getDocs(collection(db, 'schedules')),
+        getDocs(collection(db, 'announcements')),
+        getDocs(collection(db, 'exams')),
+      ]);
+
+      const schedules = schedulesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const announcements = announcementsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const exams = examsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      let result = "--- SCHOOL DATABASE CONTEXT ---\n\n";
+      
+      result += "SCHEDULES (Lectures/Labs):\n";
+      if (schedules.length > 0) {
+        schedules.forEach((s: any) => {
+          result += `- ${s.subject} [${s.type}]: ${s.day} at ${s.time} in ${s.room}\n`;
+        });
+      } else {
+        result += "- No schedules found in database.\n";
+      }
+
+      result += "\nLIVE ANNOUNCEMENTS:\n";
+      if (announcements.length > 0) {
+        announcements.forEach((a: any) => {
+          result += `- [${a.type}] ${a.text} (Date: ${a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : 'N/A'})\n`;
+        });
+      } else {
+        result += "- No announcements found.\n";
+      }
+
+      result += "\nEXAM CALENDAR:\n";
+      if (exams.length > 0) {
+        exams.forEach((e: any) => {
+          result += `- ${e.subject}: Date ${e.date}, Time ${e.time}, Room ${e.room}\n`;
+        });
+      } else {
+        result += "- No exams scheduled.\n";
+      }
+
+      return result;
+    } catch (error) {
+      return "ERROR: Could not access the school database context.";
     }
   }
 );
@@ -70,11 +100,15 @@ const studentInfoAssistantChatPrompt = ai.definePrompt({
   input: {schema: StudentInfoAssistantChatInputSchema},
   output: {schema: StudentInfoAssistantChatOutputSchema},
   tools: [retrieveSchoolData],
-  prompt: `You are CampusConnect AI, a helpful and friendly assistant for students. Your primary role is to provide accurate and concise information about school operational data.
+  prompt: `You are CampusConnect AI, an intelligent and friendly student success assistant. 
 
-When a student asks a question, use the available tools to find the most relevant information regarding lecture timings, exam schedules, important announcements, or other school-related queries. If the student's question directly relates to information that can be retrieved, use the 'retrieveSchoolData' tool.
+Your goal is to provide students with precise information about their academic life, including class timings, exam dates, and announcements.
 
-If the information is not found or the question is outside the scope of school operational data, politely state that you cannot assist with that specific query.
+INSTRUCTIONS:
+1. ALWAYS use the 'retrieveSchoolData' tool to get the latest context from the database before answering any question about schedules, exams, or news.
+2. If the tool returns "No schedules found" or similar for a specific topic the user asked about, explain that the database is currently empty for that category.
+3. Be concise and helpful. Use a supportive tone.
+4. If asked about something unrelated to school operations, politely decline and offer to help with school-related queries instead.
 
 Student's Question: {{{.}}}
 `,
@@ -82,7 +116,6 @@ Student's Question: {{{.}}}
 
 /**
  * Implements the Genkit flow for the student info assistant chat.
- * It takes a student's question as input and returns an AI-generated answer.
  */
 const studentInfoAssistantChatFlow = ai.defineFlow(
   {
