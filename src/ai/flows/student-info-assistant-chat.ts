@@ -96,9 +96,8 @@ const studentInfoAssistantChatFlow = ai.defineFlow(
       return output!;
     } catch (error) {
       console.error('Flow execution failed:', error);
-      // Fallback for user experience with debug info in development
-      const errorMsg = error instanceof Error ? error.message : String(error);
-      return `I'm sorry, I'm having trouble accessing my database right now. (Error: ${errorMsg})`;
+      // Fallback for user experience
+      return `I'm sorry, I encountered an error while processing your request. Please try again in a few moments.`;
     }
   }
 );
