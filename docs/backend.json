@@ -1,0 +1,60 @@
+
+{
+  "entities": {
+    "Announcement": {
+      "title": "Announcement",
+      "description": "A broadcast message for students",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "type": { "type": "string", "enum": ["urgent", "info", "update"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "authorId": { "type": "string" }
+      },
+      "required": ["text", "type", "createdAt"]
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "description": "Weekly lecture or lab timing",
+      "type": "object",
+      "properties": {
+        "subject": { "type": "string" },
+        "type": { "type": "string", "enum": ["Lecture", "Lab", "Seminar"] },
+        "time": { "type": "string" },
+        "room": { "type": "string" },
+        "day": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["subject", "type", "time", "room", "day"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Examination schedule detail",
+      "type": "object",
+      "properties": {
+        "subject": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "room": { "type": "string" }
+      },
+      "required": ["subject", "date", "time", "room"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Collection of campus announcements"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": "Schedule",
+      "description": "Collection of academic schedules"
+    },
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Collection of exam schedules"
+    }
+  }
+}

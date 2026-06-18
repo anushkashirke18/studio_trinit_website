@@ -1,36 +1,48 @@
+
 "use client"
 
 import * as React from "react"
-import { Calendar as CalendarIcon, Clock, MapPin, GraduationCap } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Clock, MapPin, GraduationCap, Loader2 } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-
-const SCHEDULE_DATA = [
-  { id: 1, type: "Lecture", subject: "Advanced Mathematics", time: "09:00 AM - 10:30 AM", room: "Room 201", date: "Mon, Dec 11" },
-  { id: 2, type: "Lab", subject: "Quantum Computing", time: "11:00 AM - 12:30 PM", room: "Lab A", date: "Mon, Dec 11" },
-  { id: 3, type: "Lecture", subject: "Data Structures", time: "02:00 PM - 03:30 PM", room: "Lecture Hall 1", date: "Tue, Dec 12" },
-  { id: 4, type: "Exam", subject: "Digital Ethics", time: "10:00 AM - 12:00 PM", room: "Main Hall", date: "Wed, Dec 13" },
-]
+import { useFirestore, useCollection } from "@/firebase"
+import { collection } from "firebase/firestore"
 
 export function TimetableView() {
+  const firestore = useFirestore()
+  const schedulesQuery = React.useMemo(() => {
+    if (!firestore) return null
+    return collection(firestore, "schedules")
+  }, [firestore])
+
+  const { data: schedules, loading } = useCollection(schedulesQuery)
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-headline font-semibold">Today's Schedule</h2>
+        <h2 className="text-xl font-headline font-semibold">Weekly Schedule</h2>
         <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-widest border-primary/50 text-primary">
           Academic Year 2024
         </Badge>
       </div>
       
       <div className="grid gap-3">
-        {SCHEDULE_DATA.map((item) => (
+        {schedules?.map((item) => (
           <Card key={item.id} className="overflow-hidden border-l-4 border-l-primary group hover:border-l-secondary transition-all">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-tighter text-muted-foreground">{item.type}</span>
+                  <span className="text-xs font-bold uppercase tracking-tighter text-muted-foreground">{item.type || 'Lecture'}</span>
                   <Badge variant={item.type === "Exam" ? "destructive" : "secondary"} className="h-5 text-[10px]">
-                    {item.date}
+                    {item.day || 'TBA'}
                   </Badge>
                 </div>
                 <h4 className="font-headline font-bold text-lg">{item.subject}</h4>
@@ -51,6 +63,11 @@ export function TimetableView() {
             </CardContent>
           </Card>
         ))}
+        {(!schedules || schedules.length === 0) && (
+          <div className="text-center py-12 text-muted-foreground border-2 border-dashed rounded-xl">
+            <p>No classes scheduled. Check back later!</p>
+          </div>
+        )}
       </div>
     </div>
   )
