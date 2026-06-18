@@ -67,7 +67,8 @@ const retrieveSchoolData = ai.defineTool(
 
 const studentInfoAssistantChatPrompt = ai.definePrompt({
   name: 'studentInfoAssistantChatPrompt',
-  // Inherits default model from ai instance to prevent resolution errors
+  // Explicitly set the model to ensure it resolves correctly
+  model: 'googleai/gemini-1.5-flash',
   input: {schema: StudentInfoAssistantChatInputSchema},
   output: {schema: StudentInfoAssistantChatOutputSchema},
   tools: [retrieveSchoolData],
@@ -96,7 +97,8 @@ const studentInfoAssistantChatFlow = ai.defineFlow(
       return output!;
     } catch (error) {
       console.error('Flow execution failed:', error);
-      throw error;
+      // Fallback for user experience
+      return "I'm sorry, I'm having trouble accessing my database right now. Please try again in a few moments.";
     }
   }
 );
