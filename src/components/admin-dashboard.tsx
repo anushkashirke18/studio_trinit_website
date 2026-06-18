@@ -1,23 +1,28 @@
-
 "use client"
 
 import * as React from "react"
-import { Plus, Upload, Trash2, Edit3, Save, FileText, Database, Loader2 } from "lucide-react"
+import { Plus, Upload, Trash2, Edit3, Save, FileText, Database, Loader2, Clock, MapPin, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 import { useFirestore, useCollection } from "@/firebase"
-import { collection, addDoc, deleteDoc, doc, serverTimestamp, query, orderBy } from "firebase/firestore"
+import { collection, addDoc, deleteDoc, updateDoc, doc, serverTimestamp, query, orderBy } from "firebase/firestore"
 import { errorEmitter } from "@/firebase/error-emitter"
 import { FirestorePermissionError } from "@/firebase/errors"
+import { useToast } from "@/hooks/use-toast"
 
 export function AdminDashboard() {
   const [announcementText, setAnnouncementText] = React.useState("")
   const [isPublishing, setIsPublishing] = React.useState(false)
+  const [editingSchedule, setEditingSchedule] = React.useState<any>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false)
   const firestore = useFirestore()
+  const { toast } = useToast()
 
   const announcementsQuery = React.useMemo(() => {
     if (!firestore) return null
@@ -26,7 +31,7 @@ export function AdminDashboard() {
 
   const schedulesQuery = React.useMemo(() => {
     if (!firestore) return null
-    return collection(firestore, "schedules")
+    return query(collection(firestore, "schedules"), orderBy("subject", "asc"))
   }, [firestore])
 
   const { data: announcements } = useCollection(announcementsQuery)
@@ -46,6 +51,10 @@ export function AdminDashboard() {
       .then(() => {
         setAnnouncementText("")
         setIsPublishing(false)
+        toast({
+          title: "Announcement Published",
+          description: "Your update has been broadcasted to all students.",
+        })
       })
       .catch(async (error) => {
         setIsPublishing(false)
@@ -61,10 +70,42 @@ export function AdminDashboard() {
   const handleDeleteRecord = (col: string, id: string) => {
     if (!firestore) return
     deleteDoc(doc(firestore, col, id))
+      .then(() => {
+        toast({
+          title: "Record Deleted",
+          description: "The item has been successfully removed.",
+        })
+      })
       .catch(async () => {
         const permissionError = new FirestorePermissionError({
           path: `${col}/${id}`,
           operation: "delete",
+        })
+        errorEmitter.emit("permission-error", permissionError)
+      })
+  }
+
+  const handleUpdateSchedule = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!firestore || !editingSchedule) return
+
+    const { id, ...data } = editingSchedule
+    const docRef = doc(firestore, "schedules", id)
+
+    updateDoc(docRef, data)
+      .then(() => {
+        setIsEditDialogOpen(false)
+        setEditingSchedule(null)
+        toast({
+          title: "Schedule Updated",
+          description: "Changes have been saved successfully.",
+        })
+      })
+      .catch(async () => {
+        const permissionError = new FirestorePermissionError({
+          path: `schedules/${id}`,
+          operation: "update",
+          requestResourceData: data,
         })
         errorEmitter.emit("permission-error", permissionError)
       })
@@ -75,8 +116,13 @@ export function AdminDashboard() {
     const sampleSchedules = [
       { subject: "Intro to CS", day: "Mon/Wed", time: "11:00 - 12:30", room: "Hall A", type: "Lecture" },
       { subject: "History 101", day: "Tue/Thu", time: "14:00 - 15:30", room: "Room 105", type: "Lecture" },
+      { subject: "Data Structures", day: "Friday", time: "09:00 - 11:00", room: "Lab 3", type: "Lab" },
     ]
     sampleSchedules.forEach(s => addDoc(collection(firestore, "schedules"), s))
+    toast({
+      title: "Sample Data Seeded",
+      description: "Database has been populated with default records.",
+    })
   }
 
   return (
@@ -150,14 +196,23 @@ export function AdminDashboard() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {schedules?.map((row) => (
+                      {schedules?.map((row: any) => (
                         <TableRow key={row.id}>
                           <TableCell className="font-medium">{row.subject}</TableCell>
                           <TableCell>{row.day}</TableCell>
                           <TableCell>{row.time}</TableCell>
                           <TableCell>{row.room}</TableCell>
                           <TableCell className="text-right space-x-2">
-                            <Button variant="ghost" size="icon"><Edit3 className="h-4 w-4" /></Button>
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => {
+                                setEditingSchedule(row)
+                                setIsEditDialogOpen(true)
+                              }}
+                            >
+                              <Edit3 className="h-4 w-4" />
+                            </Button>
                             <Button 
                               variant="ghost" 
                               size="icon" 
@@ -197,10 +252,12 @@ export function AdminDashboard() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {announcements?.map((a) => (
+                      {announcements?.map((a: any) => (
                         <TableRow key={a.id}>
                           <TableCell className="max-w-md truncate">{a.text}</TableCell>
-                          <TableCell>{a.createdAt?.toDate().toLocaleDateString()}</TableCell>
+                          <TableCell>
+                            {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : 'N/A'}
+                          </TableCell>
                           <TableCell className="text-right">
                              <Button 
                               variant="ghost" 
@@ -221,6 +278,58 @@ export function AdminDashboard() {
           </CardHeader>
         </Card>
       </div>
+
+      {/* Edit Schedule Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Schedule</DialogTitle>
+            <DialogDescription>
+              Update the details for the selected academic record.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleUpdateSchedule} className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="subject">Subject</Label>
+              <Input 
+                id="subject" 
+                value={editingSchedule?.subject || ""} 
+                onChange={(e) => setEditingSchedule({...editingSchedule, subject: e.target.value})}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="day">Day(s)</Label>
+                <Input 
+                  id="day" 
+                  value={editingSchedule?.day || ""} 
+                  onChange={(e) => setEditingSchedule({...editingSchedule, day: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="room">Room</Label>
+                <Input 
+                  id="room" 
+                  value={editingSchedule?.room || ""} 
+                  onChange={(e) => setEditingSchedule({...editingSchedule, room: e.target.value})}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="time">Time Slot</Label>
+              <Input 
+                id="time" 
+                value={editingSchedule?.time || ""} 
+                onChange={(e) => setEditingSchedule({...editingSchedule, time: e.target.value})}
+              />
+            </div>
+            <DialogFooter className="pt-4">
+              <Button type="button" variant="ghost" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
+              <Button type="submit">Save Changes</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
