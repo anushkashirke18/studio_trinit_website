@@ -67,6 +67,8 @@ const retrieveSchoolData = ai.defineTool(
 
 const studentInfoAssistantChatPrompt = ai.definePrompt({
   name: 'studentInfoAssistantChatPrompt',
+  // Explicitly specify the model with provider prefix
+  model: 'googleai/gemini-1.5-flash',
   input: {schema: StudentInfoAssistantChatInputSchema},
   output: {schema: StudentInfoAssistantChatOutputSchema},
   tools: [retrieveSchoolData],
@@ -90,8 +92,13 @@ const studentInfoAssistantChatFlow = ai.defineFlow(
     outputSchema: StudentInfoAssistantChatOutputSchema,
   },
   async (input) => {
-    const {output} = await studentInfoAssistantChatPrompt(input);
-    return output!;
+    try {
+      const {output} = await studentInfoAssistantChatPrompt(input);
+      return output!;
+    } catch (error) {
+      console.error('Flow error:', error);
+      throw error;
+    }
   }
 );
 
