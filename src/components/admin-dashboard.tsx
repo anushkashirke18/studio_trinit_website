@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Plus, Trash2, Edit3, Save, FileText, Database, Loader2, Clock, MapPin, X } from "lucide-react"
+import { Plus, Trash2, Edit3, Save, FileText, Database, Loader2, Clock, MapPin, X, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -111,8 +111,8 @@ export function AdminDashboard() {
         setIsEditDialogOpen(false)
         setEditingSchedule(null)
         toast({
-          title: "Schedule Updated",
-          description: "Changes have been saved successfully.",
+          title: "Changes Saved",
+          description: "The academic schedule has been updated successfully.",
         })
       })
       .catch(async () => {
@@ -199,7 +199,7 @@ export function AdminDashboard() {
               onClick={handlePushAnnouncement}
               disabled={isPublishing || !announcementText.trim()}
             >
-              {isPublishing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {isPublishing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               Push Update
             </Button>
           </CardContent>
