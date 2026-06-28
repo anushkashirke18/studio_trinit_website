@@ -21,41 +21,53 @@ const Entrance: React.FC<EntranceProps> = ({ active }) => {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* Floor */}
+      {/* Floor with Grid Look */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
-        <planeGeometry args={[100, 100]} />
-        <meshStandardMaterial color="#111111" />
+        <planeGeometry args={[40, 40]} />
+        <meshStandardMaterial color="#0a0a0a" metalness={0.8} roughness={0.2} />
       </mesh>
 
-      {/* Main Frame - Bright color to ensure visibility */}
-      <mesh position={[0, 2, -5]}>
-        <torusGeometry args={[9, 0.4, 16, 50]} />
-        <meshStandardMaterial color="#4488ff" emissive="#4488ff" emissiveIntensity={0.5} />
+      {/* Large Circular Vault Frame */}
+      <mesh position={[0, 4, -5]}>
+        <torusGeometry args={[10, 0.5, 16, 100]} />
+        <meshStandardMaterial color="#4488ff" emissive="#4488ff" emissiveIntensity={1} />
       </mesh>
 
-      {/* Left Vault Door */}
-      <group ref={doorL} position={[0, 2, -5.2]}>
+      {/* Left Hydraulic Door */}
+      <group ref={doorL} position={[0, 4, -5.2]}>
         <mesh position={[-2.6, 0, 0]}>
-          <boxGeometry args={[5.2, 14, 1]} />
-          <meshStandardMaterial color="#222222" />
+          <boxGeometry args={[5.2, 16, 1.5]} />
+          <meshStandardMaterial color="#1a1a1a" metalness={1} roughness={0.3} />
         </mesh>
-      </group>
-
-      {/* Right Vault Door */}
-      <group ref={doorR} position={[0, 2, -5.2]}>
-        <mesh position={[2.6, 0, 0]}>
-          <boxGeometry args={[5.2, 14, 1]} />
-          <meshStandardMaterial color="#222222" />
-        </mesh>
-      </group>
-
-      {/* Simple indicators */}
-      {[...Array(8)].map((_, i) => (
-        <mesh key={i} position={[Math.cos(i * Math.PI / 4) * 8, Math.sin(i * Math.PI / 4) * 8 + 2, -4.8]}>
-          <sphereGeometry args={[0.2]} />
+        {/* Door details */}
+        <mesh position={[-4, 0, 0.8]}>
+          <boxGeometry args={[0.5, 8, 0.2]} />
           <meshBasicMaterial color="#00ffff" />
         </mesh>
-      ))}
+      </group>
+
+      {/* Right Hydraulic Door */}
+      <group ref={doorR} position={[0, 4, -5.2]}>
+        <mesh position={[2.6, 0, 0]}>
+          <boxGeometry args={[5.2, 16, 1.5]} />
+          <meshStandardMaterial color="#1a1a1a" metalness={1} roughness={0.3} />
+        </mesh>
+        {/* Door details */}
+        <mesh position={[4, 0, 0.8]}>
+          <boxGeometry args={[0.5, 8, 0.2]} />
+          <meshBasicMaterial color="#00ffff" />
+        </mesh>
+      </group>
+
+      {/* Welcome Pylons */}
+      <mesh position={[-12, 3, 5]}>
+        <boxGeometry args={[1, 10, 1]} />
+        <meshStandardMaterial color="#222" emissive="#4488ff" emissiveIntensity={0.2} />
+      </mesh>
+      <mesh position={[12, 3, 5]}>
+        <boxGeometry args={[1, 10, 1]} />
+        <meshStandardMaterial color="#222" emissive="#4488ff" emissiveIntensity={0.2} />
+      </mesh>
     </group>
   );
 };

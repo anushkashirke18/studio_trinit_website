@@ -11,14 +11,14 @@ interface CameraRigProps {
 
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
-  const targetPos = useRef(new THREE.Vector3(0, 5, 15));
-  const targetLookAt = useRef(new THREE.Vector3(0, 2, 0));
+  const targetPos = useRef(new THREE.Vector3(0, 5, 18));
+  const targetLookAt = useRef(new THREE.Vector3(0, 5, 0));
 
   useFrame((state, delta) => {
     if (!started) {
-      // Keep a stable, interesting view of the facility exterior
-      targetPos.current.set(0, 2, 18);
-      targetLookAt.current.set(0, 3, 0);
+      // Resting position looking at the vault
+      targetPos.current.set(0, 5, 22);
+      targetLookAt.current.set(0, 5, 0);
       
       state.camera.position.lerp(targetPos.current, delta * 2);
       state.camera.lookAt(targetLookAt.current);
@@ -27,41 +27,44 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
 
     const offset = scroll.offset; // 0 to 1
 
-    // Redefined Path with deeper coordinates for better spacing
-    if (offset < 0.1) {
+    // Detailed Spline-like navigation through the facility
+    if (offset < 0.15) {
       // Approach and pass through vault
-      const p = offset / 0.1;
-      targetPos.current.set(0, 2, 18 - p * 25);
-      targetLookAt.current.set(0, 2, -10);
+      const p = offset / 0.15;
+      targetPos.current.set(0, 5, 22 - p * 35);
+      targetLookAt.current.set(0, 4, -50);
     } else if (offset < 0.3) {
-      // Descend into the Identity Chamber
-      const p = (offset - 0.1) / 0.2;
-      targetPos.current.set(0, -20 * p, -7 - p * 23);
-      targetLookAt.current.set(0, -20 * p, -30);
+      // Descend into Identity Chamber
+      const p = (offset - 0.15) / 0.15;
+      targetPos.current.set(0, 5 - 25 * p, -13 - 17 * p);
+      targetLookAt.current.set(0, -20, -30);
     } else if (offset < 0.5) {
-      // Transition to Experience Vault
+      // Transition through Experience corridor
       const p = (offset - 0.3) / 0.2;
-      targetPos.current.set(0, -20 - 20 * p, -30 - 50 * p);
-      targetLookAt.current.set(0, -40, -80);
+      targetPos.current.set(0, -20 - 25 * p, -30 - 50 * p);
+      targetLookAt.current.set(0, -45, -80);
     } else if (offset < 0.7) {
-      // Project Lab
+      // Turn into Project Lab
       const p = (offset - 0.5) / 0.2;
-      targetPos.current.set(40 * p, -40 - 30 * p, -80 - 40 * p);
-      targetLookAt.current.set(40, -70, -120);
+      targetPos.current.set(40 * p, -45 - 35 * p, -80 - 50 * p);
+      targetLookAt.current.set(40, -80, -130);
     } else if (offset < 0.9) {
-      // Technology Matrix
+      // Re-center for Technology Matrix
       const p = (offset - 0.7) / 0.2;
-      targetPos.current.set(40 * (1 - p), -70 - 30 * p, -120 - 60 * p);
-      targetLookAt.current.set(0, -100, -180);
+      targetPos.current.set(40 * (1 - p), -80 - 40 * p, -130 - 70 * p);
+      targetLookAt.current.set(0, -120, -200);
     } else {
-      // Rooftop Hub
+      // Final Descent to Rooftop Hub
       const p = (offset - 0.9) / 0.1;
-      targetPos.current.set(0, -100 - 30 * p, -180 - 70 * p);
-      targetLookAt.current.set(0, -130, -250);
+      targetPos.current.set(0, -120 - 40 * p, -200 - 80 * p);
+      targetLookAt.current.set(0, -160, -280);
     }
 
     state.camera.position.lerp(targetPos.current, 0.1);
-    state.camera.lookAt(targetLookAt.current);
+    
+    // Smoothly lerp lookAt to prevent jerky camera rotations
+    const lookAtPos = new THREE.Vector3().copy(targetLookAt.current);
+    state.camera.lookAt(lookAtPos);
   });
 
   return null;

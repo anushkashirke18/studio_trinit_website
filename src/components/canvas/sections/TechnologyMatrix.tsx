@@ -6,50 +6,59 @@ import * as THREE from 'three';
 
 const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ position }) => {
   const coreRef = useRef<THREE.Group>(null);
+  const ring1Ref = useRef<THREE.Mesh>(null);
+  const ring2Ref = useRef<THREE.Mesh>(null);
 
-  useFrame((state) => {
-    if (coreRef.current) {
-      coreRef.current.rotation.y += 0.01;
-      coreRef.current.rotation.z += 0.005;
-    }
+  useFrame((state, delta) => {
+    if (coreRef.current) coreRef.current.rotation.y += delta * 0.5;
+    if (ring1Ref.current) ring1Ref.current.rotation.x += delta * 0.3;
+    if (ring2Ref.current) ring2Ref.current.rotation.z += delta * 0.2;
   });
 
   return (
     <group position={position}>
+      {/* Central Energy Core */}
       <group ref={coreRef}>
         <mesh>
-          <sphereGeometry args={[2, 32, 32]} />
+          <icosahedronGeometry args={[4, 1]} />
           <meshStandardMaterial 
+            wireframe 
+            color="#00ffff" 
             emissive="#00ffff" 
             emissiveIntensity={2} 
-            color="#00ffff" 
-            wireframe 
           />
         </mesh>
         <mesh>
-          <sphereGeometry args={[1.5, 32, 32]} />
-          <meshBasicMaterial color="#4488ff" transparent opacity={0.5} />
+          <sphereGeometry args={[2, 32, 32]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.3} />
         </mesh>
       </group>
 
-      {[...Array(12)].map((_, i) => (
-        <mesh 
-          key={i}
-          position={[
-            Math.cos(i * Math.PI / 6) * 8, 
-            Math.sin(i * Math.PI / 4) * 2, 
-            Math.sin(i * Math.PI / 6) * 8
-          ]}
-        >
-          <boxGeometry args={[1, 1, 0.2]} />
-          <meshStandardMaterial color="#222" metalness={1} roughness={0.2} />
-        </mesh>
-      ))}
-
-      <mesh position={[0, 10, 0]}>
-        <sphereGeometry args={[2, 16, 16]} />
-        <meshBasicMaterial color="#4488ff" wireframe />
+      {/* Rotating Containment Rings */}
+      <mesh ref={ring1Ref}>
+        <torusGeometry args={[8, 0.1, 16, 100]} />
+        <meshBasicMaterial color="#4488ff" />
       </mesh>
+      <mesh ref={ring2Ref} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[10, 0.1, 16, 100]} />
+        <meshBasicMaterial color="#00ffff" />
+      </mesh>
+
+      {/* Base Pedestal */}
+      <mesh position={[0, -5, 0]}>
+        <cylinderGeometry args={[12, 15, 2, 6]} />
+        <meshStandardMaterial color="#111" metalness={1} />
+      </mesh>
+
+      {/* Orbiting Tech Chips (Placeholders) */}
+      {[...Array(8)].map((_, i) => (
+        <group key={i} rotation={[0, (i * Math.PI) / 4, 0]}>
+          <mesh position={[15, 0, 0]}>
+            <boxGeometry args={[1, 1.5, 0.1]} />
+            <meshStandardMaterial color="#222" emissive="#00ffff" emissiveIntensity={0.5} />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 };

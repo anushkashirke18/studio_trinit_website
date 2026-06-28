@@ -23,13 +23,17 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
       <CameraRig started={started} />
 
       <group>
+        {/* Each section is placed along a deep 3D path */}
         <Entrance active={started} />
         <IdentityChamber position={[0, -20, -30]} />
-        <ExperienceVault position={[0, -40, -80]} />
-        <ProjectLab position={[40, -70, -120]} />
-        <TechnologyMatrix position={[0, -100, -180]} />
-        <RooftopHub position={[0, -130, -250]} />
+        <ExperienceVault position={[0, -45, -80]} />
+        <ProjectLab position={[40, -80, -130]} />
+        <TechnologyMatrix position={[0, -120, -200]} />
+        <RooftopHub position={[0, -160, -280]} />
       </group>
+
+      {/* Global Background Grid to help orientation */}
+      <gridHelper args={[1000, 100, '#4488ff', '#111111']} position={[0, -5, 0]} rotation={[0, 0, 0]} opacity={0.1} transparent />
     </>
   );
 };
