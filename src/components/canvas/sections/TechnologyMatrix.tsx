@@ -1,9 +1,7 @@
-
 'use client';
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, Text, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ position }) => {
@@ -18,48 +16,40 @@ const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ po
 
   return (
     <group position={position}>
-      {/* Energy Core */}
       <group ref={coreRef}>
-        <Sphere args={[2, 32, 32]}>
+        <mesh>
+          <sphereGeometry args={[2, 32, 32]} />
           <meshStandardMaterial 
             emissive="#00ffff" 
             emissiveIntensity={2} 
             color="#00ffff" 
             wireframe 
           />
-        </Sphere>
-        <Sphere args={[1.5, 32, 32]}>
+        </mesh>
+        <mesh>
+          <sphereGeometry args={[1.5, 32, 32]} />
           <meshBasicMaterial color="#4488ff" transparent opacity={0.5} />
-        </Sphere>
+        </mesh>
       </group>
 
-      {/* Orbiting Chips */}
       {[...Array(12)].map((_, i) => (
-        <Float key={i} speed={2} rotationIntensity={1} floatIntensity={1}>
-          <mesh 
-            position={[
-              Math.cos(i * Math.PI / 6) * 8, 
-              Math.sin(i * Math.PI / 4) * 2, 
-              Math.sin(i * Math.PI / 6) * 8
-            ]}
-          >
-            <boxGeometry args={[1, 1, 0.2]} />
-            <meshStandardMaterial color="#222" metalness={1} roughness={0.2} />
-            <mesh position={[0, 0, 0.11]}>
-              <planeGeometry args={[0.8, 0.8]} />
-              <meshBasicMaterial color="#00ffff" transparent opacity={0.8} />
-            </mesh>
-          </mesh>
-        </Float>
+        <mesh 
+          key={i}
+          position={[
+            Math.cos(i * Math.PI / 6) * 8, 
+            Math.sin(i * Math.PI / 4) * 2, 
+            Math.sin(i * Math.PI / 6) * 8
+          ]}
+        >
+          <boxGeometry args={[1, 1, 0.2]} />
+          <meshStandardMaterial color="#222" metalness={1} roughness={0.2} />
+        </mesh>
       ))}
 
-      <Text
-        position={[0, 10, 0]}
-        fontSize={2}
-        color="#4488ff"
-      >
-        TECHNOLOGY MATRIX
-      </Text>
+      <mesh position={[0, 10, 0]}>
+        <sphereGeometry args={[2, 16, 16]} />
+        <meshBasicMaterial color="#4488ff" wireframe />
+      </mesh>
     </group>
   );
 };

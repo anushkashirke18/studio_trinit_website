@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ScrollControls, Loader } from '@react-three/drei';
+import { ScrollControls } from '@react-three/drei';
 import Experience from '@/components/canvas/Experience';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -57,20 +57,12 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <div className="w-full h-full absolute inset-0 bg-[#020202]">
+      <div className="w-full h-full absolute inset-0 bg-[#050505]">
         <Canvas
           shadows
-          camera={{ position: [0, 0, 15], fov: 45 }}
-          gl={{ 
-            antialias: true, 
-            alpha: false,
-            powerPreference: "high-performance"
-          }}
-          onCreated={({ gl }) => {
-            gl.setClearColor('#050505');
-          }}
+          camera={{ position: [0, 2, 20], fov: 45 }}
+          gl={{ antialias: true }}
         >
-          {/* Using a clear fallback to avoid hidden canvas during loading */}
           <Suspense fallback={null}>
             <ScrollControls pages={6} damping={0.2}>
               <Experience started={started} />
@@ -78,8 +70,6 @@ export default function Home() {
           </Suspense>
         </Canvas>
       </div>
-      
-      <Loader />
     </main>
   );
 }

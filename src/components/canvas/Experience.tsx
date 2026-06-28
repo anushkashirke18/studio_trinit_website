@@ -17,7 +17,6 @@ interface ExperienceProps {
 const Experience: React.FC<ExperienceProps> = ({ started }) => {
   return (
     <>
-      {/* Non-black background to confirm rendering is happening */}
       <color attach="background" args={['#050505']} />
       
       <Lighting />
