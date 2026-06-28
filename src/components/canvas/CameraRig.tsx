@@ -12,24 +12,25 @@ interface CameraRigProps {
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
   const targetPos = useRef(new THREE.Vector3(0, 5, 30));
-  const targetLookAt = useRef(new THREE.Vector3(0, 4, 0));
+  const targetLookAt = useRef(new THREE.Vector3(0, 5, 0));
 
-  // Waypoints are mapped to precise Z positions for each section hub.
+  // Waypoints are mapped to precise positions for each section hub.
+  // Y is stabilized at 5.0 to ensure a level horizontal glide.
   const waypoints = [
-    { pos: [0, 5, 25], look: [0, 4, 0] },          // 0: Entrance Exterior
-    { pos: [0, 5, -15], look: [0, 4, -50] },       // 1: Inside Entrance
-    { pos: [0, 4, -72], look: [0, 4, -85] },       // 2: Identity Chamber Hub
-    { pos: [0, 4, -165], look: [0, 4, -185] },     // 3: Experience Vault Card 1
-    { pos: [0, 4, -205], look: [0, 4, -225] },     // 4: Experience Vault Card 2
+    { pos: [0, 5, 25], look: [0, 5, 0] },          // 0: Entrance Exterior
+    { pos: [0, 5, -15], look: [0, 5, -50] },       // 1: Inside Entrance
+    { pos: [0, 5, -72], look: [0, 5, -85] },       // 2: Identity Chamber Hub
+    { pos: [0, 5, -165], look: [0, 5, -185] },     // 3: Experience Vault Card 1
+    { pos: [0, 5, -205], look: [0, 5, -225] },     // 4: Experience Vault Card 2
     { pos: [0, 5, -310], look: [0, 5, -330] },     // 5: Project Lab
-    { pos: [0, 6, -470], look: [0, 6, -490] },     // 6: Technology Matrix
+    { pos: [0, 5, -470], look: [0, 5, -490] },     // 6: Technology Matrix
     { pos: [0, 5, -640], look: [0, 5, -660] },     // 7: Communication Hub
   ];
 
   useFrame((state, delta) => {
     if (!started) {
       targetPos.current.set(0, 5, 30);
-      targetLookAt.current.set(0, 4, 0);
+      targetLookAt.current.set(0, 5, 0);
       state.camera.position.lerp(targetPos.current, delta * 2);
       state.camera.lookAt(targetLookAt.current);
       return;
