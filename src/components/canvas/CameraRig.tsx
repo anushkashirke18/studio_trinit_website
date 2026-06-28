@@ -50,26 +50,23 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
     const index = Math.min(Math.floor(scaledOffset), totalWaypoints - 1);
     const weight = scaledOffset - index;
 
-    // Use a custom easing function for smoother transitions between waypoints
-    const easedWeight = THREE.CubicBezierCurve.prototype.getPoint.call(
-      { getPoint: (t: number) => t },
-      weight
-    );
+    // Use a standard smoothstep for cinematic transitions between waypoints
+    const easedWeight = THREE.MathUtils.smoothstep(weight, 0, 1);
 
     // Interpolate between current waypoint and next waypoint
     const start = waypoints[index];
     const end = waypoints[index + 1];
 
     targetPos.current.set(
-      THREE.MathUtils.lerp(start.pos[0], end.pos[0], weight),
-      THREE.MathUtils.lerp(start.pos[1], end.pos[1], weight),
-      THREE.MathUtils.lerp(start.pos[2], end.pos[2], weight)
+      THREE.MathUtils.lerp(start.pos[0], end.pos[0], easedWeight),
+      THREE.MathUtils.lerp(start.pos[1], end.pos[1], easedWeight),
+      THREE.MathUtils.lerp(start.pos[2], end.pos[2], easedWeight)
     );
 
     targetLookAt.current.set(
-      THREE.MathUtils.lerp(start.look[0], end.look[0], weight),
-      THREE.MathUtils.lerp(start.look[1], end.look[1], weight),
-      THREE.MathUtils.lerp(start.look[2], end.look[2], weight)
+      THREE.MathUtils.lerp(start.look[0], end.look[0], easedWeight),
+      THREE.MathUtils.lerp(start.look[1], end.look[1], easedWeight),
+      THREE.MathUtils.lerp(start.look[2], end.look[2], easedWeight)
     );
 
     // Apply smoothing to the camera position
