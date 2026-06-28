@@ -1,46 +1,65 @@
 'use client';
 
 import React from 'react';
+import { Html } from '@react-three/drei';
 
 const IdentityChamber: React.FC<{ position: [number, number, number] }> = ({ position }) => {
   return (
     <group position={position}>
       {/* Platform */}
       <mesh position={[0, -2, 0]}>
-        <cylinderGeometry args={[8, 10, 1, 32]} />
+        <cylinderGeometry args={[12, 14, 1, 32]} />
         <meshStandardMaterial color="#111" metalness={0.9} roughness={0.1} />
       </mesh>
 
-      {/* Glowing Ring on floor */}
-      <mesh position={[0, -1.4, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[6, 6.2, 32]} />
-        <meshBasicMaterial color="#00ffff" />
-      </mesh>
+      {/* Section Label */}
+      <Html position={[0, 12, 0]} center distanceFactor={10}>
+        <div className="text-center select-none pointer-events-none">
+          <h2 className="text-cyan-400 font-mono text-xl tracking-[0.5em] uppercase opacity-50">Section 02</h2>
+          <h1 className="text-white font-bold text-6xl tracking-tighter">IDENTITY CHAMBER</h1>
+        </div>
+      </Html>
 
-      {/* Holographic Display Panels (represented by glass-like boxes) */}
+      {/* Floating Bio Panels */}
       <group position={[0, 3, 0]}>
-        {/* Bio Panel */}
-        <mesh position={[-4, 0, 0]} rotation={[0, 0.5, 0]}>
-          <boxGeometry args={[4, 6, 0.1]} />
-          <meshStandardMaterial transparent opacity={0.3} color="#4488ff" emissive="#4488ff" emissiveIntensity={0.5} />
+        {/* Bio Panel Left */}
+        <mesh position={[-6, 1, 0]} rotation={[0, 0.5, 0]}>
+          <boxGeometry args={[5, 7, 0.1]} />
+          <meshStandardMaterial transparent opacity={0.2} color="#4488ff" emissive="#4488ff" emissiveIntensity={0.5} />
+          <Html position={[0, 0, 0.1]} center transform distanceFactor={5}>
+            <div className="w-64 p-4 text-white font-mono bg-blue-500/10 backdrop-blur-md border border-blue-500/30 rounded-lg">
+              <h3 className="text-blue-400 text-xs border-b border-blue-500/30 pb-1 mb-2">SYSTEM_BIO</h3>
+              <p className="text-sm">LEAD ARCHITECT: JOHN DOE</p>
+              <p className="text-sm">EXPERIENCE: 8 YEARS</p>
+              <p className="text-sm">STATUS: ACTIVE</p>
+            </div>
+          </Html>
         </mesh>
         
-        {/* Stats Panel */}
-        <mesh position={[4, 0, 0]} rotation={[0, -0.5, 0]}>
-          <boxGeometry args={[4, 6, 0.1]} />
-          <meshStandardMaterial transparent opacity={0.3} color="#4488ff" emissive="#4488ff" emissiveIntensity={0.5} />
+        {/* Stats Panel Right */}
+        <mesh position={[6, 1, 0]} rotation={[0, -0.5, 0]}>
+          <boxGeometry args={[5, 7, 0.1]} />
+          <meshStandardMaterial transparent opacity={0.2} color="#4488ff" emissive="#4488ff" emissiveIntensity={0.5} />
+          <Html position={[0, 0, 0.1]} center transform distanceFactor={5}>
+            <div className="w-64 p-4 text-white font-mono bg-blue-500/10 backdrop-blur-md border border-blue-500/30 rounded-lg">
+              <h3 className="text-blue-400 text-xs border-b border-blue-500/30 pb-1 mb-2">CAPABILITIES</h3>
+              <p className="text-xs">TYPESCRIPT: 98%</p>
+              <p className="text-xs">REACT: 95%</p>
+              <p className="text-xs">SYSTEM_DESIGN: 92%</p>
+            </div>
+          </Html>
         </mesh>
 
-        {/* Central Portrait Holder */}
-        <mesh position={[0, 1, 1]}>
-          <boxGeometry args={[3, 4, 0.2]} />
+        {/* Central Display */}
+        <mesh position={[0, 2, -2]}>
+          <boxGeometry args={[4, 5, 0.2]} />
           <meshStandardMaterial color="#222" metalness={1} />
         </mesh>
       </group>
 
       {/* Decorative ceiling ring */}
-      <mesh position={[0, 15, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[8, 0.2, 16, 50]} />
+      <mesh position={[0, 18, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[10, 0.2, 16, 50]} />
         <meshBasicMaterial color="#4488ff" />
       </mesh>
     </group>

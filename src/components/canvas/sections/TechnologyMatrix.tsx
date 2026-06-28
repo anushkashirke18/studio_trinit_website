@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ position }) => {
@@ -17,10 +18,18 @@ const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ po
 
   return (
     <group position={position}>
+      {/* Section Label */}
+      <Html position={[0, 18, 0]} center distanceFactor={10}>
+        <div className="text-center select-none pointer-events-none">
+          <h2 className="text-cyan-400 font-mono text-xl tracking-[0.5em] uppercase opacity-50">Section 05</h2>
+          <h1 className="text-white font-bold text-6xl tracking-tighter">TECHNOLOGY MATRIX</h1>
+        </div>
+      </Html>
+
       {/* Central Energy Core */}
       <group ref={coreRef}>
         <mesh>
-          <icosahedronGeometry args={[4, 1]} />
+          <icosahedronGeometry args={[5, 1]} />
           <meshStandardMaterial 
             wireframe 
             color="#00ffff" 
@@ -29,36 +38,46 @@ const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ po
           />
         </mesh>
         <mesh>
-          <sphereGeometry args={[2, 32, 32]} />
+          <sphereGeometry args={[3, 32, 32]} />
           <meshBasicMaterial color="#ffffff" transparent opacity={0.3} />
         </mesh>
       </group>
 
       {/* Rotating Containment Rings */}
       <mesh ref={ring1Ref}>
-        <torusGeometry args={[8, 0.1, 16, 100]} />
+        <torusGeometry args={[10, 0.1, 16, 100]} />
         <meshBasicMaterial color="#4488ff" />
       </mesh>
       <mesh ref={ring2Ref} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[10, 0.1, 16, 100]} />
+        <torusGeometry args={[12, 0.1, 16, 100]} />
         <meshBasicMaterial color="#00ffff" />
       </mesh>
 
-      {/* Base Pedestal */}
+      {/* Pedestal */}
       <mesh position={[0, -5, 0]}>
-        <cylinderGeometry args={[12, 15, 2, 6]} />
+        <cylinderGeometry args={[15, 18, 2, 6]} />
         <meshStandardMaterial color="#111" metalness={1} />
       </mesh>
 
-      {/* Orbiting Tech Chips (Placeholders) */}
-      {[...Array(8)].map((_, i) => (
-        <group key={i} rotation={[0, (i * Math.PI) / 4, 0]}>
-          <mesh position={[15, 0, 0]}>
-            <boxGeometry args={[1, 1.5, 0.1]} />
-            <meshStandardMaterial color="#222" emissive="#00ffff" emissiveIntensity={0.5} />
-          </mesh>
-        </group>
-      ))}
+      {/* Technology Indicators */}
+      {[...Array(6)].map((_, i) => {
+        const labels = ["Node.js", "Docker", "Firebase", "AWS", "Rust", "Python"];
+        return (
+          <group key={i} rotation={[0, (i * Math.PI) / 3, 0]}>
+            <group position={[18, 2, 0]}>
+              <mesh>
+                <boxGeometry args={[1.5, 2, 0.2]} />
+                <meshStandardMaterial color="#222" emissive="#00ffff" emissiveIntensity={0.5} />
+              </mesh>
+              <Html center transform distanceFactor={4}>
+                <div className="text-cyan-400 font-mono text-[8px] bg-black px-2 py-1 rounded border border-cyan-500/50">
+                  {labels[i]}
+                </div>
+              </Html>
+            </group>
+          </group>
+        );
+      })}
     </group>
   );
 };
