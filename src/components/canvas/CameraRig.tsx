@@ -14,17 +14,18 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const targetPos = useRef(new THREE.Vector3(0, 5, 30));
   const targetLookAt = useRef(new THREE.Vector3(0, 5, 0));
 
-  // Waypoints are mapped to precise positions for each section hub.
-  // Y is stabilized at 5.0 to ensure a level horizontal glide.
+  // Waypoints are strictly horizontal now (Y is ALWAYS 5.0)
+  // We navigate exclusively through the Z depth of the facility.
   const waypoints = [
     { pos: [0, 5, 25], look: [0, 5, 0] },          // 0: Entrance Exterior
     { pos: [0, 5, -15], look: [0, 5, -50] },       // 1: Inside Entrance
-    { pos: [0, 5, -72], look: [0, 5, -85] },       // 2: Identity Chamber Hub
-    { pos: [0, 5, -165], look: [0, 5, -185] },     // 3: Experience Vault Card 1
-    { pos: [0, 5, -205], look: [0, 5, -225] },     // 4: Experience Vault Card 2
-    { pos: [0, 5, -310], look: [0, 5, -330] },     // 5: Project Lab
-    { pos: [0, 5, -470], look: [0, 5, -490] },     // 6: Technology Matrix
-    { pos: [0, 5, -640], look: [0, 5, -660] },     // 7: Communication Hub
+    { pos: [0, 5, -80], look: [0, 5, -95] },       // 2: Identity Chamber (STOP)
+    { pos: [0, 5, -130], look: [0, 5, -150] },     // 3: Corridor to Vault
+    { pos: [0, 5, -200], look: [0, 5, -220] },     // 4: Experience Vault Card 1
+    { pos: [0, 5, -240], look: [0, 5, -260] },     // 5: Experience Vault Card 2
+    { pos: [0, 5, -320], look: [0, 5, -340] },     // 6: Project Lab Hub
+    { pos: [0, 5, -480], look: [0, 5, -500] },     // 7: Technology Matrix
+    { pos: [0, 5, -650], look: [0, 5, -670] },     // 8: Communication Hub
   ];
 
   useFrame((state, delta) => {
@@ -42,29 +43,30 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
     const index = Math.min(Math.floor(scaledOffset), totalSegments - 1);
     const weight = scaledOffset - index;
 
-    // Smoothstep for tactile snapping into each room
+    // Use smoothstep for clear "snapping" into each waypoint
     const easedWeight = THREE.MathUtils.smoothstep(weight, 0, 1);
 
     const start = waypoints[index];
     const end = waypoints[index + 1];
 
-    // Interpolate Position
+    // Interpolate Position - HARD LOCK Y AT 5.0
     targetPos.current.set(
       THREE.MathUtils.lerp(start.pos[0], end.pos[0], easedWeight),
-      THREE.MathUtils.lerp(start.pos[1], end.pos[1], easedWeight),
+      5.0,
       THREE.MathUtils.lerp(start.pos[2], end.pos[2], easedWeight)
     );
 
-    // Interpolate LookAt
+    // Interpolate LookAt - HARD LOCK Y AT 5.0
     targetLookAt.current.set(
       THREE.MathUtils.lerp(start.look[0], end.look[0], easedWeight),
-      THREE.MathUtils.lerp(start.look[1], end.look[1], easedWeight),
+      5.0,
       THREE.MathUtils.lerp(start.look[2], end.look[2], easedWeight)
     );
 
-    // Precise lerping for a high-end cinematic feel
+    // Final smooth lerp for the camera
     state.camera.position.lerp(targetPos.current, 0.1);
     
+    // We stabilize the lookAt by lerping a target point instead of raw camera.lookAt
     const currentLook = new THREE.Vector3();
     state.camera.getWorldDirection(currentLook);
     currentLook.add(state.camera.position);
