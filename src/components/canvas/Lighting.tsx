@@ -5,27 +5,23 @@ import React from 'react';
 const Lighting: React.FC = () => {
   return (
     <>
-      {/* High-intensity baseline lighting */}
-      <ambientLight intensity={0.8} />
+      {/* High-intensity ambient light for base visibility */}
+      <ambientLight intensity={1.5} />
       
+      {/* Key light */}
       <directionalLight 
-        position={[5, 10, 5]} 
+        position={[10, 20, 10]} 
         intensity={2} 
         castShadow 
-        shadow-mapSize={[1024, 1024]}
       />
 
-      <pointLight position={[0, 10, 15]} intensity={5} color="#ffffff" distance={50} />
+      {/* Fill lights for different chambers */}
+      <pointLight position={[0, 5, 10]} intensity={10} color="#4488ff" distance={30} />
+      <pointLight position={[0, -20, -30]} intensity={15} color="#00ffff" distance={50} />
+      <pointLight position={[0, -40, -80]} intensity={15} color="#ffffff" distance={50} />
       
-      {/* Accent volumetric feel without post-processing */}
-      <spotLight
-        position={[0, 20, 10]}
-        angle={0.5}
-        penumbra={1}
-        intensity={10}
-        castShadow
-        color="#4488ff"
-      />
+      {/* Soft blue wash */}
+      <hemisphereLight args={['#4488ff', '#050505', 1]} />
     </>
   );
 };

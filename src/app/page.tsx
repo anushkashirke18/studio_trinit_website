@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ScrollControls, Scroll, Loader } from '@react-three/drei';
+import { ScrollControls, Loader } from '@react-three/drei';
 import Experience from '@/components/canvas/Experience';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -24,7 +24,7 @@ export default function Home() {
               <motion.h1 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="text-6xl md:text-8xl font-headline font-bold text-white tracking-tighter"
+                className="text-6xl md:text-8xl font-bold text-white tracking-tighter"
               >
                 THE CORE
               </motion.h1>
@@ -34,7 +34,7 @@ export default function Home() {
                 transition={{ delay: 0.1 }}
                 className="text-blue-400 font-mono text-sm tracking-[0.3em] uppercase"
               >
-                Lead Systems Architect & Engineer
+                Lead Systems Architect
               </motion.p>
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -51,25 +51,28 @@ export default function Home() {
             </div>
             
             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 text-xs font-mono">
-              SYSTEM STATUS: ONLINE | SECURITY LEVEL: ALPHA
+              SYSTEM STATUS: ONLINE
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="w-full h-full absolute inset-0">
+      <div className="w-full h-full absolute inset-0 bg-[#020202]">
         <Canvas
           shadows
-          camera={{ position: [0, 0, 15], fov: 45, near: 0.1, far: 1000 }}
+          camera={{ position: [0, 0, 15], fov: 45 }}
           gl={{ 
             antialias: true, 
-            powerPreference: "high-performance",
-            alpha: false 
+            alpha: false,
+            powerPreference: "high-performance"
           }}
-          className="w-full h-full"
+          onCreated={({ gl }) => {
+            gl.setClearColor('#050505');
+          }}
         >
+          {/* Using a clear fallback to avoid hidden canvas during loading */}
           <Suspense fallback={null}>
-            <ScrollControls pages={6} damping={0.1}>
+            <ScrollControls pages={6} damping={0.2}>
               <Experience started={started} />
             </ScrollControls>
           </Suspense>

@@ -17,10 +17,9 @@ interface ExperienceProps {
 const Experience: React.FC<ExperienceProps> = ({ started }) => {
   return (
     <>
-      <color attach="background" args={['#000000']} />
-      {/* Pushing fog far back to ensure initial visibility */}
-      <fog attach="fog" args={['#000000', 50, 300]} />
-
+      {/* Non-black background to confirm rendering is happening */}
+      <color attach="background" args={['#050505']} />
+      
       <Lighting />
       <CameraRig started={started} />
 
@@ -32,8 +31,6 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
         <TechnologyMatrix position={[0, -100, -180]} />
         <RooftopHub position={[0, -130, -250]} />
       </group>
-      
-      {/* Post-processing is disabled temporarily to ensure base scene renders correctly */}
     </>
   );
 };
