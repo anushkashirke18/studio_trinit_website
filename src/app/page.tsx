@@ -18,41 +18,51 @@ export default function Home() {
             key="landing"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black"
           >
-            <div className="text-center space-y-6 max-w-2xl px-6">
-              <motion.h1 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="text-6xl md:text-8xl font-bold text-white tracking-tighter"
-              >
-                THE CORE
-              </motion.h1>
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.1 }}
-                className="text-blue-400 font-mono text-sm tracking-[0.3em] uppercase"
-              >
-                Lead Systems Architect
-              </motion.p>
+            <div className="text-center space-y-8 max-w-2xl px-6 relative">
+              {/* Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] -z-10" />
+              
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.5 }}
+              >
+                <h1 className="text-7xl md:text-9xl font-bold text-white tracking-tighter leading-none mb-2">
+                  THE CORE
+                </h1>
+                <p className="text-blue-500 font-mono text-sm tracking-[0.5em] uppercase">
+                  Lead Systems Architect // Port: 8080
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 1 }}
               >
                 <button
                   onClick={() => setStarted(true)}
-                  className="px-12 py-4 border border-blue-500/50 bg-blue-500/10 text-white rounded-full hover:bg-blue-500/20 transition-all duration-300 backdrop-blur-sm group"
+                  className="mt-8 px-16 py-5 border border-blue-500/40 bg-blue-500/5 text-white rounded-full hover:bg-blue-500/20 hover:border-blue-400 transition-all duration-500 backdrop-blur-md group relative overflow-hidden"
                 >
-                  <span className="group-hover:tracking-widest transition-all">ENTER FACILITY</span>
+                  <span className="relative z-10 group-hover:tracking-[0.2em] transition-all duration-500 font-mono uppercase text-xs">
+                    Access System
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </button>
               </motion.div>
             </div>
             
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 text-xs font-mono">
-              SYSTEM STATUS: ONLINE
+            <div className="absolute bottom-12 w-full px-12 flex justify-between items-end">
+              <div className="font-mono text-[10px] text-blue-500/40 space-y-1">
+                <p>LATENCY: 14MS</p>
+                <p>ENCRYPTION: AES-256</p>
+              </div>
+              <div className="font-mono text-[10px] text-blue-500/40">
+                SYSTEM_STATUS: <span className="text-blue-400">NOMINAL</span>
+              </div>
             </div>
           </motion.div>
         )}
@@ -61,11 +71,11 @@ export default function Home() {
       <div className="w-full h-full absolute inset-0 bg-[#050505]">
         <Canvas
           shadows
-          camera={{ position: [0, 2, 20], fov: 45 }}
-          gl={{ antialias: true }}
+          camera={{ position: [0, 5, 20], fov: 45 }}
+          gl={{ antialias: true, stencil: false, depth: true }}
         >
           <Suspense fallback={null}>
-            <ScrollControls pages={6} damping={0.2}>
+            <ScrollControls pages={8} damping={0.25} infinite={false}>
               <Experience started={started} />
             </ScrollControls>
           </Suspense>

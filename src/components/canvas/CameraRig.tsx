@@ -10,64 +10,71 @@ interface CameraRigProps {
   started: boolean;
 }
 
+/**
+ * CameraRig manages the cinematic movement of the camera through "The Core".
+ * It maps the scroll offset (0 to 1) to a predefined path of waypoints.
+ */
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
-  const targetPos = useRef(new THREE.Vector3(0, 5, 18));
+  const targetPos = useRef(new THREE.Vector3(0, 5, 20));
   const targetLookAt = useRef(new THREE.Vector3(0, 5, 0));
+
+  // Waypoints for the camera journey
+  // Each index corresponds to a section stop
+  const waypoints = [
+    { pos: [0, 5, 22], look: [0, 4, -10] },      // 0: Entrance (Resting)
+    { pos: [0, 5, -10], look: [0, 4, -50] },     // 1: Past Entrance
+    { pos: [0, -35, -45], look: [0, -40, -60] },  // 2: Identity Chamber (Stop)
+    { pos: [0, -85, -125], look: [0, -90, -140] }, // 3: Experience Vault (Stop)
+    { pos: [0, -145, -235], look: [0, -150, -250] }, // 4: Project Lab (Stop)
+    { pos: [0, -215, -365], look: [0, -220, -380] }, // 5: Technology Matrix (Stop)
+    { pos: [0, -295, -535], look: [0, -300, -550] }, // 6: Communication Hub (Stop)
+  ];
 
   useFrame((state, delta) => {
     if (!started) {
-      targetPos.current.set(0, 5, 22);
+      // Resting phase before user enters
+      targetPos.current.set(0, 5, 25);
       targetLookAt.current.set(0, 5, 0);
       state.camera.position.lerp(targetPos.current, delta * 2);
       state.camera.lookAt(targetLookAt.current);
       return;
     }
 
-    const offset = scroll.offset; // 0 to 1
-
-    // 6 Distinct Zones with dedicated framing
-    if (offset < 0.16) {
-      // 01: Entrance
-      const p = offset / 0.16;
-      targetPos.current.set(0, 5, 22 - p * 20);
-      targetLookAt.current.set(0, 4, -50);
-    } else if (offset < 0.32) {
-      // 02: Identity Chamber (Bio/Skills)
-      const p = (offset - 0.16) / 0.16;
-      targetPos.current.set(0, -20 + 4, -22 - p * 12);
-      targetLookAt.current.set(0, -20, -40);
-    } else if (offset < 0.48) {
-      // 03: Experience Vault (Career Cards)
-      const p = (offset - 0.32) / 0.16;
-      targetPos.current.set(0, -45 + 5, -75 - p * 30);
-      targetLookAt.current.set(0, -45, -110);
-    } else if (offset < 0.64) {
-      // 04: Project Lab (Interactive Cubes)
-      const p = (offset - 0.48) / 0.16;
-      targetPos.current.set(0, -80 + 15, -130 - p * 30);
-      targetLookAt.current.set(0, -80, -170);
-    } else if (offset < 0.82) {
-      // 05: Tech Matrix (Orbiting Core)
-      const p = (offset - 0.64) / 0.18;
-      targetPos.current.set(0, -120 + 12, -190 - p * 40);
-      targetLookAt.current.set(0, -120, -240);
-    } else {
-      // 06: Rooftop Hub (Contact Form)
-      const p = (offset - 0.82) / 0.18;
-      targetPos.current.set(0, -160 + 8, -270 - p * 20);
-      targetLookAt.current.set(0, -160, -320);
-    }
-
-    state.camera.position.lerp(targetPos.current, 0.1);
+    const offset = scroll.offset; // Current scroll position 0 to 1
     
-    // Smoothly lerp lookAt
+    // Segment the scroll into discrete chunks for the 6 waypoints
+    const totalWaypoints = waypoints.length - 1;
+    const scaledOffset = offset * totalWaypoints;
+    const index = Math.min(Math.floor(scaledOffset), totalWaypoints - 1);
+    const weight = scaledOffset - index;
+
+    // Interpolate between current waypoint and next waypoint
+    const start = waypoints[index];
+    const end = waypoints[index + 1];
+
+    targetPos.current.set(
+      THREE.MathUtils.lerp(start.pos[0], end.pos[0], weight),
+      THREE.MathUtils.lerp(start.pos[1], end.pos[1], weight),
+      THREE.MathUtils.lerp(start.pos[2], end.pos[2], weight)
+    );
+
+    targetLookAt.current.set(
+      THREE.MathUtils.lerp(start.look[0], end.look[0], weight),
+      THREE.MathUtils.lerp(start.look[1], end.look[1], weight),
+      THREE.MathUtils.lerp(start.look[2], end.look[2], weight)
+    );
+
+    // Apply smoothing to the camera position
+    state.camera.position.lerp(targetPos.current, 0.08);
+
+    // Smoothing the lookAt point
     const currentLookAt = new THREE.Vector3();
     state.camera.getWorldDirection(currentLookAt);
     currentLookAt.add(state.camera.position);
     
-    const newLookAt = currentLookAt.lerp(targetLookAt.current, 0.1);
-    state.camera.lookAt(newLookAt);
+    const smoothedLookAt = currentLookAt.lerp(targetLookAt.current, 0.08);
+    state.camera.lookAt(smoothedLookAt);
   });
 
   return null;
