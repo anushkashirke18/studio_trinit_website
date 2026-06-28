@@ -20,7 +20,7 @@ const IdentityChamber: React.FC<{ position: [number, number, number] }> = ({ pos
         </div>
       </Html>
 
-      {/* Floating Bio Panels */}
+      {/* Floating Bio Panels - ADD YOUR BIO INFO HERE */}
       <group position={[0, 3, 0]}>
         {/* Bio Panel Left */}
         <mesh position={[-6, 1, 0]} rotation={[0, 0.5, 0]}>

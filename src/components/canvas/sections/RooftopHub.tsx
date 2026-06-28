@@ -20,7 +20,7 @@ const RooftopHub: React.FC<{ position: [number, number, number] }> = ({ position
         <meshStandardMaterial color="#111" metalness={1} roughness={0.1} />
       </mesh>
 
-      {/* Interaction Console */}
+      {/* Interaction Console - CONTACT FORM HERE */}
       <group position={[0, 2, 0]}>
         <mesh rotation={[-0.5, 0, 0]}>
           <boxGeometry args={[12, 8, 0.2]} />

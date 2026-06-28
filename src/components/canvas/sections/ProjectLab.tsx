@@ -14,7 +14,7 @@ const ProjectLab: React.FC<{ position: [number, number, number] }> = ({ position
         </div>
       </Html>
 
-      {/* Floating Project Cubes */}
+      {/* Floating Project Cubes - EDIT YOUR PROJECTS HERE */}
       <group position={[-8, 4, 0]}>
         <mesh>
           <boxGeometry args={[5, 5, 5]} />

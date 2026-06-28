@@ -59,7 +59,7 @@ const TechnologyMatrix: React.FC<{ position: [number, number, number] }> = ({ po
         <meshStandardMaterial color="#111" metalness={1} />
       </mesh>
 
-      {/* Technology Indicators */}
+      {/* Technology Indicators - EDIT SKILLS HERE */}
       {[...Array(6)].map((_, i) => {
         const labels = ["Node.js", "Docker", "Firebase", "AWS", "Rust", "Python"];
         return (

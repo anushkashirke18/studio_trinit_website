@@ -22,7 +22,7 @@ const ServerTower: React.FC<{
         <meshBasicMaterial color={i % 2 === 0 ? "#00ffff" : "#4488ff"} />
       </mesh>
     ))}
-    {/* Company Label */}
+    {/* Company Label - EDIT COMPANY INFO HERE */}
     <Html position={[0, height + 1, 0]} center distanceFactor={8}>
       <div className="text-center bg-black/80 px-4 py-2 border border-blue-500/50 rounded-md">
         <p className="text-blue-400 font-mono text-[10px] uppercase tracking-widest">{role}</p>
