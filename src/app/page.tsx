@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { Suspense, useState } from 'react';
@@ -12,19 +11,19 @@ export default function Home() {
 
   return (
     <main className="relative w-full h-screen bg-black overflow-hidden">
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {!started && (
           <motion.div
+            key="landing"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
             className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black"
           >
             <div className="text-center space-y-6 max-w-2xl px-6">
               <motion.h1 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
                 className="text-6xl md:text-8xl font-headline font-bold text-white tracking-tighter"
               >
                 THE CORE
@@ -32,7 +31,7 @@ export default function Home() {
               <motion.p
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.1 }}
                 className="text-blue-400 font-mono text-sm tracking-[0.3em] uppercase"
               >
                 Lead Systems Architect & Engineer
@@ -40,7 +39,7 @@ export default function Home() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.2 }}
               >
                 <button
                   onClick={() => setStarted(true)}
@@ -58,21 +57,24 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <Canvas
-        shadows
-        camera={{ position: [0, 0, 10], fov: 35 }}
-        gl={{ antialias: false, powerPreference: "high-performance" }}
-        className="w-full h-full"
-      >
-        <Suspense fallback={null}>
-          <ScrollControls pages={6} damping={0.3}>
-            <Experience started={started} />
-            <Scroll html>
-              {/* Optional: Add dynamic HTML labels that move with 3D space if needed */}
-            </Scroll>
-          </ScrollControls>
-        </Suspense>
-      </Canvas>
+      <div className="w-full h-full absolute inset-0">
+        <Canvas
+          shadows
+          camera={{ position: [0, 0, 15], fov: 45, near: 0.1, far: 1000 }}
+          gl={{ 
+            antialias: true, 
+            powerPreference: "high-performance",
+            alpha: false 
+          }}
+          className="w-full h-full"
+        >
+          <Suspense fallback={null}>
+            <ScrollControls pages={6} damping={0.1}>
+              <Experience started={started} />
+            </ScrollControls>
+          </Suspense>
+        </Canvas>
+      </div>
       
       <Loader />
     </main>
