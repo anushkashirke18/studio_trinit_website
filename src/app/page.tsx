@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { Suspense, useState } from 'react';
@@ -89,8 +88,8 @@ export default function Home() {
           gl={{ antialias: true, stencil: false, depth: true }}
         >
           <Suspense fallback={null}>
-            {/* Increased pages for smoother navigation between granular waypoints */}
-            <ScrollControls pages={10} damping={0.3} infinite={false}>
+            {/* Increased pages to 15 for more deliberate and controlled camera steps */}
+            <ScrollControls pages={15} damping={0.4} infinite={false}>
               <Experience started={started} />
             </ScrollControls>
           </Suspense>
