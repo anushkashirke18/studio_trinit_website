@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -18,15 +19,18 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const targetPos = useRef(new THREE.Vector3(0, 5, 30));
   const targetLookAt = useRef(new THREE.Vector3(0, 4, 0));
 
-  // Precise waypoints for each chamber stop
+  // Precise waypoints for each chamber and sub-section
   // [x, y, z]
   const waypoints = [
     { pos: [0, 5, 25], look: [0, 4, -10] },      // 0: Entrance
-    { pos: [0, -35, -55], look: [0, -40, -65] },  // 1: Identity Chamber
-    { pos: [0, -85, -135], look: [0, -90, -145] }, // 2: Experience Vault
-    { pos: [0, -145, -245], look: [0, -150, -255] }, // 3: Project Lab
-    { pos: [0, -215, -375], look: [0, -220, -385] }, // 4: Technology Matrix
-    { pos: [0, -295, -545], look: [0, -300, -555] }, // 5: Communication Hub
+    { pos: [0, 5, -5], look: [0, 4, -20] },       // 1: Entering Entrance
+    { pos: [0, -36, -48], look: [0, -40, -60] },  // 2: Identity Chamber (Framing panels)
+    { pos: [0, -86, -155], look: [0, -90, -170] }, // 3: Experience Vault - Card 1
+    { pos: [0, -86, -185], look: [0, -90, -200] }, // 4: Experience Vault - Card 2
+    { pos: [0, -86, -215], look: [0, -90, -230] }, // 5: Experience Vault - Card 3
+    { pos: [0, -145, -250], look: [0, -150, -265] }, // 6: Project Lab
+    { pos: [0, -215, -380], look: [0, -220, -395] }, // 7: Technology Matrix
+    { pos: [0, -295, -550], look: [0, -300, -565] }, // 8: Communication Hub
   ];
 
   useFrame((state, delta) => {

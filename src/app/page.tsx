@@ -89,7 +89,8 @@ export default function Home() {
           gl={{ antialias: true, stencil: false, depth: true }}
         >
           <Suspense fallback={null}>
-            <ScrollControls pages={7} damping={0.3} infinite={false}>
+            {/* Increased pages for smoother navigation between granular waypoints */}
+            <ScrollControls pages={10} damping={0.3} infinite={false}>
               <Experience started={started} />
             </ScrollControls>
           </Suspense>

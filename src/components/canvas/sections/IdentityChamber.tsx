@@ -22,14 +22,14 @@ const IdentityChamber: React.FC<{ position: [number, number, number] }> = ({ pos
       </Html>
 
       <group position={[0, 4, 0]}>
-        {/* Left Panel: Biography */}
-        <group position={[-8, 0, 0]} rotation={[0, 0.4, 0]}>
+        {/* Left Panel: Biography - Brought closer for visibility */}
+        <group position={[-6, 0, 0]} rotation={[0, 0.4, 0]}>
           <mesh>
-            <planeGeometry args={[10, 12]} />
+            <planeGeometry args={[8, 10]} />
             <meshStandardMaterial transparent opacity={0.1} color="#4488ff" />
           </mesh>
-          <Html position={[0, 0, 0.1]} center transform distanceFactor={6}>
-            <div className="w-[350px] p-8 bg-blue-900/10 backdrop-blur-xl border border-blue-500/40 rounded-3xl text-white font-sans">
+          <Html position={[0, 0, 0.1]} center transform distanceFactor={5}>
+            <div className="w-[300px] p-8 bg-blue-900/10 backdrop-blur-xl border border-blue-500/40 rounded-3xl text-white font-sans">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-500/50" />
                 <div>
@@ -44,31 +44,21 @@ const IdentityChamber: React.FC<{ position: [number, number, number] }> = ({ pos
                     Specializing in building robust digital infrastructures and high-performance user experiences for the next generation of web systems.
                   </p>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="p-3 bg-black/40 rounded-xl border border-white/5">
-                    <p className="text-[10px] text-blue-400 uppercase mb-1">Experience</p>
-                    <p className="text-xl font-bold">8+ YRS</p>
-                  </div>
-                  <div className="p-3 bg-black/40 rounded-xl border border-white/5">
-                    <p className="text-[10px] text-blue-400 uppercase mb-1">Status</p>
-                    <p className="text-xl font-bold text-green-400">ACTIVE</p>
-                  </div>
-                </div>
               </div>
             </div>
           </Html>
         </group>
 
-        {/* Right Panel: Technical Metrics */}
-        <group position={[8, 0, 0]} rotation={[0, -0.4, 0]}>
+        {/* Right Panel: Technical Metrics - Brought closer for visibility */}
+        <group position={[6, 0, 0]} rotation={[0, -0.4, 0]}>
           <mesh>
-            <planeGeometry args={[10, 12]} />
+            <planeGeometry args={[8, 10]} />
             <meshStandardMaterial transparent opacity={0.1} color="#4488ff" />
           </mesh>
-          <Html position={[0, 0, 0.1]} center transform distanceFactor={6}>
-            <div className="w-[350px] p-8 bg-blue-900/10 backdrop-blur-xl border border-blue-500/40 rounded-3xl text-white font-sans">
+          <Html position={[0, 0, 0.1]} center transform distanceFactor={5}>
+            <div className="w-[300px] p-8 bg-blue-900/10 backdrop-blur-xl border border-blue-500/40 rounded-3xl text-white font-sans">
               <h3 className="text-blue-400 text-xs font-mono mb-6 uppercase tracking-[0.2em]">Core_Capabilities</h3>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {[
                   { label: "Systems Architecture", val: 95 },
                   { label: "Full-Stack Dev", val: 90 },
