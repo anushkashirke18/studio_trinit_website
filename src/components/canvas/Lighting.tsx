@@ -1,30 +1,33 @@
-
 'use client';
 
 import React from 'react';
-import { Environment, ContactShadows } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 
 const Lighting: React.FC = () => {
   return (
     <>
-      <Environment preset="city" />
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={2} color="#4488ff" />
-      <pointLight position={[-10, 10, 0]} intensity={1.5} color="#00ffff" />
+      {/* Using a standard preset but with explicit intensity */}
+      <Environment preset="night" blur={0.8} />
+      
+      <ambientLight intensity={0.5} />
+      
+      {/* Strong entrance fill light */}
+      <pointLight position={[0, 5, 10]} intensity={3} color="#ffffff" distance={30} />
+      
+      {/* Blue accent light for the vault */}
+      <pointLight position={[5, 10, 5]} intensity={5} color="#00ffff" distance={20} />
+      
+      {/* Secondary cyan light */}
+      <pointLight position={[-5, 2, 0]} intensity={4} color="#4488ff" distance={20} />
+      
+      {/* Spot light for the hydraulic door */}
       <spotLight
-        position={[0, 25, 10]}
-        angle={0.3}
+        position={[0, 15, 5]}
+        angle={0.4}
         penumbra={1}
-        intensity={3}
+        intensity={10}
         castShadow
-        shadow-mapSize={[1024, 1024]}
-      />
-      <ContactShadows 
-        position={[0, -1.99, 0]} 
-        opacity={0.6} 
-        scale={50} 
-        blur={2} 
-        far={5} 
+        color="#ffffff"
       />
     </>
   );

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -12,61 +11,56 @@ interface CameraRigProps {
 
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
-  const targetPos = useRef(new THREE.Vector3(0, 0, 10));
-  const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
+  const targetPos = useRef(new THREE.Vector3(0, 5, 15));
+  const targetLookAt = useRef(new THREE.Vector3(0, 2, 0));
 
   useFrame((state, delta) => {
-    // If not started, keep the camera static at the entrance view
     if (!started) {
-      state.camera.position.lerp(new THREE.Vector3(0, 0, 12), delta * 2);
-      state.camera.lookAt(0, 1, 0);
+      // Keep a stable, interesting view of the facility exterior
+      targetPos.current.set(0, 2, 18);
+      targetLookAt.current.set(0, 3, 0);
+      
+      state.camera.position.lerp(targetPos.current, delta * 2);
+      state.camera.lookAt(targetLookAt.current);
       return;
     }
 
     const offset = scroll.offset; // 0 to 1
 
-    // Path Logic
+    // Redefined Path with deeper coordinates for better spacing
     if (offset < 0.1) {
-      // Move through the entrance
+      // Approach and pass through vault
       const p = offset / 0.1;
-      targetPos.current.set(0, 0, 12 - p * 15);
-      targetLookAt.current.set(0, 1, -5);
+      targetPos.current.set(0, 2, 18 - p * 25);
+      targetLookAt.current.set(0, 2, -10);
     } else if (offset < 0.3) {
       // Descend into the Identity Chamber
       const p = (offset - 0.1) / 0.2;
-      targetPos.current.set(0, -20 * p, -3 - p * 17);
-      targetLookAt.current.set(0, -20 * p, -3 - p * 20);
+      targetPos.current.set(0, -20 * p, -7 - p * 23);
+      targetLookAt.current.set(0, -20 * p, -30);
     } else if (offset < 0.5) {
       // Transition to Experience Vault
       const p = (offset - 0.3) / 0.2;
-      targetPos.current.set(0, -20 - 20 * p, -20 - 40 * p);
-      targetLookAt.current.set(0, -40, -60);
+      targetPos.current.set(0, -20 - 20 * p, -30 - 50 * p);
+      targetLookAt.current.set(0, -40, -80);
     } else if (offset < 0.7) {
-      // Move to Project Lab (Offset to the right)
+      // Project Lab
       const p = (offset - 0.5) / 0.2;
-      targetPos.current.set(40 * p, -40 - 20 * p, -60 - 20 * p);
-      targetLookAt.current.set(40, -60, -80);
+      targetPos.current.set(40 * p, -40 - 30 * p, -80 - 40 * p);
+      targetLookAt.current.set(40, -70, -120);
     } else if (offset < 0.9) {
       // Technology Matrix
       const p = (offset - 0.7) / 0.2;
-      targetPos.current.set(40 * (1 - p), -60 - 20 * p, -80 - 40 * p);
-      targetLookAt.current.set(0, -80, -120);
+      targetPos.current.set(40 * (1 - p), -70 - 30 * p, -120 - 60 * p);
+      targetLookAt.current.set(0, -100, -180);
     } else {
-      // Final descent to Rooftop Hub
+      // Rooftop Hub
       const p = (offset - 0.9) / 0.1;
-      targetPos.current.set(0, -80 - 20 * p, -120 - 40 * p);
-      targetLookAt.current.set(0, -100, -160);
+      targetPos.current.set(0, -100 - 30 * p, -180 - 70 * p);
+      targetLookAt.current.set(0, -130, -250);
     }
 
-    state.camera.position.lerp(targetPos.current, 0.05);
-    
-    // Smoothly update lookAt target
-    const currentLookAt = new THREE.Vector3();
-    state.camera.getWorldDirection(currentLookAt);
-    const targetDirection = targetLookAt.current.clone().sub(state.camera.position).normalize();
-    
-    // Instead of immediate lookAt, we lerp the direction slightly if needed, 
-    // but standard lookAt works better with lerped target points
+    state.camera.position.lerp(targetPos.current, 0.1);
     state.camera.lookAt(targetLookAt.current);
   });
 
