@@ -9,36 +9,21 @@ interface CameraRigProps {
   started: boolean;
 }
 
-/**
- * CameraRig manages the cinematic movement of the camera through "The Core".
- * Optimized for a "Level-First" experience to ensure content visibility.
- */
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
   const targetPos = useRef(new THREE.Vector3(0, 5, 30));
   const targetLookAt = useRef(new THREE.Vector3(0, 4, 0));
 
-  // Waypoints are mapped to Z and Y coordinates of sections.
-  // Chamber locations:
-  // Entrance: [0, 0, 0]
-  // Identity: [0, -40, -60]
-  // Vault: [0, -90, -140]
-  // Lab: [0, -150, -250]
-  // Matrix: [0, -220, -380]
-  // Hub: [0, -300, -550]
-
+  // Waypoints are mapped to precise Z positions for each section hub.
   const waypoints = [
     { pos: [0, 5, 25], look: [0, 4, 0] },          // 0: Entrance Exterior
-    { pos: [0, 5, -10], look: [0, 4, -20] },       // 1: Inside Entrance
-    { pos: [0, -36, -40], look: [0, -40, -60] },   // 2: Identity Chamber Approach
-    { pos: [0, -40, -52], look: [0, -40, -65] },   // 3: Identity Chamber - AT PANELS
-    { pos: [0, -86, -120], look: [0, -90, -140] }, // 4: Career Vault Approach
-    { pos: [0, -90, -150], look: [0, -90, -170] }, // 5: Career Vault - Card 1
-    { pos: [0, -90, -185], look: [0, -90, -205] }, // 6: Career Vault - Card 2
-    { pos: [0, -145, -230], look: [0, -150, -250] }, // 7: Project Lab Approach
-    { pos: [0, -150, -260], look: [0, -150, -280] }, // 8: Project Lab - Inside
-    { pos: [0, -220, -380], look: [0, -220, -400] }, // 9: Tech Matrix
-    { pos: [0, -300, -535], look: [0, -300, -555] }, // 10: Communication Hub
+    { pos: [0, 5, -15], look: [0, 4, -50] },       // 1: Inside Entrance
+    { pos: [0, 4, -72], look: [0, 4, -85] },       // 2: Identity Chamber Hub
+    { pos: [0, 4, -165], look: [0, 4, -185] },     // 3: Experience Vault Card 1
+    { pos: [0, 4, -205], look: [0, 4, -225] },     // 4: Experience Vault Card 2
+    { pos: [0, 5, -310], look: [0, 5, -330] },     // 5: Project Lab
+    { pos: [0, 6, -470], look: [0, 6, -490] },     // 6: Technology Matrix
+    { pos: [0, 5, -640], look: [0, 5, -660] },     // 7: Communication Hub
   ];
 
   useFrame((state, delta) => {
@@ -56,7 +41,7 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
     const index = Math.min(Math.floor(scaledOffset), totalSegments - 1);
     const weight = scaledOffset - index;
 
-    // Use smoothstep for a more tactile "click" into position at each waypoint
+    // Smoothstep for tactile snapping into each room
     const easedWeight = THREE.MathUtils.smoothstep(weight, 0, 1);
 
     const start = waypoints[index];
@@ -76,10 +61,9 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
       THREE.MathUtils.lerp(start.look[2], end.look[2], easedWeight)
     );
 
-    // Smooth movement and look
+    // Precise lerping for a high-end cinematic feel
     state.camera.position.lerp(targetPos.current, 0.1);
     
-    // We use a dummy vector to smooth the lookAt point
     const currentLook = new THREE.Vector3();
     state.camera.getWorldDirection(currentLook);
     currentLook.add(state.camera.position);

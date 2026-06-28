@@ -24,31 +24,31 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
 
       <group>
         {/* 
-          Vertical/Depth Stack: All chambers centered on X=0.
-          Spaced consistently to prevent visual bleed between sections.
+          Standardized Depth-First Layout: 
+          All chambers aligned on X=0 and Y=0.
+          Navigation moves strictly along the Z-axis for maximum stability.
         */}
         <Entrance active={started} position={[0, 0, 0]} />
-        <IdentityChamber position={[0, -40, -60]} />
-        <ExperienceVault position={[0, -90, -140]} />
-        <ProjectLab position={[0, -150, -250]} />
-        <TechnologyMatrix position={[0, -220, -380]} />
-        <RooftopHub position={[0, -300, -550]} />
+        <IdentityChamber position={[0, 0, -80]} />
+        <ExperienceVault position={[0, 0, -180]} />
+        <ProjectLab position={[0, 0, -320]} />
+        <TechnologyMatrix position={[0, 0, -480]} />
+        <RooftopHub position={[0, 0, -650]} />
       </group>
 
-      {/* Global Background Grid */}
-      <gridHelper args={[2000, 100, '#004488', '#050505']} position={[0, -5, 0]} opacity={0.05} transparent />
+      {/* Global Environment Details */}
+      <gridHelper args={[2000, 100, '#004488', '#050505']} position={[0, -2, 0]} opacity={0.1} transparent />
       
-      {/* Distant Particle System */}
       <points>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={500}
-            array={new Float32Array(500 * 3).map(() => (Math.random() - 0.5) * 1000)}
+            count={1000}
+            array={new Float32Array(1000 * 3).map(() => (Math.random() - 0.5) * 1000)}
             itemSize={3}
           />
         </bufferGeometry>
-        <pointsMaterial color="#4488ff" size={0.5} transparent opacity={0.1} />
+        <pointsMaterial color="#4488ff" size={0.5} transparent opacity={0.2} />
       </points>
     </>
   );
