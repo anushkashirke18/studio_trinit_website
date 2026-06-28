@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -22,23 +21,23 @@ const ExperienceCard: React.FC<{
       <boxGeometry args={[14.1, 9.1, 0.05]} />
       <meshBasicMaterial wireframe color="#4488ff" opacity={0.2} transparent />
     </mesh>
-    <Html position={[0, 0, 0.1]} center transform distanceFactor={8}>
-      <div className="w-[500px] p-10 bg-black/80 backdrop-blur-3xl border border-blue-500/30 rounded-[2.5rem] text-white">
-        <div className="flex justify-between items-start mb-6">
+    <Html position={[0, 0, 0.1]} center transform distanceFactor={10}>
+      <div className="w-[600px] p-12 bg-black/80 backdrop-blur-3xl border border-blue-500/30 rounded-[3rem] text-white">
+        <div className="flex justify-between items-start mb-8">
           <div>
-            <h3 className="text-3xl font-bold tracking-tighter">{company}</h3>
-            <p className="text-blue-400 font-mono text-sm uppercase mt-1 tracking-widest">{role}</p>
+            <h3 className="text-4xl font-bold tracking-tighter">{company}</h3>
+            <p className="text-blue-400 font-mono text-base uppercase mt-2 tracking-widest">{role}</p>
           </div>
-          <span className="px-4 py-2 bg-blue-500/10 rounded-xl text-[10px] font-mono border border-blue-500/20 whitespace-nowrap">
+          <span className="px-5 py-2 bg-blue-500/10 rounded-xl text-xs font-mono border border-blue-500/20 whitespace-nowrap">
             {period}
           </span>
         </div>
-        <p className="text-gray-300 text-sm leading-relaxed mb-8 font-light">
+        <p className="text-gray-300 text-lg leading-relaxed mb-10 font-light">
           {description}
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {tags.map(tag => (
-            <span key={tag} className="text-[10px] font-mono text-cyan-400 bg-cyan-950/30 border border-cyan-500/20 px-3 py-1.5 rounded-lg">
+            <span key={tag} className="text-xs font-mono text-cyan-400 bg-cyan-950/30 border border-cyan-500/20 px-4 py-2 rounded-lg">
               {tag}
             </span>
           ))}
@@ -59,9 +58,9 @@ const ExperienceVault: React.FC<{ position: [number, number, number] }> = ({ pos
         </div>
       </Html>
 
-      {/* Experience Timeline along the path */}
+      {/* Experience Timeline - Positioned precisely relative to Camera waypoints 3, 4, 5 */}
       <ExperienceCard 
-        position={[0, 4, -15]} 
+        position={[0, 4, -20]} 
         company="Global Systems" 
         role="Lead Architect" 
         period="2021 - PRESENT"
@@ -70,7 +69,7 @@ const ExperienceVault: React.FC<{ position: [number, number, number] }> = ({ pos
       />
       
       <ExperienceCard 
-        position={[0, 4, -45]} 
+        position={[0, 4, -60]} 
         company="Innovation Labs" 
         role="Senior Fullstack Engineer" 
         period="2018 - 2021"
@@ -79,7 +78,7 @@ const ExperienceVault: React.FC<{ position: [number, number, number] }> = ({ pos
       />
 
       <ExperienceCard 
-        position={[0, 4, -75]} 
+        position={[0, 4, -90]} 
         company="Web Pioneers" 
         role="Software Developer" 
         period="2016 - 2018"
@@ -88,8 +87,8 @@ const ExperienceVault: React.FC<{ position: [number, number, number] }> = ({ pos
       />
 
       {/* Atmospheric Pillars */}
-      {[...Array(8)].map((_, i) => (
-        <mesh key={i} position={[(i % 2 === 0 ? -15 : 15), 10, -i * 20]}>
+      {[...Array(12)].map((_, i) => (
+        <mesh key={i} position={[(i % 2 === 0 ? -15 : 15), 10, -i * 15]}>
           <boxGeometry args={[0.5, 30, 0.5]} />
           <meshStandardMaterial color="#111" emissive="#4488ff" emissiveIntensity={0.2} />
         </mesh>

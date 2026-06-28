@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -19,23 +18,29 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const targetPos = useRef(new THREE.Vector3(0, 5, 30));
   const targetLookAt = useRef(new THREE.Vector3(0, 4, 0));
 
-  // Precise waypoints for each chamber and sub-section
-  // [x, y, z]
+  // Waypoints are now strictly centered on the information panels of each section
+  // Chamber locations:
+  // Entrance: [0, 0, 0]
+  // Identity: [0, -40, -60]
+  // Vault: [0, -90, -140]
+  // Lab: [0, -150, -250]
+  // Matrix: [0, -220, -380]
+  // Hub: [0, -300, -550]
+
   const waypoints = [
-    { pos: [0, 5, 25], look: [0, 4, -10] },      // 0: Entrance
-    { pos: [0, 5, -5], look: [0, 4, -20] },       // 1: Entering Entrance
-    { pos: [0, -36, -48], look: [0, -40, -60] },  // 2: Identity Chamber (Framing panels)
-    { pos: [0, -86, -155], look: [0, -90, -170] }, // 3: Experience Vault - Card 1
-    { pos: [0, -86, -185], look: [0, -90, -200] }, // 4: Experience Vault - Card 2
-    { pos: [0, -86, -215], look: [0, -90, -230] }, // 5: Experience Vault - Card 3
-    { pos: [0, -145, -250], look: [0, -150, -265] }, // 6: Project Lab
-    { pos: [0, -215, -380], look: [0, -220, -395] }, // 7: Technology Matrix
-    { pos: [0, -295, -550], look: [0, -300, -565] }, // 8: Communication Hub
+    { pos: [0, 5, 25], look: [0, 4, 0] },         // 0: Entrance Exterior
+    { pos: [0, 5, -5], look: [0, 4, -15] },       // 1: Entering the Core
+    { pos: [0, -36, -45], look: [0, -36, -60] },  // 2: Identity Chamber (Directly facing panels)
+    { pos: [0, -86, -145], look: [0, -86, -160] }, // 3: Experience Vault - Entry
+    { pos: [0, -86, -185], look: [0, -86, -200] }, // 4: Experience Vault - Card 2
+    { pos: [0, -86, -215], look: [0, -86, -230] }, // 5: Experience Vault - Card 3
+    { pos: [0, -146, -240], look: [0, -146, -260] }, // 6: Project Lab (Facing cubes)
+    { pos: [0, -216, -370], look: [0, -216, -390] }, // 7: Tech Matrix (Facing energy core)
+    { pos: [0, -296, -540], look: [0, -296, -560] }, // 8: Communication Hub (Facing console)
   ];
 
   useFrame((state, delta) => {
     if (!started) {
-      // Idle state before entry
       targetPos.current.set(0, 5, 30);
       targetLookAt.current.set(0, 5, 0);
       state.camera.position.lerp(targetPos.current, delta * 2);
@@ -49,7 +54,7 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
     const index = Math.min(Math.floor(scaledOffset), totalSegments - 1);
     const weight = scaledOffset - index;
 
-    // Smooth movement between waypoints
+    // Smoothstep for cinematic ease between waypoints
     const easedWeight = THREE.MathUtils.smoothstep(weight, 0, 1);
 
     const start = waypoints[index];
@@ -69,9 +74,10 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
       THREE.MathUtils.lerp(start.look[2], end.look[2], easedWeight)
     );
 
-    // Apply smooth tracking
+    // Smooth follow
     state.camera.position.lerp(targetPos.current, 0.1);
     
+    // Smooth LookAt transition
     const currentLookAt = new THREE.Vector3();
     state.camera.getWorldDirection(currentLookAt);
     currentLookAt.add(state.camera.position);
