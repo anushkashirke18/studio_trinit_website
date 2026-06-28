@@ -4,30 +4,43 @@
 import React from 'react';
 import { Html } from '@react-three/drei';
 
-const ServerTower: React.FC<{ 
+const ExperienceCard: React.FC<{ 
   position: [number, number, number]; 
-  height: number;
-  label: string;
+  company: string;
   role: string;
-}> = ({ position, height, label, role }) => (
+  period: string;
+  description: string;
+}> = ({ position, company, role, period, description }) => (
   <group position={position}>
-    {/* Main Body */}
-    <mesh position={[0, height / 2, 0]}>
-      <boxGeometry args={[4, height, 4]} />
-      <meshStandardMaterial color="#0a0a0a" metalness={1} roughness={0.1} />
+    <mesh>
+      <boxGeometry args={[12, 8, 0.5]} />
+      <meshStandardMaterial color="#050505" metalness={1} roughness={0.1} />
     </mesh>
-    {/* Glowing Strips */}
-    {[...Array(5)].map((_, i) => (
-      <mesh key={i} position={[0, i * (height/5) + 1, 2.01]}>
-        <boxGeometry args={[3, 0.2, 0.1]} />
-        <meshBasicMaterial color={i % 2 === 0 ? "#00ffff" : "#4488ff"} />
-      </mesh>
-    ))}
-    {/* Company Label - EDIT COMPANY INFO HERE */}
-    <Html position={[0, height + 1, 0]} center distanceFactor={8}>
-      <div className="text-center bg-black/80 px-4 py-2 border border-blue-500/50 rounded-md">
-        <p className="text-blue-400 font-mono text-[10px] uppercase tracking-widest">{role}</p>
-        <p className="text-white font-bold whitespace-nowrap">{label}</p>
+    <mesh position={[0, 0, 0.3]}>
+      <planeGeometry args={[11.5, 7.5]} />
+      <meshStandardMaterial transparent opacity={0.05} color="#4488ff" />
+    </mesh>
+    <Html position={[0, 0, 0.31]} center transform distanceFactor={8}>
+      <div className="w-[500px] p-10 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-3xl text-white font-sans">
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h3 className="text-3xl font-bold tracking-tight">{company}</h3>
+            <p className="text-blue-400 font-mono text-sm uppercase mt-1">{role}</p>
+          </div>
+          <span className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-mono border border-white/10">
+            {period}
+          </span>
+        </div>
+        <p className="text-gray-400 text-sm leading-relaxed mb-6">
+          {description}
+        </p>
+        <div className="flex gap-2">
+          {["Next.js", "TypeScript", "AWS"].map(tag => (
+            <span key={tag} className="text-[10px] font-mono text-blue-500/70 border border-blue-500/20 px-2 py-1 rounded">
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </Html>
   </group>
@@ -36,31 +49,51 @@ const ServerTower: React.FC<{
 const ExperienceVault: React.FC<{ position: [number, number, number] }> = ({ position }) => {
   return (
     <group position={position}>
-      {/* Walkway */}
+      {/* Structural Elements */}
       <mesh position={[0, -2, -25]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[12, 80]} />
-        <meshStandardMaterial color="#111" />
+        <planeGeometry args={[30, 100]} />
+        <meshStandardMaterial color="#080808" />
       </mesh>
 
-      {/* Section Label */}
-      <Html position={[0, 20, -10]} center distanceFactor={10}>
-        <div className="text-center select-none pointer-events-none">
-          <h2 className="text-blue-400 font-mono text-xl tracking-[0.5em] uppercase opacity-50">Section 03</h2>
-          <h1 className="text-white font-bold text-6xl tracking-tighter">EXPERIENCE VAULT</h1>
+      <Html position={[0, 25, -5]} center distanceFactor={15}>
+        <div className="text-center pointer-events-none select-none">
+          <h2 className="text-blue-500 font-mono text-xl tracking-[0.8em] uppercase opacity-70">SECTION 03</h2>
+          <h1 className="text-white font-bold text-7xl tracking-tighter">CAREER VAULT</h1>
         </div>
       </Html>
 
-      {/* Server Towers representing career history */}
-      <ServerTower position={[-10, -2, -5]} height={14} label="TechNova Solutions" role="Lead Developer" />
-      <ServerTower position={[10, -2, -20]} height={16} label="CyberDyne Systems" role="Senior Architect" />
-      <ServerTower position={[-10, -2, -35]} height={12} label="FutureCraft Inc" role="Full Stack Dev" />
-      <ServerTower position={[10, -2, -50]} height={15} label="Global Grid" role="Junior Engineer" />
+      {/* Experience Timeline */}
+      <ExperienceCard 
+        position={[0, 4, -10]} 
+        company="TechNova Solutions" 
+        role="Lead Systems Architect" 
+        period="2021 - PRESENT"
+        description="Pioneering decentralized infrastructure models and leading a team of 15 engineers in developing high-availability cloud solutions."
+      />
+      
+      <ExperienceCard 
+        position={[0, 4, -30]} 
+        company="CyberDyne Systems" 
+        role="Senior Developer" 
+        period="2018 - 2021"
+        description="Engineered core machine learning pipelines and optimized real-time data streaming architectures for industrial automation."
+      />
 
-      {/* Overhead structures */}
-      <mesh position={[0, 15, -25]}>
-        <boxGeometry args={[0.5, 0.5, 80]} />
-        <meshStandardMaterial color="#333" />
-      </mesh>
+      <ExperienceCard 
+        position={[0, 4, -50]} 
+        company="FutureCraft Inc" 
+        role="Full Stack Engineer" 
+        period="2016 - 2018"
+        description="Developed and scaled consumer-facing platforms, focusing on React-based performance optimization and microservices."
+      />
+
+      {/* Lighting pylons */}
+      {[...Array(6)].map((_, i) => (
+        <mesh key={i} position={[(i % 2 === 0 ? -12 : 12), 8, -i * 15]}>
+          <boxGeometry args={[0.2, 20, 0.2]} />
+          <meshBasicMaterial color="#4488ff" />
+        </mesh>
+      ))}
     </group>
   );
 };
