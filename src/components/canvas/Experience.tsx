@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -25,8 +24,8 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
 
       <group>
         {/* 
-          All sections are now aligned to x=0 for a consistent camera path.
-          They are spaced vertically (Y) and by depth (Z) to prevent overlapping.
+          Vertical/Depth Stack: All chambers centered on X=0.
+          Spaced consistently to prevent visual bleed between sections.
         */}
         <Entrance active={started} position={[0, 0, 0]} />
         <IdentityChamber position={[0, -40, -60]} />
@@ -36,20 +35,21 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
         <RooftopHub position={[0, -300, -550]} />
       </group>
 
-      {/* Global Background Elements */}
+      {/* Global Background Grid */}
       <gridHelper args={[2000, 100, '#004488', '#050505']} position={[0, -5, 0]} opacity={0.05} transparent />
       
-      {/* Distant fog-like particles for depth */}
-      {[...Array(20)].map((_, i) => (
-        <mesh key={i} position={[
-          (Math.random() - 0.5) * 100,
-          -i * 20,
-          -i * 30
-        ]}>
-          <sphereGeometry args={[0.05]} />
-          <meshBasicMaterial color="#4488ff" transparent opacity={0.2} />
-        </mesh>
-      ))}
+      {/* Distant Particle System */}
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={500}
+            array={new Float32Array(500 * 3).map(() => (Math.random() - 0.5) * 1000)}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <pointsMaterial color="#4488ff" size={0.5} transparent opacity={0.1} />
+      </points>
     </>
   );
 };
