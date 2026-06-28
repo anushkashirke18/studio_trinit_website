@@ -7,51 +7,74 @@ import { Html } from '@react-three/drei';
 const RooftopHub: React.FC<{ position: [number, number, number] }> = ({ position }) => {
   return (
     <group position={position}>
-      {/* Section Label */}
-      <Html position={[0, 20, 0]} center distanceFactor={10}>
+      {/* Section Title */}
+      <Html position={[0, 22, -10]} center distanceFactor={10}>
         <div className="text-center select-none pointer-events-none">
-          <h2 className="text-blue-400 font-mono text-xl tracking-[0.5em] uppercase opacity-50">Section 06</h2>
-          <h1 className="text-white font-bold text-6xl tracking-tighter">COMMUNICATION HUB</h1>
+          <h2 className="text-blue-400 font-mono text-xl tracking-[0.8em] uppercase opacity-60">Section 06</h2>
+          <h1 className="text-white font-bold text-7xl tracking-tighter">COMMUNICATION HUB</h1>
         </div>
       </Html>
 
-      {/* Platform */}
+      {/* Main Console Platform */}
       <mesh position={[0, -2, 0]}>
-        <cylinderGeometry args={[15, 18, 1, 32]} />
-        <meshStandardMaterial color="#111" metalness={1} roughness={0.1} />
+        <cylinderGeometry args={[20, 22, 1, 32]} />
+        <meshStandardMaterial color="#080808" metalness={1} roughness={0.1} />
       </mesh>
 
-      {/* Interaction Console - CONTACT FORM HERE */}
-      <group position={[0, 2, 0]}>
-        <mesh rotation={[-0.5, 0, 0]}>
-          <boxGeometry args={[12, 8, 0.2]} />
-          <meshStandardMaterial transparent opacity={0.3} color="#4488ff" />
+      {/* Central Terminal Console */}
+      <group position={[0, 4, 0]} rotation={[-0.2, 0, 0]}>
+        {/* Glass Screen Frame */}
+        <mesh>
+          <boxGeometry args={[16, 10, 0.2]} />
+          <meshStandardMaterial transparent opacity={0.1} color="#4488ff" metalness={1} />
         </mesh>
-        <Html position={[0, 0, 0.2]} center transform distanceFactor={8}>
-          <div className="w-[400px] p-6 bg-blue-500/5 backdrop-blur-xl border border-blue-500/20 rounded-2xl text-white font-mono">
-            <h2 className="text-xl mb-4 text-blue-400 tracking-tighter">TRANSMIT MESSAGE</h2>
-            <div className="space-y-3">
-              <div className="border border-blue-500/30 p-2 rounded bg-black/50">
-                <p className="text-[10px] text-blue-500/70">SOURCE_ID</p>
-                <p className="text-sm">GUEST_USER_01</p>
+        <mesh position={[0, 0, -0.1]}>
+          <boxGeometry args={[16.2, 10.2, 0.1]} />
+          <meshBasicMaterial wireframe color="#4488ff" opacity={0.3} transparent />
+        </mesh>
+
+        <Html position={[0, 0, 0.15]} center transform distanceFactor={8}>
+          <div className="w-[600px] p-12 bg-blue-900/10 backdrop-blur-3xl border border-blue-500/40 rounded-[3rem] text-white">
+            <h2 className="text-3xl font-bold mb-8 text-blue-400 tracking-tighter uppercase">Initiate Secure Uplink</h2>
+            
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-black/40 border border-blue-500/20 p-4 rounded-2xl">
+                  <label className="block text-[10px] font-mono text-blue-500/70 uppercase mb-2">Subject_Name</label>
+                  <input className="w-full bg-transparent border-none outline-none text-sm placeholder:text-gray-600" placeholder="IDENTIFY YOURSELF" />
+                </div>
+                <div className="bg-black/40 border border-blue-500/20 p-4 rounded-2xl">
+                  <label className="block text-[10px] font-mono text-blue-500/70 uppercase mb-2">Contact_Email</label>
+                  <input className="w-full bg-transparent border-none outline-none text-sm placeholder:text-gray-600" placeholder="UPLINK_DESTINATION" />
+                </div>
               </div>
-              <div className="border border-blue-500/30 p-2 rounded bg-black/50">
-                <p className="text-[10px] text-blue-500/70">MESSAGE_BUFFER</p>
-                <textarea className="w-full bg-transparent border-none outline-none text-sm resize-none h-20" placeholder="ENTER MESSAGE..."></textarea>
+              
+              <div className="bg-black/40 border border-blue-500/20 p-4 rounded-2xl">
+                <label className="block text-[10px] font-mono text-blue-500/70 uppercase mb-2">Transmission_Buffer</label>
+                <textarea className="w-full bg-transparent border-none outline-none text-sm resize-none h-24 placeholder:text-gray-600" placeholder="ENTER MESSAGE ENCODING..."></textarea>
               </div>
-              <button className="w-full py-2 bg-blue-500/20 border border-blue-500/50 hover:bg-blue-500/40 transition-all text-sm uppercase tracking-widest">
-                Initiate Link
+
+              <button className="w-full py-5 bg-blue-500/20 border border-blue-500/50 hover:bg-blue-500/40 transition-all rounded-2xl text-sm font-mono uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(59,130,246,0.2)]">
+                Transmit Signal
               </button>
-            </div>
+            </form>
           </div>
         </Html>
       </group>
 
-      {/* Background Tech Arrays */}
-      <mesh position={[0, 15, -15]}>
-        <boxGeometry args={[30, 5, 0.5]} />
-        <meshBasicMaterial color="#4488ff" wireframe opacity={0.3} transparent />
-      </mesh>
+      {/* Satellite Arrays in background */}
+      {[...Array(4)].map((_, i) => (
+        <group key={i} position={[Math.cos(i * Math.PI/2) * 15, 10, Math.sin(i * Math.PI/2) * 15]}>
+          <mesh>
+            <cylinderGeometry args={[0.1, 0.1, 10]} />
+            <meshBasicMaterial color="#4488ff" />
+          </mesh>
+          <mesh position={[0, 5, 0]}>
+            <sphereGeometry args={[0.3]} />
+            <meshBasicMaterial color="#ffffff" />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 };

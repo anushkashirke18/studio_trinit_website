@@ -26,37 +26,37 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
 
     const offset = scroll.offset; // 0 to 1
 
-    // Refined Pathing: Camera now stops and frames UI panels correctly
-    if (offset < 0.15) {
-      // Entrance
-      const p = offset / 0.15;
-      targetPos.current.set(0, 5, 22 - p * 25);
+    // 6 Distinct Zones with dedicated framing
+    if (offset < 0.16) {
+      // 01: Entrance
+      const p = offset / 0.16;
+      targetPos.current.set(0, 5, 22 - p * 20);
       targetLookAt.current.set(0, 4, -50);
-    } else if (offset < 0.3) {
-      // Identity Chamber Framing
-      const p = (offset - 0.15) / 0.15;
-      targetPos.current.set(0, -20 + p * 2, -25 - p * 10);
-      targetLookAt.current.set(0, -20, -30);
-    } else if (offset < 0.5) {
-      // Experience Vault Framing
-      const p = (offset - 0.3) / 0.2;
-      targetPos.current.set(0, -45 + 5, -70 - p * 30);
+    } else if (offset < 0.32) {
+      // 02: Identity Chamber (Bio/Skills)
+      const p = (offset - 0.16) / 0.16;
+      targetPos.current.set(0, -20 + 4, -22 - p * 12);
+      targetLookAt.current.set(0, -20, -40);
+    } else if (offset < 0.48) {
+      // 03: Experience Vault (Career Cards)
+      const p = (offset - 0.32) / 0.16;
+      targetPos.current.set(0, -45 + 5, -75 - p * 30);
       targetLookAt.current.set(0, -45, -110);
-    } else if (offset < 0.7) {
-      // Project Lab Framing
-      const p = (offset - 0.5) / 0.2;
-      targetPos.current.set(40, -80 + 8, -120 - p * 20);
-      targetLookAt.current.set(40, -80, -150);
-    } else if (offset < 0.9) {
-      // Technology Matrix Framing
-      const p = (offset - 0.7) / 0.2;
-      targetPos.current.set(0, -120 + 10, -190 - p * 20);
-      targetLookAt.current.set(0, -120, -230);
+    } else if (offset < 0.64) {
+      // 04: Project Lab (Interactive Cubes)
+      const p = (offset - 0.48) / 0.16;
+      targetPos.current.set(0, -80 + 15, -130 - p * 30);
+      targetLookAt.current.set(0, -80, -170);
+    } else if (offset < 0.82) {
+      // 05: Tech Matrix (Orbiting Core)
+      const p = (offset - 0.64) / 0.18;
+      targetPos.current.set(0, -120 + 12, -190 - p * 40);
+      targetLookAt.current.set(0, -120, -240);
     } else {
-      // Communication Hub (Rooftop) Framing
-      const p = (offset - 0.9) / 0.1;
-      targetPos.current.set(0, -160 + 5, -270 - p * 10);
-      targetLookAt.current.set(0, -160, -310);
+      // 06: Rooftop Hub (Contact Form)
+      const p = (offset - 0.82) / 0.18;
+      targetPos.current.set(0, -160 + 8, -270 - p * 20);
+      targetLookAt.current.set(0, -160, -320);
     }
 
     state.camera.position.lerp(targetPos.current, 0.1);
