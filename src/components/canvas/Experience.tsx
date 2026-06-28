@@ -4,7 +4,7 @@
 import React from 'react';
 import { useScroll } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Bloom, EffectComposer, Noise, Vignette, DepthOfField } from '@react-three/postprocessing';
+import { Bloom, EffectComposer, Noise, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
 import Lighting from './Lighting';
@@ -21,12 +21,10 @@ interface ExperienceProps {
 }
 
 const Experience: React.FC<ExperienceProps> = ({ started }) => {
-  const scroll = useScroll();
-
   return (
     <>
-      <color attach="background" args={['#050505']} />
-      <fog attach="fog" args={['#050505', 5, 30]} />
+      <color attach="background" args={['#010101']} />
+      <fog attach="fog" args={['#010101', 10, 50]} />
 
       <Lighting />
       <CameraRig started={started} />
@@ -42,13 +40,12 @@ const Experience: React.FC<ExperienceProps> = ({ started }) => {
 
       <EffectComposer disableNormalPass>
         <Bloom 
-          intensity={1.5} 
-          luminanceThreshold={0.9} 
-          luminanceSmoothing={0.025} 
+          intensity={1.0} 
+          luminanceThreshold={0.8} 
+          luminanceSmoothing={0.3} 
           mipmapBlur 
         />
-        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
-        <Noise opacity={0.02} />
+        <Noise opacity={0.03} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>
     </>
