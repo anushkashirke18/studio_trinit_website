@@ -68,14 +68,28 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <div className="w-full h-full absolute inset-0 bg-[#050505]">
+      {started && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ delay: 2, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase opacity-50">Scroll to Navigate</span>
+            <div className="w-[1px] h-12 bg-gradient-to-b from-blue-500/50 to-transparent" />
+          </div>
+        </motion.div>
+      )}
+
+      <div className="w-full h-full absolute inset-0 bg-[#020202]">
         <Canvas
           shadows
-          camera={{ position: [0, 5, 20], fov: 45 }}
+          camera={{ position: [0, 5, 30], fov: 45 }}
           gl={{ antialias: true, stencil: false, depth: true }}
         >
           <Suspense fallback={null}>
-            <ScrollControls pages={8} damping={0.25} infinite={false}>
+            <ScrollControls pages={7} damping={0.3} infinite={false}>
               <Experience started={started} />
             </ScrollControls>
           </Suspense>

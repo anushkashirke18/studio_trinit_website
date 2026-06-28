@@ -16,25 +16,26 @@ interface CameraRigProps {
  */
 const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
   const scroll = useScroll();
-  const targetPos = useRef(new THREE.Vector3(0, 5, 20));
+  const targetPos = useRef(new THREE.Vector3(0, 5, 30));
   const targetLookAt = useRef(new THREE.Vector3(0, 5, 0));
 
   // Waypoints for the camera journey
   // Each index corresponds to a section stop
+  // waypoint.pos is camera position, waypoint.look is where the camera points
   const waypoints = [
-    { pos: [0, 5, 22], look: [0, 4, -10] },      // 0: Entrance (Resting)
-    { pos: [0, 5, -10], look: [0, 4, -50] },     // 1: Past Entrance
-    { pos: [0, -35, -45], look: [0, -40, -60] },  // 2: Identity Chamber (Stop)
-    { pos: [0, -85, -125], look: [0, -90, -140] }, // 3: Experience Vault (Stop)
-    { pos: [0, -145, -235], look: [0, -150, -250] }, // 4: Project Lab (Stop)
-    { pos: [0, -215, -365], look: [0, -220, -380] }, // 5: Technology Matrix (Stop)
-    { pos: [0, -295, -535], look: [0, -300, -550] }, // 6: Communication Hub (Stop)
+    { pos: [0, 5, 25], look: [0, 4, -10] },      // 0: Entrance (Static Start)
+    { pos: [0, 5, -10], look: [0, 4, -40] },     // 1: Passing the Vault
+    { pos: [0, -35, -40], look: [0, -40, -60] },  // 2: Identity Chamber (Stop)
+    { pos: [0, -85, -120], look: [0, -90, -140] }, // 3: Experience Vault (Stop)
+    { pos: [0, -145, -230], look: [0, -150, -250] }, // 4: Project Lab (Stop)
+    { pos: [0, -215, -360], look: [0, -220, -380] }, // 5: Technology Matrix (Stop)
+    { pos: [0, -295, -530], look: [0, -300, -550] }, // 6: Communication Hub (End)
   ];
 
   useFrame((state, delta) => {
     if (!started) {
       // Resting phase before user enters
-      targetPos.current.set(0, 5, 25);
+      targetPos.current.set(0, 5, 30);
       targetLookAt.current.set(0, 5, 0);
       state.camera.position.lerp(targetPos.current, delta * 2);
       state.camera.lookAt(targetLookAt.current);
@@ -43,11 +44,17 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
 
     const offset = scroll.offset; // Current scroll position 0 to 1
     
-    // Segment the scroll into discrete chunks for the 6 waypoints
+    // Segment the scroll into discrete chunks for the waypoints
     const totalWaypoints = waypoints.length - 1;
     const scaledOffset = offset * totalWaypoints;
     const index = Math.min(Math.floor(scaledOffset), totalWaypoints - 1);
     const weight = scaledOffset - index;
+
+    // Use a custom easing function for smoother transitions between waypoints
+    const easedWeight = THREE.CubicBezierCurve.prototype.getPoint.call(
+      { getPoint: (t: number) => t },
+      weight
+    );
 
     // Interpolate between current waypoint and next waypoint
     const start = waypoints[index];
@@ -66,14 +73,14 @@ const CameraRig: React.FC<CameraRigProps> = ({ started }) => {
     );
 
     // Apply smoothing to the camera position
-    state.camera.position.lerp(targetPos.current, 0.08);
+    state.camera.position.lerp(targetPos.current, 0.05);
 
     // Smoothing the lookAt point
     const currentLookAt = new THREE.Vector3();
     state.camera.getWorldDirection(currentLookAt);
     currentLookAt.add(state.camera.position);
     
-    const smoothedLookAt = currentLookAt.lerp(targetLookAt.current, 0.08);
+    const smoothedLookAt = currentLookAt.lerp(targetLookAt.current, 0.05);
     state.camera.lookAt(smoothedLookAt);
   });
 
