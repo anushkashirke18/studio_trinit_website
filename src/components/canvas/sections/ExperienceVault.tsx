@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Html } from '@react-three/drei';
+import * as THREE from 'three';
 
 export default function ExperienceVault({ position }: { position: [number, number, number] }) {
   const experiences = [
