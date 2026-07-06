@@ -4,15 +4,20 @@ import { useFrame } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
+/**
+ * WAYPOINTS
+ * Each stop is precisely aligned on the Z-axis.
+ * Y is locked at 5 for eye-level viewing.
+ */
 const WAYPOINTS = [
-  { pos: [0, 5, 10], look: [0, 5, 0] },     // Start
-  { pos: [0, 5, -10], look: [0, 5, -20] },   // Entrance Transition
-  { pos: [0, 5, -25], look: [0, 5, -25] },   // Identity Chamber Center
-  { pos: [0, 5, -45], look: [0, 5, -50] },   // Vault Corridor 1
-  { pos: [0, 5, -65], look: [0, 5, -70] },   // Vault Corridor 2
-  { pos: [0, 5, -85], look: [0, 5, -85] },   // Project Lab Center
-  { pos: [0, 5, -105], look: [0, 5, -110] }, // Matrix Descent
-  { pos: [0, 5, -125], look: [0, 5, -125] }, // Communication Hub
+  { pos: [0, 5, 10], look: [0, 5, 0] },      // 0: Start (Outside)
+  { pos: [0, 5, -2], look: [0, 5, -10] },    // 1: Entrance Interior
+  { pos: [0, 5, -25], look: [0, 5, -25] },   // 2: Identity Chamber Center
+  { pos: [0, 5, -55], look: [0, 5, -55] },   // 3: Experience Vault Start
+  { pos: [0, 5, -70], look: [0, 5, -70] },   // 4: Experience Vault Middle
+  { pos: [0, 5, -85], look: [0, 5, -85] },   // 5: Project Lab Center
+  { pos: [0, 5, -105], look: [0, 5, -105] }, // 6: Transition Matrix
+  { pos: [0, 5, -125], look: [0, 5, -125] }, // 7: Communication Hub
 ];
 
 export default function CameraRig({ started }: { started: boolean }) {
@@ -23,7 +28,7 @@ export default function CameraRig({ started }: { started: boolean }) {
   useFrame((state, delta) => {
     if (!started) return;
 
-    const offset = scroll.offset;
+    const offset = scroll.offset; // 0 to 1
     const segment = offset * (WAYPOINTS.length - 1);
     const index = Math.floor(segment);
     const weight = segment - index;
@@ -47,7 +52,11 @@ export default function CameraRig({ started }: { started: boolean }) {
         t
       );
 
-      state.camera.position.lerp(targetPos, delta * 2);
+      // Lock Y strictly to avoid drifting upwards/downwards
+      targetPos.y = 5;
+      targetLook.y = 5;
+
+      state.camera.position.lerp(targetPos, delta * 3);
       state.camera.lookAt(targetLook);
     }
   });
