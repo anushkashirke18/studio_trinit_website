@@ -1,4 +1,3 @@
 
-export default function ProjectLab() {
-  return null;
-}
+'use client';
+export default function ProjectLab() { return null; }

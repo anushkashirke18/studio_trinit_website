@@ -1,4 +1,3 @@
 
-export default function Experience() {
-  return null;
-}
+'use client';
+export default function Experience() { return null; }

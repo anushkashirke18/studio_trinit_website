@@ -1,4 +1,3 @@
 
-export default function ExperienceVault() {
-  return null;
-}
+'use client';
+export default function ExperienceVault() { return null; }

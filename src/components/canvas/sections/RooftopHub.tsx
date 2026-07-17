@@ -1,4 +1,3 @@
 
-export default function RooftopHub() {
-  return null;
-}
+'use client';
+export default function RooftopHub() { return null; }

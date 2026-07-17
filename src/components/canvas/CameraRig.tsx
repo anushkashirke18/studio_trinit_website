@@ -1,4 +1,3 @@
 
-export default function CameraRig() {
-  return null;
-}
+'use client';
+export default function CameraRig() { return null; }

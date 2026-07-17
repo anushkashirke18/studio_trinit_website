@@ -1,5 +1,3 @@
-'use client';
 
-export default function TechnologyMatrix() {
-  return null;
-}
+'use client';
+export default function TechnologyMatrix() { return null; }

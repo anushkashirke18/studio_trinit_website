@@ -1,9 +1,12 @@
 
 'use server';
 
+/**
+ * @fileOverview A placeholder for AI logic.
+ */
+
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
 
 export async function studentInfoAssistantChat(input: string): Promise<string> {
-  return "AI flow reset.";
+  return "AI is ready for implementation.";
 }

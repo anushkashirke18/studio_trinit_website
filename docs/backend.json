@@ -2,7 +2,9 @@
 {
   "entities": {},
   "auth": {
-    "providers": ["google.com"]
+    "providers": [
+      "google.com"
+    ]
   },
   "firestore": {}
 }

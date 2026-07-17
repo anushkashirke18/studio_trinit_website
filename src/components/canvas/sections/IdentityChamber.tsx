@@ -1,4 +1,3 @@
 
-export default function IdentityChamber() {
-  return null;
-}
+'use client';
+export default function IdentityChamber() { return null; }
