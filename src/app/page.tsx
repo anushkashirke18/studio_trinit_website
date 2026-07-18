@@ -37,7 +37,6 @@ export default function Home() {
     }
   };
 
-  // Row container variants to handle staggering of children
   const rowVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -50,7 +49,6 @@ export default function Home() {
     }
   };
 
-  // Character animation variants
   const charVariants = {
     hidden: { 
       opacity: 0, 
@@ -66,7 +64,6 @@ export default function Home() {
     },
   };
 
-  // Overlay animation variants
   const overlayVariants = {
     hidden: { opacity: 0, scale: 0.8, y: 15 },
     visible: {
@@ -88,16 +85,14 @@ export default function Home() {
     offset: ["start end", "end start"]
   });
 
-  // Apply spring physics to the scroll progress for smoothness
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 80,
+    damping: 25,
     restDelta: 0.001
   });
 
-  // Map vertical scroll progress to horizontal translation
-  // We move the text from 0% to -85% to ensure the entire long sentence is revealed
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-85%"]);
+  // Increased range to -95% to ensure "touchpoint" is fully visible
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -128,10 +123,8 @@ export default function Home() {
           </motion.div>
         </motion.div>
         
-        {/* Subtle background texture */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(52,25,47,0.03)_0%,transparent_100%)] pointer-events-none" />
         
-        {/* Scroll Indicator */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -173,7 +166,6 @@ export default function Home() {
                     ))}
                   </div>
                   
-                  {/* Static Editorial Overlays */}
                   {item.overlay && (
                     <motion.div 
                       variants={overlayVariants}
@@ -210,14 +202,14 @@ export default function Home() {
       </section>
 
       {/* Horizontal Scroll Narrative Section */}
-      {/* Increased height to 500vh for a slower, smoother scroll through the text */}
-      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background">
+      {/* Increased to 800vh for a slower, smoother scroll */}
+      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
             className="flex whitespace-nowrap px-[10vw] gap-20"
           >
-            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight text-foreground leading-none">
+            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight text-foreground leading-none pr-[20vw]">
               We’re Trinit — an independent creative agency based in Nasik. 
               We help brands shape their identity, tell their story, 
               and create work that connects across every touchpoint.
