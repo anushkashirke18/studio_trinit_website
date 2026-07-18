@@ -10,16 +10,25 @@ import { motion } from 'framer-motion';
  */
 export default function Home() {
   const rows = [
-    { words: ["CRAFTING"], overlay: "designing" },
-    { words: ["UNFORGETTABLE"], overlay: "premium - luxury" },
-    { words: ["DIGITAL"], overlay: "web - mobile" },
-    { words: ["EXPERIENCES"], overlay: "brands & websites" },
-    { words: ["FOR", "AMBITIOUS"] },
-    { words: ["CLIENTS"] }
+    { items: [{ word: "CRAFTING", overlay: "designing" }] },
+    { items: [{ word: "UNFORGETTABLE", overlay: "premium - luxury" }] },
+    { items: [{ word: "DIGITAL", overlay: "web - mobile" }] },
+    { items: [{ word: "EXPERIENCES", overlay: "brands & websites" }] },
+    { items: [{ word: "FOR" }, { word: "AMBITIOUS", overlay: "extraordinary" }] },
+    { items: [{ word: "CLIENTS" }] }
   ];
 
   const FONT_SIZE_MAX = "260.48px";
   const LINE_HEIGHT_MAX = "248.832px";
+
+  const getOverlaySize = (overlay: string) => {
+    switch (overlay) {
+      case 'premium - luxury': return 'clamp(17px, 6.2vw, 88px)';
+      case 'designing': return 'clamp(15px, 5.8vw, 84px)';
+      case 'extraordinary': return 'clamp(14px, 5.5vw, 80px)';
+      default: return 'clamp(16px, 6vw, 78px)';
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -77,8 +86,8 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              {row.words.map((word, wordIndex) => (
-                <div key={wordIndex} className="relative inline-block">
+              {row.items.map((item, itemIndex) => (
+                <div key={itemIndex} className="relative inline-block">
                   <h2 
                     style={{ 
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
@@ -86,21 +95,19 @@ export default function Home() {
                     }}
                     className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
                   >
-                    {word}
+                    {item.word}
                   </h2>
                   
                   {/* Overlays for specific words */}
-                  {row.overlay && wordIndex === 0 && (
+                  {item.overlay && (
                     <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                       <span
                         style={{
-                          fontSize: row.overlay === 'premium - luxury' ? 'clamp(17px, 6.2vw, 88px)' : 
-                                   row.overlay === 'designing' ? 'clamp(15px, 5.8vw, 84px)' : 
-                                   'clamp(16px, 6vw, 78px)',
+                          fontSize: getOverlaySize(item.overlay),
                         }}
                         className="font-playground lowercase text-accent whitespace-nowrap"
                       >
-                        {row.overlay}
+                        {item.overlay}
                       </span>
                     </div>
                   )}
