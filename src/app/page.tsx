@@ -6,9 +6,10 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 /**
  * Word component for the horizontal scroll section.
  * Handles the individual color transition from grey to full color based on scroll progress.
+ * Optimized for an "immediate" reveal feel.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Tighter transition for an "immediate" feel
+  // Ultra-tight transition for an immediate color switch
   const opacity = useTransform(progress, range, [0.4, 1]);
   const color = useTransform(
     progress, 
@@ -233,9 +234,9 @@ export default function Home() {
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap">
               {words.map((word, i) => {
-                // Tighter ranges for "immediate" color change as they enter/pass through the view
+                // Ultra-tight ranges for instant color change as they move
                 const start = 0.1 + (i / words.length) * 0.75;
-                const end = start + 0.01; // Transition happens over 1% of the total scroll
+                const end = start + 0.005; // Tightened transition to 0.5% of scroll
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
