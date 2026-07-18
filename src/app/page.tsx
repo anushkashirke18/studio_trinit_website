@@ -240,13 +240,10 @@ export default function Home() {
               {words.map((word, i) => {
                 /**
                  * Color synchronization tuning:
-                 * We trigger the color reveal slightly EARLIER than the translation progress 
-                 * for each word index. This ensures that all words visible on the screen 
-                 * are already colored, and only the 'incoming' word on the right edge 
-                 * remains grey until the scroll catches up.
+                 * We compressed the range to end at 0.9 to ensure full completion at the end of the scroll.
                  */
-                const start = (i / words.length) * 0.9 + 0.02;
-                const end = start + 0.001; // Snap transition
+                const start = (i / words.length) * 0.8 + 0.05;
+                const end = start + 0.001; 
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
@@ -263,9 +260,10 @@ export default function Home() {
         <h2 
           style={{ 
             fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-            lineHeight: "0.85" 
+            lineHeight: "0.85",
+            fontWeight: 400
           }}
-          className="font-thunder font-normal uppercase tracking-tight text-right"
+          className="font-thunder uppercase tracking-tight text-right"
         >
           OUR<br />SERVICES
         </h2>
