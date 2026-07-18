@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -31,6 +32,41 @@ export default function Home() {
       case 'people': return 'clamp(16px, 6vw, 84px)';
       default: return 'clamp(16px, 6vw, 78px)';
     }
+  };
+
+  // Animation variants for staggered reveal
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, // Stagger each row
+      },
+    },
+  };
+
+  const rowVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1, // Stagger words within a row (for "FOR" and "AMBITIOUS")
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 40,
+    },
+    visible: {
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    },
   };
 
   return (
@@ -79,18 +115,25 @@ export default function Home() {
 
       {/* High-Impact Statement Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
+        <motion.div 
+          className="flex flex-col gap-0 items-center w-full max-w-[100vw]"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {rows.map((row, i) => (
             <motion.div
               key={i}
               className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              variants={rowVariants}
             >
               {row.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="relative inline-block">
+                <motion.div 
+                  key={itemIndex} 
+                  className="relative inline-block"
+                  variants={itemVariants}
+                >
                   <h2 
                     style={{ 
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
@@ -114,11 +157,11 @@ export default function Home() {
                       </span>
                     </div>
                   )}
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Narrative Section */}
