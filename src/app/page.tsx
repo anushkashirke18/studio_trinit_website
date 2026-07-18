@@ -49,7 +49,7 @@ export default function Home() {
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
-      case 'what': return 'clamp(18px, 7vw, 105px)';
+      case 'what': return 'clamp(14px, 5.5vw, 85px)'; // Reduced font size as requested
       case 'we can do': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
