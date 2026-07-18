@@ -2,29 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
 
 @layer base {
   :root {
-    --background: 34 25% 94%;
-    --foreground: 311 35% 15%;
+    --background: 34 25% 94%; /* Warm #F3EEE8 */
+    --foreground: 272 43% 13%; /* Deep Purple #34192F */
     --card: 34 25% 94%;
-    --card-foreground: 311 35% 15%;
+    --card-foreground: 272 43% 13%;
     --popover: 34 25% 94%;
-    --popover-foreground: 311 35% 15%;
-    --primary: 311 35% 15%;
+    --popover-foreground: 272 43% 13%;
+    --primary: 272 43% 13%;
     --primary-foreground: 0 0% 98%;
     --secondary: 33 15% 88%;
-    --secondary-foreground: 311 35% 15%;
+    --secondary-foreground: 272 43% 13%;
     --muted: 33 15% 88%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 33 25% 90%;
-    --accent-foreground: 311 35% 15%;
+    --accent: 332 79% 48%; /* Pinkish #D81B60 for "designing" */
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 311 10% 85%;
     --input: 311 10% 85%;
-    --ring: 311 35% 15%;
+    --ring: 272 43% 13%;
     --radius: 0.5rem;
   }
 

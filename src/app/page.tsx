@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by a high-impact typography section with "Thunder" styling.
+ * followed by a high-impact typography section with "Thunder" styling and "designing" overlay.
  */
 export default function Home() {
   const statement = [
@@ -66,20 +66,40 @@ export default function Home() {
       <section className="w-full py-32 md:py-48 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full">
           {statement.map((word, i) => (
-            <motion.h2 
+            <motion.div
               key={i}
+              className="relative w-full flex justify-center"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ 
-                fontSize: 'clamp(32px, 16vw, 260.48px)',
-                lineHeight: 'clamp(28px, 15vw, 248.832px)'
-              }}
-              className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
             >
-              {word}
-            </motion.h2>
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(32px, 18vw, 260.48px)',
+                  lineHeight: 'clamp(28px, 17vw, 248.832px)'
+                }}
+                className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
+              >
+                {word}
+              </h2>
+              
+              {/* Overlay for "designing" on "CRAFTING" */}
+              {word === "CRAFTING" && (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: -3 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 1 }}
+                  style={{
+                    fontSize: 'clamp(24px, 8vw, 120px)',
+                  }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-playground lowercase text-accent whitespace-nowrap z-20 pointer-events-none drop-shadow-sm"
+                >
+                  designing
+                </motion.span>
+              )}
+            </motion.div>
           ))}
         </div>
       </section>
