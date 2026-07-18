@@ -16,7 +16,12 @@ export default function Home() {
     { items: [{ word: "UNFORGETTABLE", overlay: "premium - luxury" }] },
     { items: [{ word: "DIGITAL", overlay: "web - mobile" }] },
     { items: [{ word: "EXPERIENCES", overlay: "brands & websites" }] },
-    { items: [{ word: "FOR", overlay: null }, { word: "AMBITIOUS", overlay: "extraordinary" }] },
+    { 
+      items: [
+        { word: "FOR", overlay: null }, 
+        { word: "AMBITIOUS", overlay: "extraordinary" }
+      ] 
+    },
     { items: [{ word: "CLIENTS", overlay: "people" }] }
   ];
 
@@ -126,7 +131,7 @@ export default function Home() {
           {processedRows.map((row, i) => (
             <div
               key={i}
-              className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
+              className="relative w-full flex flex-row flex-nowrap justify-center items-center gap-x-4 md:gap-x-12"
             >
               {row.items.map((item, itemIndex) => (
                 <div key={itemIndex} className="relative inline-block py-2">
