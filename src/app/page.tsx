@@ -19,13 +19,23 @@ export default function Home() {
     { items: [{ word: "CLIENTS", overlay: "people" }] }
   ];
 
+  // Calculate global indices for each word to ensure sequential reveal across the entire section
+  let globalWordCounter = 0;
+  const processedRows = rows.map(row => ({
+    ...row,
+    items: row.items.map(item => ({
+      ...item,
+      globalIndex: globalWordCounter++
+    }))
+  }));
+
   const FONT_SIZE_MAX = "260.48px";
   const LINE_HEIGHT_MAX = "248.832px";
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
       case 'premium - luxury': return 'clamp(18px, 6.5vw, 110px)';
-      case 'designing': return 'clamp(16px, 5.8vw, 100px)';
+      case 'designing': return 'clamp(16px, 6vw, 105px)';
       case 'extraordinary': return 'clamp(14px, 5.5vw, 90px)';
       case 'web - mobile': return 'clamp(16px, 6vw, 94px)';
       case 'brands & websites': return 'clamp(16px, 6vw, 94px)';
@@ -34,40 +44,21 @@ export default function Home() {
     }
   };
 
-  // Animation variants for global word-by-word reveal
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Delay between each row
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const rowVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2, // Delay between words within a row
-      }
-    }
-  };
-
+  // Global word-by-word animation variants
   const wordVariants = {
     hidden: { 
       opacity: 0, 
-      y: 40,
+      y: 60,
     },
-    visible: {
+    visible: (i: number) => ({
       opacity: 1, 
       y: 0,
       transition: {
+        delay: i * 0.18, // Stagger based on global word position
         duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
-    },
+    }),
   };
 
   return (
@@ -116,24 +107,21 @@ export default function Home() {
 
       {/* High-Impact Statement Section - Sequential Reveal */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
-        <motion.div 
-          className="flex flex-col gap-0 items-center w-full max-w-[100vw]"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-20%" }}
-        >
-          {rows.map((row, i) => (
-            <motion.div
+        <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
+          {processedRows.map((row, i) => (
+            <div
               key={i}
-              variants={rowVariants}
               className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
             >
               {row.items.map((item, itemIndex) => (
                 <motion.div 
                   key={itemIndex} 
                   className="relative inline-block"
+                  custom={item.globalIndex}
                   variants={wordVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-15%" }}
                 >
                   <h2 
                     style={{ 
@@ -145,7 +133,7 @@ export default function Home() {
                     {item.word}
                   </h2>
                   
-                  {/* Overlays for specific words - Partsold style, static */}
+                  {/* Overlays for specific words */}
                   {item.overlay && (
                     <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                       <span
@@ -160,9 +148,9 @@ export default function Home() {
                   )}
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </section>
 
       {/* Narrative Section */}
