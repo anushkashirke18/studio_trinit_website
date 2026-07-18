@@ -1,15 +1,14 @@
 
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
- * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by a high-impact typography section with character-level scroll reveal.
- * Characters slide in from the left into their final positions for a premium boutique feel.
- * The animation re-triggers every time the section enters the viewport, working in sequence
- * whether scrolling from top-to-bottom or bottom-to-top.
+ * Main landing page featuring the TRINIT logo, followed by a high-impact 
+ * typography section with character-level scroll reveal.
+ * After the [ABOUT US] label, a horizontal scroll section showcases 
+ * the studio's identity with a smooth lateral translation.
  */
 export default function Home() {
   const rows = [
@@ -81,6 +80,16 @@ export default function Home() {
       }
     }
   };
+
+  // Horizontal Scroll Setup
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: horizontalRef,
+  });
+
+  // Map vertical scroll progress to horizontal translation
+  // We move the text from 0% to -80% to ensure the entire long sentence is revealed
+  const xTranslate = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -192,45 +201,19 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Narrative Section */}
-      <section className="w-full max-w-7xl px-6 py-32 md:py-48 flex flex-col md:flex-row gap-16 items-start justify-between">
-        <div className="w-full md:w-1/2 space-y-8">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-semibold">01 / The Narrative</span>
-          <h2 className="text-4xl md:text-5xl font-headline font-bold leading-tight">
-            We build digital artifacts <br/> that resonate globally.
-          </h2>
-        </div>
-        <div className="max-w-md w-full md:w-1/2 mt-4">
-          <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed font-light">
-            TRINIT is an boutique studio where code meets canvas. We specialize in the intersection of high-end aesthetics and technical precision. Every pixel is a decision.
-          </p>
-        </div>
-      </section>
-
-      {/* Capability Grid */}
-      <section className="w-full bg-foreground/[0.02] border-y border-foreground/5 py-32 md:py-48">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24">
-          <div className="space-y-6">
-            <span className="text-[9px] font-code text-muted-foreground uppercase tracking-widest">Capabilities . 01</span>
-            <h3 className="text-2xl font-headline font-bold">Innovation</h3>
-            <p className="text-muted-foreground font-body leading-relaxed text-sm">
-              Architecting solutions that leverage the latest in GenAI and web performance to give you a competitive edge.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <span className="text-[9px] font-code text-muted-foreground uppercase tracking-widest">Capabilities . 02</span>
-            <h3 className="text-2xl font-headline font-bold">Visual Language</h3>
-            <p className="text-muted-foreground font-body leading-relaxed text-sm">
-              Creating bespoke design systems that speak your brand's truth with clarity and intentionality.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <span className="text-[9px] font-code text-muted-foreground uppercase tracking-widest">Capabilities . 03</span>
-            <h3 className="text-2xl font-headline font-bold">Strategy</h3>
-            <p className="text-muted-foreground font-body leading-relaxed text-sm">
-              Data-driven insights meet creative intuition to ensure your digital roadmap leads to tangible growth.
-            </p>
-          </div>
+      {/* Horizontal Scroll Narratve Section */}
+      <section ref={horizontalRef} className="relative h-[300vh] w-full bg-background">
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+          <motion.div 
+            style={{ x: xTranslate }} 
+            className="flex whitespace-nowrap px-[10vw] gap-20"
+          >
+            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight text-foreground leading-none">
+              We’re Trinit — an independent creative agency based in Nasik. 
+              We help brands shape their identity, tell their story, 
+              and create work that connects across every touchpoint.
+            </h2>
+          </motion.div>
         </div>
       </section>
 
