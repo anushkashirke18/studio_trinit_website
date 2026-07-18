@@ -72,37 +72,44 @@ export default function Home() {
           {statement.map((word, i) => (
             <motion.div
               key={i}
-              className="relative w-full flex justify-center"
+              className="relative w-full flex justify-center items-center"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 
-                style={{ 
-                  fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                  lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
-                }}
-                className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
-              >
-                {word}
-              </h2>
-              
-              {/* Overlay for "designing" on "CRAFTING" */}
-              {word === "CRAFTING" && (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-                  whileInView={{ opacity: 1, scale: 1, rotate: -2 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
-                  style={{
-                    fontSize: 'clamp(24px, 7vw, 110px)',
+              {/* This inner div ensures the overlay is relative to the exact word box */}
+              <div className="relative inline-block">
+                <h2 
+                  style={{ 
+                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                    lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
                   }}
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-playground lowercase text-accent whitespace-nowrap z-20 pointer-events-none drop-shadow-sm"
+                  className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
                 >
-                  designing
-                </motion.span>
-              )}
+                  {word}
+                </h2>
+                
+                {/* Overlay for "designing" on "CRAFTING" */}
+                {word === "CRAFTING" && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+                    whileInView={{ opacity: 1, scale: 1, rotate: -2 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+                  >
+                    <span
+                      style={{
+                        fontSize: 'clamp(24px, 7vw, 110px)',
+                      }}
+                      className="font-playground lowercase text-accent whitespace-nowrap drop-shadow-sm"
+                    >
+                      designing
+                    </span>
+                  </motion.div>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>
