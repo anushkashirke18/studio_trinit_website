@@ -49,7 +49,7 @@ export default function Home() {
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
-      case 'what we': return 'clamp(18px, 7vw, 105px)';
+      case 'what': return 'clamp(18px, 7vw, 105px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
   };
@@ -240,7 +240,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES Section (Styled like "CRAFTING" reveal) */}
+      {/* OUR SERVICES Section */}
       <section className="w-full px-[10vw] py-24 flex flex-col items-end overflow-hidden">
         <motion.div
           initial="hidden"
@@ -249,7 +249,7 @@ export default function Home() {
           variants={rowVariants}
           className="relative flex flex-col items-end"
         >
-          {/* OUR with "what we" overlay */}
+          {/* OUR with "what" overlay */}
           <div className="relative inline-block">
             <div className="flex">
               {"OUR".split('').map((char, charIndex) => (
@@ -273,11 +273,11 @@ export default function Home() {
             >
               <span
                 style={{
-                  fontSize: getOverlaySize('what we'),
+                  fontSize: getOverlaySize('what'),
                 }}
                 className="font-playground italic lowercase text-accent whitespace-nowrap"
               >
-                what we
+                what
               </span>
             </motion.div>
           </div>
