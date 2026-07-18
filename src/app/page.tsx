@@ -112,6 +112,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
+  // Translation from 0.1 to 0.95 progress
   const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
 
   // Split narrative for color reveal
@@ -234,9 +235,15 @@ export default function Home() {
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap">
               {words.map((word, i) => {
-                // Ultra-tight ranges for instant color change as they move
-                const start = 0.1 + (i / words.length) * 0.75;
-                const end = start + 0.005; // Tightened transition to 0.5% of scroll
+                /**
+                 * Color reveal range tuning:
+                 * We want the color change to happen slightly AHEAD of the horizontal translation.
+                 * By starting the color sweep earlier (0.05 instead of 0.1) and finishing it faster (multiplier 0.7),
+                 * words will color as they enter the screen or slightly before, 
+                 * leaving only the very end of the line grey until it's "read".
+                 */
+                const start = 0.05 + (i / words.length) * 0.75;
+                const end = start + 0.002; // Near-instant switch
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
