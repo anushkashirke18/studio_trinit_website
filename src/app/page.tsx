@@ -100,7 +100,7 @@ export default function Home() {
                   >
                     <span
                       style={{
-                        fontSize: 'clamp(28px, 10vw, 140px)',
+                        fontSize: 'clamp(20px, 7vw, 90px)',
                       }}
                       className="font-playground italic lowercase text-accent whitespace-nowrap drop-shadow-sm"
                     >
