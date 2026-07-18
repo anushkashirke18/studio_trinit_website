@@ -13,7 +13,7 @@ export default {
         body: ['Inter', 'sans-serif'],
         headline: ['Space Grotesk', 'sans-serif'],
         thunder: ['Anton', 'Impact', 'sans-serif'],
-        playground: ['PP Playground', 'Great Vibes', 'cursive'],
+        playground: ['"Mrs Saint Delafield"', 'cursive'],
         code: ['monospace'],
       },
       colors: {
