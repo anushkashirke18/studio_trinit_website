@@ -92,7 +92,7 @@ export default function Home() {
                 {/* Overlay for "designing" on "CRAFTING" */}
                 {word === "CRAFTING" && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
@@ -100,9 +100,9 @@ export default function Home() {
                   >
                     <span
                       style={{
-                        fontSize: 'clamp(32px, 10vw, 160px)',
+                        fontSize: 'clamp(28px, 10vw, 140px)',
                       }}
-                      className="font-playground lowercase text-accent whitespace-nowrap drop-shadow-sm"
+                      className="font-playground italic lowercase text-accent whitespace-nowrap drop-shadow-sm"
                     >
                       designing
                     </span>
