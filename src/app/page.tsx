@@ -263,7 +263,7 @@ export default function Home() {
         <h2 
           style={{ 
             fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-            lineHeight: "248.832px" 
+            lineHeight: "0.85" 
           }}
           className="font-thunder font-normal uppercase tracking-tight text-right"
         >
