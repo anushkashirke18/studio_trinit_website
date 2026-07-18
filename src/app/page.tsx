@@ -44,7 +44,7 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.03, // Slightly slower stagger for a smoother wave effect
+        staggerChildren: 0.03,
         delayChildren: 0.1,
         duration: 0.5
       }
@@ -55,19 +55,19 @@ export default function Home() {
   const charVariants = {
     hidden: { 
       opacity: 0, 
-      x: -120, // Increased distance for a more dramatic but smooth slide
+      x: -120,
     },
     visible: {
       opacity: 1, 
       x: 0,
       transition: {
-        duration: 1.2, // Extended duration for premium smoothness
-        ease: [0.22, 1, 0.36, 1] // Quintic-like ease-out for that "buttery" feel
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1]
       }
     },
   };
 
-  // Overlay animation variants (revealing after characters in the word)
+  // Overlay animation variants
   const overlayVariants = {
     hidden: { opacity: 0, scale: 0.8, y: 15 },
     visible: {
@@ -77,7 +77,7 @@ export default function Home() {
       transition: {
         duration: 1.4,
         ease: [0.22, 1, 0.36, 1],
-        delay: 0.4 // Ensure it appears after the main letters start their journey
+        delay: 0.4
       }
     }
   };
@@ -177,6 +177,19 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* About Us Sub-label */}
+      <section className="w-full py-12 flex items-center justify-center">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1 }}
+          className="text-[10px] uppercase tracking-[0.6em] text-muted-foreground font-semibold ml-[0.6em]"
+        >
+          [ ABOUT US ]
+        </motion.p>
       </section>
 
       {/* Narrative Section */}
