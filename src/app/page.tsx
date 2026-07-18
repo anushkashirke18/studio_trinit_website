@@ -229,6 +229,13 @@ export default function Home() {
         </motion.p>
       </section>
 
+      {/* OUR SERVICES Heading Section */}
+      <section className="w-full px-[10vw] pb-24 flex justify-end">
+        <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none text-right">
+          OUR<br />SERVICES
+        </h2>
+      </section>
+
       {/* Horizontal Scroll Section with Word Color Reveal */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
