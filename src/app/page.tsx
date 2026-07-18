@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -94,7 +95,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(10px, 3.5vw, 40px)',
+                        fontSize: 'clamp(14px, 5.5vw, 64px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
