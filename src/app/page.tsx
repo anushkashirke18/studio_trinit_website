@@ -237,13 +237,12 @@ export default function Home() {
               {words.map((word, i) => {
                 /**
                  * Color reveal range tuning:
-                 * We want the color change to happen slightly AHEAD of the horizontal translation.
-                 * By starting the color sweep earlier (0.05 instead of 0.1) and finishing it faster (multiplier 0.7),
-                 * words will color as they enter the screen or slightly before, 
-                 * leaving only the very end of the line grey until it's "read".
+                 * We want the color change to happen precisely as the text moves.
+                 * By aligning the word's start/end triggers with the horizontal translation range (0.1 to 0.95),
+                 * we ensure they turn color exactly when they are "read" on screen.
                  */
-                const start = 0.05 + (i / words.length) * 0.75;
-                const end = start + 0.002; // Near-instant switch
+                const start = 0.1 + (i / words.length) * 0.8;
+                const end = start + 0.001; // Instant switch
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
