@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by a high-impact typography section with "Thunder" styling and editorial overlays.
- * The mission statement reveals word-by-word on scroll for a premium agency feel.
+ * followed by a high-impact typography section with character-level scroll reveal.
+ * Characters slide in from the left into their final positions for a premium boutique feel.
  */
 export default function Home() {
   const rows = [
@@ -19,47 +19,61 @@ export default function Home() {
     { items: [{ word: "CLIENTS", overlay: "people" }] }
   ];
 
-  // Calculate global indices for each word to ensure sequential reveal across the entire section
-  let globalWordCounter = 0;
-  const processedRows = rows.map(row => ({
-    ...row,
-    items: row.items.map(item => ({
-      ...item,
-      globalIndex: globalWordCounter++
-    }))
-  }));
-
   const FONT_SIZE_MAX = "260.48px";
   const LINE_HEIGHT_MAX = "248.832px";
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
-      case 'premium - luxury': return 'clamp(18px, 6.5vw, 110px)';
-      case 'designing': return 'clamp(16px, 6vw, 105px)';
-      case 'extraordinary': return 'clamp(14px, 5.5vw, 90px)';
-      case 'web - mobile': return 'clamp(16px, 6vw, 94px)';
-      case 'brands & websites': return 'clamp(16px, 6vw, 94px)';
-      case 'people': return 'clamp(16px, 6vw, 94px)';
-      default: return 'clamp(16px, 6vw, 88px)';
+      case 'premium - luxury': return 'clamp(20px, 7.5vw, 125px)';
+      case 'designing': return 'clamp(18px, 7vw, 120px)';
+      case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
+      default: return 'clamp(18px, 7vw, 105px)';
     }
   };
 
-  // Global word-by-word animation variants
-  const wordVariants = {
+  // Character animation variants
+  const charVariants = {
     hidden: { 
       opacity: 0, 
-      y: 60,
+      x: -100,
     },
     visible: (i: number) => ({
       opacity: 1, 
-      y: 0,
+      x: 0,
       transition: {
-        delay: i * 0.18, // Stagger based on global word position
+        delay: i * 0.03, // Tighter stagger for characters
         duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
     }),
   };
+
+  // Overlay animation variants (revealing after characters)
+  const overlayVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: (i: number) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: i * 0.03 + 0.4, // Reveal slightly after characters in the word
+        duration: 1,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  // Pre-calculate global character indices for smooth staggering across lines
+  let globalCharCounter = 0;
+  const processedRows = rows.map(row => ({
+    ...row,
+    items: row.items.map(item => {
+      const chars = item.word.split('').map(char => ({
+        char,
+        globalIndex: globalCharCounter++
+      }));
+      return { ...item, chars };
+    })
+  }));
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -90,8 +104,8 @@ export default function Home() {
           </motion.div>
         </motion.div>
         
-        {/* Subtle background texture/glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--foreground),0.02)_0%,transparent_100%)] pointer-events-none" />
+        {/* Subtle background texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(52,25,47,0.03)_0%,transparent_100%)] pointer-events-none" />
         
         {/* Scroll Indicator */}
         <motion.div 
@@ -105,7 +119,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* High-Impact Statement Section - Sequential Reveal */}
+      {/* High-Impact Character Reveal Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
           {processedRows.map((row, i) => (
@@ -114,28 +128,37 @@ export default function Home() {
               className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
             >
               {row.items.map((item, itemIndex) => (
-                <motion.div 
-                  key={itemIndex} 
-                  className="relative inline-block"
-                  custom={item.globalIndex}
-                  variants={wordVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-15%" }}
-                >
-                  <h2 
-                    style={{ 
-                      fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                      lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
-                    }}
-                    className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
-                  >
-                    {item.word}
-                  </h2>
+                <div key={itemIndex} className="relative inline-block py-2">
+                  <div className="flex">
+                    {item.chars.map((charData, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        custom={charData.globalIndex}
+                        variants={charVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-10%" }}
+                        style={{ 
+                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                          lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
+                        }}
+                        className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
+                      >
+                        {charData.char}
+                      </motion.span>
+                    ))}
+                  </div>
                   
-                  {/* Overlays for specific words */}
+                  {/* Static Editorial Overlays */}
                   {item.overlay && (
-                    <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <motion.div 
+                      custom={item.chars[0].globalIndex}
+                      variants={overlayVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+                    >
                       <span
                         style={{
                           fontSize: getOverlaySize(item.overlay),
@@ -144,9 +167,9 @@ export default function Home() {
                       >
                         {item.overlay}
                       </span>
-                    </div>
+                    </motion.div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
           ))}
