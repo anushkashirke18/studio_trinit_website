@@ -6,10 +6,9 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 /**
  * Word component for the horizontal scroll section.
  * Handles the individual color transition from grey to full color based on scroll progress.
- * Optimized for an "immediate" reveal feel.
+ * Optimized for a sharp, high-impact reveal.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Ultra-tight transition for an immediate color switch
   const opacity = useTransform(progress, range, [0.4, 1]);
   const color = useTransform(
     progress, 
@@ -106,6 +105,7 @@ export default function Home() {
     offset: ["start end", "end start"]
   });
 
+  // Use a spring for smoother horizontal gliding
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
     damping: 30,
@@ -113,8 +113,8 @@ export default function Home() {
   });
 
   /**
-   * Horizontal translation setup.
-   * Starts moving at 0.1 progress and ends at 0.95.
+   * Horizontal translation.
+   * Section moves from 0 to -95% between 0.1 and 0.95 progress.
    */
   const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
 
@@ -125,7 +125,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
-      {/* Hero Section - The Brand Mark */}
+      {/* Hero Section */}
       <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center p-6 text-center">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -164,7 +164,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* High-Impact Character Reveal Section */}
+      {/* High-Impact Reveal Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
           {rows.map((row, i) => (
@@ -216,7 +216,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us Sub-label */}
+      {/* [ ABOUT US ] Label */}
       <section className="w-full py-12 flex items-center justify-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -229,7 +229,7 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Horizontal Scroll Narrative Section */}
+      {/* Horizontal Scroll Section with Word Color Reveal */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
@@ -239,13 +239,14 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap">
               {words.map((word, i) => {
                 /**
-                 * Color reveal range tuning:
-                 * To fix the "starting words are grey" issue, we set the trigger for the early words
-                 * to start before the horizontal translation begins (0.1).
-                 * This ensures words visible in the initial frame are already colored.
+                 * Color synchronization tuning:
+                 * We trigger the color reveal slightly EARLIER than the translation progress 
+                 * for each word index. This ensures that all words visible on the screen 
+                 * are already colored, and only the 'incoming' word on the right edge 
+                 * remains grey until the scroll catches up.
                  */
-                const start = 0.05 + (i / words.length) * 0.9;
-                const end = start + 0.001; // Instant snap reveal
+                const start = (i / words.length) * 0.9 + 0.02;
+                const end = start + 0.001; // Snap transition
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
