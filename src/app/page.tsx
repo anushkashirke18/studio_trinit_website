@@ -89,7 +89,7 @@ export default function Home() {
                   {word}
                 </h2>
                 
-                {/* Overlay for "designing" on "CRAFTING" */}
+                {/* Overlay for "designing" on "CRAFTING" - Refined size */}
                 {word === "CRAFTING" && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -100,7 +100,7 @@ export default function Home() {
                   >
                     <span
                       style={{
-                        fontSize: 'clamp(20px, 7vw, 90px)',
+                        fontSize: 'clamp(10px, 3.5vw, 40px)',
                       }}
                       className="font-playground italic lowercase text-accent whitespace-nowrap drop-shadow-sm"
                     >
