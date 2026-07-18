@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by a high-impact typography section and other scrollable content.
+ * followed by a high-impact typography section with "Thunder" styling.
  */
 export default function Home() {
   const statement = [
@@ -47,7 +47,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
         
-        {/* Subtle background glow to enhance the logo */}
+        {/* Subtle background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--foreground),0.03)_0%,transparent_70%)] pointer-events-none" />
         
         {/* Scroll Indicator */}
@@ -72,7 +72,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7.5vw] font-[1000] uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap select-none"
+              className="text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7.5vw] font-normal font-thunder uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap select-none"
             >
               {word}
             </motion.h2>
@@ -88,8 +88,8 @@ export default function Home() {
             Crafting the future of <br/> digital interactions.
           </h2>
         </div>
-        <div className="w-full md:w-1/2">
-          <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed max-w-md">
+        <div className="max-w-md w-full md:w-1/2">
+          <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed">
             We believe in the intersection of aesthetics and utility. TRINIT is dedicated to building experiences that feel natural, intuitive, and strikingly beautiful.
           </p>
         </div>
