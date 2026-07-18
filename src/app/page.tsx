@@ -72,7 +72,8 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7.5vw] font-normal font-thunder uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap select-none"
+              style={{ fontSize: '276.48px' }}
+              className="font-normal font-thunder uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap select-none"
             >
               {word}
             </motion.h2>
