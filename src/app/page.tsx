@@ -1,8 +1,7 @@
-
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo, followed by a high-impact 
@@ -33,6 +32,7 @@ export default function Home() {
       case 'premium - luxury': return 'clamp(22px, 8vw, 135px)';
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
+      case 'people': return 'clamp(18px, 7vw, 105px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
   };
@@ -85,11 +85,19 @@ export default function Home() {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Apply spring physics to the scroll progress for smoothness
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
   });
 
   // Map vertical scroll progress to horizontal translation
-  // We move the text from 0% to -80% to ensure the entire long sentence is revealed
-  const xTranslate = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  // We move the text from 0% to -85% to ensure the entire long sentence is revealed
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-85%"]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -201,8 +209,9 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Horizontal Scroll Narratve Section */}
-      <section ref={horizontalRef} className="relative h-[300vh] w-full bg-background">
+      {/* Horizontal Scroll Narrative Section */}
+      {/* Increased height to 500vh for a slower, smoother scroll through the text */}
+      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
