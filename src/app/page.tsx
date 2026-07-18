@@ -6,9 +6,19 @@ import { motion } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by multiple sections to increase page length.
+ * followed by a high-impact typography section and other scrollable content.
  */
 export default function Home() {
+  const statement = [
+    "CRAFTING",
+    "UNFORGETTABLE",
+    "DIGITAL",
+    "EXPERIENCES",
+    "FOR",
+    "AMBITIOUS",
+    "CLIENTS"
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
@@ -53,6 +63,24 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* High-Impact Statement Section */}
+      <section className="w-full py-32 md:py-48 px-6 flex flex-col items-center justify-center text-center">
+        <div className="flex flex-col gap-2">
+          {statement.map((word, i) => (
+            <motion.h2 
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
+              className="text-6xl md:text-8xl lg:text-9xl font-extrabold uppercase leading-[0.85] tracking-tighter text-foreground"
+            >
+              {word}
+            </motion.h2>
+          ))}
+        </div>
+      </section>
+
       {/* Vision Section */}
       <section className="w-full max-w-7xl px-6 py-32 md:py-48 flex flex-col md:flex-row gap-12 items-start justify-between">
         <div className="w-full md:w-1/2 space-y-6">
@@ -95,16 +123,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Extra Space for Future Content */}
-      <section className="w-full h-screen flex items-center justify-center p-6 bg-background">
-        <div className="text-center space-y-4 opacity-20">
-          <h4 className="text-2xl font-headline uppercase tracking-widest">More content coming soon</h4>
-          <p className="font-body text-sm tracking-widest">TRINIT &copy; 2024</p>
-        </div>
-      </section>
-
       {/* Footer / Contact */}
-      <footer className="w-full border-t border-foreground/5 py-12 px-6">
+      <footer className="w-full border-t border-foreground/5 py-12 px-6 bg-background">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Based in the Digital Ether</p>
           <div className="flex gap-8">
