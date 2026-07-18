@@ -40,12 +40,13 @@ export default function Home() {
 
   // Row container variants to handle staggering of children
   const rowVariants = {
-    hidden: { opacity: 1 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.02,
-        delayChildren: 0.05,
+        staggerChildren: 0.03, // Slightly slower stagger for a smoother wave effect
+        delayChildren: 0.1,
+        duration: 0.5
       }
     }
   };
@@ -54,28 +55,29 @@ export default function Home() {
   const charVariants = {
     hidden: { 
       opacity: 0, 
-      x: -100,
+      x: -120, // Increased distance for a more dramatic but smooth slide
     },
     visible: {
       opacity: 1, 
       x: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
+        duration: 1.2, // Extended duration for premium smoothness
+        ease: [0.22, 1, 0.36, 1] // Quintic-like ease-out for that "buttery" feel
       }
     },
   };
 
   // Overlay animation variants (revealing after characters in the word)
   const overlayVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 10 },
+    hidden: { opacity: 0, scale: 0.8, y: 15 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1]
+        duration: 1.4,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.4 // Ensure it appears after the main letters start their journey
       }
     }
   };
@@ -149,7 +151,7 @@ export default function Home() {
                         }}
                         className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
                       >
-                        {char}
+                        {char === " " ? "\u00A0" : char}
                       </motion.span>
                     ))}
                   </div>
