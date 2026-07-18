@@ -50,6 +50,7 @@ export default function Home() {
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
       case 'what': return 'clamp(18px, 7vw, 105px)';
+      case 'we can do': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
   };
@@ -250,7 +251,7 @@ export default function Home() {
           className="relative flex flex-col items-end"
         >
           {/* OUR with "what" overlay */}
-          <div className="relative inline-block">
+          <div className="relative inline-block py-2">
             <div className="flex">
               {"OUR".split('').map((char, charIndex) => (
                 <motion.span
@@ -282,8 +283,8 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* SERVICES */}
-          <div className="relative inline-block">
+          {/* SERVICES with "we can do" overlay */}
+          <div className="relative inline-block py-2">
             <div className="flex">
               {"SERVICES".split('').map((char, charIndex) => (
                 <motion.span
@@ -299,6 +300,20 @@ export default function Home() {
                 </motion.span>
               ))}
             </div>
+
+            <motion.div 
+              variants={overlayVariants}
+              className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+            >
+              <span
+                style={{
+                  fontSize: getOverlaySize('we can do'),
+                }}
+                className="font-playground italic lowercase text-accent whitespace-nowrap"
+              >
+                we can do
+              </span>
+            </motion.div>
           </div>
         </motion.div>
       </section>
