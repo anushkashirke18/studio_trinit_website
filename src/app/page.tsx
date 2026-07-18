@@ -9,14 +9,13 @@ import { motion } from 'framer-motion';
  * Proportions and colors are tuned for an elegant, editorial agency aesthetic.
  */
 export default function Home() {
-  const statement = [
-    "CRAFTING",
-    "UNFORGETTABLE",
-    "DIGITAL",
-    "EXPERIENCES",
-    "FOR",
-    "AMBITIOUS",
-    "CLIENTS"
+  const rows = [
+    { words: ["CRAFTING"], overlay: "designing" },
+    { words: ["UNFORGETTABLE"], overlay: "premium - luxury" },
+    { words: ["DIGITAL"], overlay: "web - mobile" },
+    { words: ["EXPERIENCES"], overlay: "brands & websites" },
+    { words: ["FOR", "AMBITIOUS"] },
+    { words: ["CLIENTS"] }
   ];
 
   const FONT_SIZE_MAX = "260.48px";
@@ -69,82 +68,44 @@ export default function Home() {
       {/* High-Impact Statement Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
-          {statement.map((word, i) => (
+          {rows.map((row, i) => (
             <motion.div
               key={i}
-              className="relative w-full flex justify-center items-center"
+              className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="relative inline-block">
-                <h2 
-                  style={{ 
-                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                    lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
-                  }}
-                  className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
-                >
-                  {word}
-                </h2>
-                
-                {/* Overlay for "designing" on "CRAFTING" */}
-                {word === "CRAFTING" && (
-                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                    <span
-                      style={{
-                        fontSize: 'clamp(15px, 5.8vw, 76px)',
-                      }}
-                      className="font-playground lowercase text-accent whitespace-nowrap"
-                    >
-                      designing
-                    </span>
-                  </div>
-                )}
-
-                {/* Overlay for "premium - luxury" on "UNFORGETTABLE" */}
-                {word === "UNFORGETTABLE" && (
-                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                    <span
-                      style={{
-                        fontSize: 'clamp(17px, 6.2vw, 82px)',
-                      }}
-                      className="font-playground lowercase text-accent whitespace-nowrap"
-                    >
-                      premium - luxury
-                    </span>
-                  </div>
-                )}
-
-                {/* Overlay for "web - mobile" on "DIGITAL" */}
-                {word === "DIGITAL" && (
-                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                    <span
-                      style={{
-                        fontSize: 'clamp(16px, 6vw, 78px)',
-                      }}
-                      className="font-playground lowercase text-accent whitespace-nowrap"
-                    >
-                      web - mobile
-                    </span>
-                  </div>
-                )}
-
-                {/* Overlay for "brands & websites" on "EXPERIENCES" */}
-                {word === "EXPERIENCES" && (
-                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                    <span
-                      style={{
-                        fontSize: 'clamp(16px, 6vw, 78px)',
-                      }}
-                      className="font-playground lowercase text-accent whitespace-nowrap"
-                    >
-                      brands & websites
-                    </span>
-                  </div>
-                )}
-              </div>
+              {row.words.map((word, wordIndex) => (
+                <div key={wordIndex} className="relative inline-block">
+                  <h2 
+                    style={{ 
+                      fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                      lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
+                    }}
+                    className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
+                  >
+                    {word}
+                  </h2>
+                  
+                  {/* Overlays for specific words */}
+                  {row.overlay && wordIndex === 0 && (
+                    <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                      <span
+                        style={{
+                          fontSize: row.overlay === 'premium - luxury' ? 'clamp(17px, 6.2vw, 88px)' : 
+                                   row.overlay === 'designing' ? 'clamp(15px, 5.8vw, 84px)' : 
+                                   'clamp(16px, 6vw, 78px)',
+                        }}
+                        className="font-playground lowercase text-accent whitespace-nowrap"
+                      >
+                        {row.overlay}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
             </motion.div>
           ))}
         </div>
