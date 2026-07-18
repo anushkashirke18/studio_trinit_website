@@ -15,7 +15,7 @@ export default function Home() {
     { items: [{ word: "DIGITAL", overlay: "web - mobile" }] },
     { items: [{ word: "EXPERIENCES", overlay: "brands & websites" }] },
     { items: [{ word: "FOR" }, { word: "AMBITIOUS", overlay: "extraordinary" }] },
-    { items: [{ word: "CLIENTS" }] }
+    { items: [{ word: "CLIENTS", overlay: "people" }] }
   ];
 
   const FONT_SIZE_MAX = "260.48px";
@@ -23,9 +23,12 @@ export default function Home() {
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
-      case 'premium - luxury': return 'clamp(17px, 6.2vw, 88px)';
-      case 'designing': return 'clamp(15px, 5.8vw, 84px)';
+      case 'premium - luxury': return 'clamp(18px, 6.5vw, 92px)';
+      case 'designing': return 'clamp(17px, 6.2vw, 88px)';
       case 'extraordinary': return 'clamp(14px, 5.5vw, 80px)';
+      case 'web - mobile': return 'clamp(16px, 6vw, 84px)';
+      case 'brands & websites': return 'clamp(16px, 6vw, 84px)';
+      case 'people': return 'clamp(16px, 6vw, 84px)';
       default: return 'clamp(16px, 6vw, 78px)';
     }
   };
@@ -105,7 +108,7 @@ export default function Home() {
                         style={{
                           fontSize: getOverlaySize(item.overlay),
                         }}
-                        className="font-playground lowercase text-accent whitespace-nowrap"
+                        className="font-playground italic lowercase text-accent whitespace-nowrap"
                       >
                         {item.overlay}
                       </span>
