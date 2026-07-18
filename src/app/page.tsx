@@ -24,32 +24,24 @@ export default function Home() {
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
-      case 'premium - luxury': return 'clamp(18px, 6.5vw, 92px)';
-      case 'designing': return 'clamp(17px, 6.2vw, 88px)';
-      case 'extraordinary': return 'clamp(14px, 5.5vw, 80px)';
-      case 'web - mobile': return 'clamp(16px, 6vw, 84px)';
-      case 'brands & websites': return 'clamp(16px, 6vw, 84px)';
-      case 'people': return 'clamp(16px, 6vw, 84px)';
-      default: return 'clamp(16px, 6vw, 78px)';
+      case 'premium - luxury': return 'clamp(18px, 6.5vw, 102px)';
+      case 'designing': return 'clamp(17px, 6.2vw, 98px)';
+      case 'extraordinary': return 'clamp(14px, 5.5vw, 90px)';
+      case 'web - mobile': return 'clamp(16px, 6vw, 94px)';
+      case 'brands & websites': return 'clamp(16px, 6vw, 94px)';
+      case 'people': return 'clamp(16px, 6vw, 94px)';
+      default: return 'clamp(16px, 6vw, 88px)';
     }
   };
 
-  // Animation variants for staggered reveal
+  // Animation variants for global word-by-word reveal
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Stagger each row
-      },
-    },
-  };
-
-  const rowVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1, // Stagger words within a row (for "FOR" and "AMBITIOUS")
+        staggerChildren: 0.15, // Delay between each word
+        delayChildren: 0.3,
       },
     },
   };
@@ -57,13 +49,13 @@ export default function Home() {
   const itemVariants = {
     hidden: { 
       opacity: 0, 
-      y: 40,
+      y: 30,
     },
     visible: {
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 1,
+        duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
     },
@@ -123,10 +115,9 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {rows.map((row, i) => (
-            <motion.div
+            <div
               key={i}
               className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
-              variants={rowVariants}
             >
               {row.items.map((item, itemIndex) => (
                 <motion.div 
@@ -159,7 +150,7 @@ export default function Home() {
                   )}
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </section>
