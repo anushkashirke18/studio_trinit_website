@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMemo } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 /**
  * Word component for the horizontal scroll section.
@@ -106,7 +106,7 @@ export default function Home() {
 
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
-    damping: 25,
+    damping: 30,
     restDelta: 0.001
   });
 
@@ -228,9 +228,9 @@ export default function Home() {
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
-            className="flex whitespace-nowrap px-[10vw] gap-20"
+            className="flex whitespace-nowrap px-[10vw]"
           >
-            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-wrap">
+            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap">
               {words.map((word, i) => {
                 const start = 0.1 + (i / words.length) * 0.7;
                 const end = start + (1 / words.length) * 0.7;
