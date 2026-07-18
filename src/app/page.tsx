@@ -108,7 +108,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(12px, 4.5vw, 60px)',
+                        fontSize: 'clamp(15px, 5.8vw, 76px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
