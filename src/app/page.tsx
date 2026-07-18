@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -89,24 +90,18 @@ export default function Home() {
                   {word}
                 </h2>
                 
-                {/* Overlay for "designing" on "CRAFTING" - Refined size */}
+                {/* Overlay for "designing" on "CRAFTING" - Refined size, now static */}
                 {word === "CRAFTING" && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
-                    className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-                  >
+                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
                         fontSize: 'clamp(10px, 3.5vw, 40px)',
                       }}
-                      className="font-playground italic lowercase text-accent whitespace-nowrap drop-shadow-sm"
+                      className="font-playground italic lowercase text-accent whitespace-nowrap"
                     >
                       designing
                     </span>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             </motion.div>
