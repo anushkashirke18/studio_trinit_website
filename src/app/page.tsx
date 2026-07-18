@@ -261,8 +261,11 @@ export default function Home() {
       {/* OUR SERVICES Heading Section */}
       <section className="w-full px-[10vw] py-24 flex justify-end">
         <h2 
-          style={{ lineHeight: "clamp(40px, 15vw, 248.832px)" }}
-          className="text-[10vw] md:text-[8vw] font-thunder font-normal uppercase tracking-tight text-right"
+          style={{ 
+            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+            lineHeight: "248.832px" 
+          }}
+          className="font-thunder font-normal uppercase tracking-tight text-right"
         >
           OUR<br />SERVICES
         </h2>
