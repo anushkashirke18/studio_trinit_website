@@ -6,14 +6,13 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 /**
  * Word component for the horizontal scroll section.
  * Handles the individual color transition from grey to full color based on scroll progress.
- * Optimized for a sharp, high-impact reveal.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.4, 1]);
   const color = useTransform(
     progress, 
     range, 
-    ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"] // From muted-foreground to foreground
+    ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"]
   );
 
   return (
@@ -26,10 +25,6 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   );
 }
 
-/**
- * Main landing page featuring high-impact typography reveals and a 
- * smooth horizontal scroll narrative section.
- */
 export default function Home() {
   const rows = [
     { items: [{ word: "CRAFTING", overlay: "designing" }] },
@@ -54,6 +49,7 @@ export default function Home() {
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
+      case 'what we': return 'clamp(18px, 7vw, 105px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
   };
@@ -98,27 +94,20 @@ export default function Home() {
     }
   };
 
-  // Horizontal Scroll Setup
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
     offset: ["start end", "end start"]
   });
 
-  // Use a spring for smoother horizontal gliding
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
     damping: 30,
     restDelta: 0.001
   });
 
-  /**
-   * Horizontal translation.
-   * Section moves from 0 to -95% between 0.1 and 0.95 progress.
-   */
   const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
 
-  // Split narrative for color reveal
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
@@ -164,7 +153,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* High-Impact Reveal Section */}
+      {/* Reveal Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
           {rows.map((row, i) => (
@@ -229,7 +218,7 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Horizontal Scroll Section with Word Color Reveal */}
+      {/* Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
@@ -238,10 +227,6 @@ export default function Home() {
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap">
               {words.map((word, i) => {
-                /**
-                 * Color synchronization tuning:
-                 * We compressed the range to end at 0.9 to ensure full completion at the end of the scroll.
-                 */
                 const start = (i / words.length) * 0.8 + 0.05;
                 const end = start + 0.001; 
                 return (
@@ -255,18 +240,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES Heading Section */}
-      <section className="w-full px-[10vw] py-24 flex justify-end">
-        <h2 
-          style={{ 
-            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-            lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`,
-            fontWeight: 700
-          }}
-          className="font-thunder uppercase tracking-tight text-right"
+      {/* OUR SERVICES Section (Styled like "CRAFTING" reveal) */}
+      <section className="w-full px-[10vw] py-24 flex flex-col items-end overflow-hidden">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-10%" }}
+          variants={rowVariants}
+          className="relative flex flex-col items-end"
         >
-          OUR<br />SERVICES
-        </h2>
+          {/* OUR with "what we" overlay */}
+          <div className="relative inline-block">
+            <div className="flex">
+              {"OUR".split('').map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  variants={charVariants}
+                  style={{ 
+                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                    lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
+                  }}
+                  className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+            
+            <motion.div 
+              variants={overlayVariants}
+              className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+            >
+              <span
+                style={{
+                  fontSize: getOverlaySize('what we'),
+                }}
+                className="font-playground italic lowercase text-accent whitespace-nowrap"
+              >
+                what we
+              </span>
+            </motion.div>
+          </div>
+
+          {/* SERVICES */}
+          <div className="relative inline-block">
+            <div className="flex">
+              {"SERVICES".split('').map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  variants={charVariants}
+                  style={{ 
+                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                    lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
+                  }}
+                  className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Footer */}
