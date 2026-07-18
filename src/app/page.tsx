@@ -63,8 +63,8 @@ export default function Home() {
       </section>
 
       {/* High-Impact Statement Section */}
-      <section className="w-full py-32 md:py-48 px-6 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="flex flex-col gap-0 items-center">
+      <section className="w-full py-32 md:py-48 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="flex flex-col gap-0 items-center w-full">
           {statement.map((word, i) => (
             <motion.h2 
               key={i}
@@ -72,7 +72,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-black uppercase leading-[0.85] tracking-tighter text-foreground whitespace-nowrap"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[8rem] xl:text-[9rem] font-black uppercase leading-[0.85] tracking-tighter text-foreground whitespace-nowrap select-none"
             >
               {word}
             </motion.h2>
