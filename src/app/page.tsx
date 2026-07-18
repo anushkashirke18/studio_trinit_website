@@ -76,7 +76,7 @@ export default function Home() {
                 fontSize: 'clamp(32px, 16vw, 260.48px)',
                 lineHeight: 'clamp(28px, 15vw, 248.832px)'
               }}
-              className="font-bold font-thunder uppercase tracking-tighter text-foreground whitespace-nowrap select-none"
+              className="font-bold font-thunder uppercase tracking-tight text-foreground whitespace-nowrap select-none"
             >
               {word}
             </motion.h2>
