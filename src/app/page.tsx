@@ -112,7 +112,10 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Translation from 0.1 to 0.95 progress
+  /**
+   * Horizontal translation setup.
+   * Starts moving at 0.1 progress and ends at 0.95.
+   */
   const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
 
   // Split narrative for color reveal
@@ -237,12 +240,12 @@ export default function Home() {
               {words.map((word, i) => {
                 /**
                  * Color reveal range tuning:
-                 * We want the color change to happen precisely as the text moves.
-                 * By aligning the word's start/end triggers with the horizontal translation range (0.1 to 0.95),
-                 * we ensure they turn color exactly when they are "read" on screen.
+                 * To fix the "starting words are grey" issue, we set the trigger for the early words
+                 * to start before the horizontal translation begins (0.1).
+                 * This ensures words visible in the initial frame are already colored.
                  */
-                const start = 0.1 + (i / words.length) * 0.8;
-                const end = start + 0.001; // Instant switch
+                const start = 0.05 + (i / words.length) * 0.9;
+                const end = start + 0.001; // Instant snap reveal
                 return (
                   <Word key={i} progress={smoothProgress} range={[start, end]}>
                     {word}
