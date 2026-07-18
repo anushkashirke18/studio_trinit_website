@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
  * Main landing page featuring the TRINIT logo in the center of the hero section,
  * followed by a high-impact typography section with character-level scroll reveal.
  * Characters slide in from the left into their final positions for a premium boutique feel.
+ * The animation re-triggers every time the section enters the viewport.
  */
 export default function Home() {
   const rows = [
@@ -24,8 +25,8 @@ export default function Home() {
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
-      case 'premium - luxury': return 'clamp(20px, 7.5vw, 125px)';
-      case 'designing': return 'clamp(18px, 7vw, 120px)';
+      case 'premium - luxury': return 'clamp(22px, 8vw, 135px)';
+      case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
@@ -41,7 +42,7 @@ export default function Home() {
       opacity: 1, 
       x: 0,
       transition: {
-        delay: i * 0.03, // Tighter stagger for characters
+        delay: i * 0.03, // Stagger for characters
         duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
@@ -137,7 +138,7 @@ export default function Home() {
                         variants={charVariants}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, margin: "-10%" }}
+                        viewport={{ once: false, margin: "-10%" }}
                         style={{ 
                           fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
                           lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
@@ -156,7 +157,7 @@ export default function Home() {
                       variants={overlayVariants}
                       initial="hidden"
                       whileInView="visible"
-                      viewport={{ once: true }}
+                      viewport={{ once: false }}
                       className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
                     >
                       <span
