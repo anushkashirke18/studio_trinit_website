@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
- * followed by a high-impact typography section with "Thunder" styling and "designing" overlay.
+ * followed by a high-impact typography section with "Thunder" styling and editorial overlays.
  * Proportions and colors are tuned for an elegant, editorial agency aesthetic.
  */
 export default function Home() {
@@ -94,7 +94,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(14px, 5.5vw, 72px)',
+                        fontSize: 'clamp(15px, 5.8vw, 76px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
@@ -108,7 +108,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(15px, 5.8vw, 76px)',
+                        fontSize: 'clamp(17px, 6.2vw, 82px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
@@ -122,11 +122,25 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(15px, 5.8vw, 76px)',
+                        fontSize: 'clamp(16px, 6vw, 78px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
                       web - mobile
+                    </span>
+                  </div>
+                )}
+
+                {/* Overlay for "brands & websites" on "EXPERIENCES" */}
+                {word === "EXPERIENCES" && (
+                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <span
+                      style={{
+                        fontSize: 'clamp(16px, 6vw, 78px)',
+                      }}
+                      className="font-playground lowercase text-accent whitespace-nowrap"
+                    >
+                      brands & websites
                     </span>
                   </div>
                 )}
