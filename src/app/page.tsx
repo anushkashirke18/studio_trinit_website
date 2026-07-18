@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -90,16 +89,30 @@ export default function Home() {
                   {word}
                 </h2>
                 
-                {/* Overlay for "designing" on "CRAFTING" - Static and centered */}
+                {/* Overlay for "designing" on "CRAFTING" */}
                 {word === "CRAFTING" && (
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                     <span
                       style={{
-                        fontSize: 'clamp(14px, 5.5vw, 64px)',
+                        fontSize: 'clamp(14px, 5.5vw, 72px)',
                       }}
                       className="font-playground lowercase text-accent whitespace-nowrap"
                     >
                       designing
+                    </span>
+                  </div>
+                )}
+
+                {/* Overlay for "premium - luxury" on "UNFORGETTABLE" */}
+                {word === "UNFORGETTABLE" && (
+                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <span
+                      style={{
+                        fontSize: 'clamp(12px, 4.5vw, 60px)',
+                      }}
+                      className="font-playground lowercase text-accent whitespace-nowrap"
+                    >
+                      premium - luxury
                     </span>
                   </div>
                 )}
