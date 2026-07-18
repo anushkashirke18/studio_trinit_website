@@ -8,7 +8,8 @@ import { motion } from 'framer-motion';
  * Main landing page featuring the TRINIT logo in the center of the hero section,
  * followed by a high-impact typography section with character-level scroll reveal.
  * Characters slide in from the left into their final positions for a premium boutique feel.
- * The animation re-triggers every time the section enters the viewport.
+ * The animation re-triggers every time the section enters the viewport, working in sequence
+ * whether scrolling from top-to-bottom or bottom-to-top.
  */
 export default function Home() {
   const rows = [
@@ -37,49 +38,47 @@ export default function Home() {
     }
   };
 
+  // Row container variants to handle staggering of children
+  const rowVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.02,
+        delayChildren: 0.05,
+      }
+    }
+  };
+
   // Character animation variants
   const charVariants = {
     hidden: { 
       opacity: 0, 
       x: -100,
     },
-    visible: (i: number) => ({
+    visible: {
       opacity: 1, 
       x: 0,
       transition: {
-        delay: i * 0.03, // Stagger for characters
         duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
-    }),
+    },
   };
 
-  // Overlay animation variants (revealing after characters)
+  // Overlay animation variants (revealing after characters in the word)
   const overlayVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: (i: number) => ({
+    hidden: { opacity: 0, scale: 0.9, y: 10 },
+    visible: {
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
-        delay: i * 0.03 + 0.4, // Reveal slightly after characters in the word
-        duration: 1,
-        ease: "easeOut"
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1]
       }
-    })
+    }
   };
-
-  // Pre-calculate global character indices for smooth staggering across lines
-  let globalCharCounter = 0;
-  const processedRows = rows.map(row => ({
-    ...row,
-    items: row.items.map(item => {
-      const chars = item.word.split('').map(char => ({
-        char,
-        globalIndex: globalCharCounter++
-      }));
-      return { ...item, chars };
-    })
-  }));
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -128,29 +127,29 @@ export default function Home() {
       {/* High-Impact Character Reveal Section */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
-          {processedRows.map((row, i) => (
-            <div
+          {rows.map((row, i) => (
+            <motion.div
               key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-10%" }}
+              variants={rowVariants}
               className="relative w-full flex flex-row flex-nowrap justify-center items-center gap-x-4 md:gap-x-12"
             >
               {row.items.map((item, itemIndex) => (
                 <div key={itemIndex} className="relative inline-block py-2">
                   <div className="flex">
-                    {item.chars.map((charData, charIndex) => (
+                    {item.word.split('').map((char, charIndex) => (
                       <motion.span
                         key={charIndex}
-                        custom={charData.globalIndex}
                         variants={charVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: false, margin: "-10%" }}
                         style={{ 
                           fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
                           lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
                         }}
                         className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
                       >
-                        {charData.char}
+                        {char}
                       </motion.span>
                     ))}
                   </div>
@@ -158,11 +157,7 @@ export default function Home() {
                   {/* Static Editorial Overlays */}
                   {item.overlay && (
                     <motion.div 
-                      custom={item.chars[0].globalIndex}
                       variants={overlayVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: false }}
                       className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
                     >
                       <span
@@ -177,7 +172,7 @@ export default function Home() {
                   )}
                 </div>
               ))}
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
