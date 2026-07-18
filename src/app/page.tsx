@@ -1,13 +1,33 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMemo } from 'framer-motion';
 
 /**
- * Main landing page featuring the TRINIT logo, followed by a high-impact 
- * typography section with character-level scroll reveal.
- * After the [ABOUT US] label, a horizontal scroll section showcases 
- * the studio's identity with a smooth lateral translation.
+ * Word component for the horizontal scroll section.
+ * Handles the individual color transition from grey to full color based on scroll progress.
+ */
+function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.2, 1]);
+  const color = useTransform(
+    progress, 
+    range, 
+    ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"] // From muted-foreground to foreground
+  );
+
+  return (
+    <motion.span 
+      style={{ opacity, color }} 
+      className="inline-block"
+    >
+      {children}&nbsp;
+    </motion.span>
+  );
+}
+
+/**
+ * Main landing page featuring high-impact typography reveals and a 
+ * smooth horizontal scroll narrative section.
  */
 export default function Home() {
   const rows = [
@@ -42,9 +62,8 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.03,
+        staggerChildren: 0.12,
         delayChildren: 0.1,
-        duration: 0.5
       }
     }
   };
@@ -52,13 +71,13 @@ export default function Home() {
   const charVariants = {
     hidden: { 
       opacity: 0, 
-      x: -120,
+      x: -80,
     },
     visible: {
       opacity: 1, 
       x: 0,
       transition: {
-        duration: 1.2,
+        duration: 1.4,
         ease: [0.22, 1, 0.36, 1]
       }
     },
@@ -71,9 +90,9 @@ export default function Home() {
       scale: 1,
       y: 0,
       transition: {
-        duration: 1.4,
+        duration: 1.6,
         ease: [0.22, 1, 0.36, 1],
-        delay: 0.4
+        delay: 0.6
       }
     }
   };
@@ -91,8 +110,11 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Increased range to -95% to ensure "touchpoint" is fully visible
   const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
+
+  // Split narrative for color reveal
+  const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
+  const words = narrativeText.split(" ");
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -202,17 +224,22 @@ export default function Home() {
       </section>
 
       {/* Horizontal Scroll Narrative Section */}
-      {/* Increased to 800vh for a slower, smoother scroll */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
             className="flex whitespace-nowrap px-[10vw] gap-20"
           >
-            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight text-foreground leading-none pr-[20vw]">
-              We’re Trinit — an independent creative agency based in Nasik. 
-              We help brands shape their identity, tell their story, 
-              and create work that connects across every touchpoint.
+            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-wrap">
+              {words.map((word, i) => {
+                const start = 0.1 + (i / words.length) * 0.7;
+                const end = start + (1 / words.length) * 0.7;
+                return (
+                  <Word key={i} progress={smoothProgress} range={[start, end]}>
+                    {word}
+                  </Word>
+                );
+              })}
             </h2>
           </motion.div>
         </div>
