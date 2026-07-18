@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -64,16 +63,16 @@ export default function Home() {
       </section>
 
       {/* High-Impact Statement Section */}
-      <section className="w-full py-32 md:py-48 px-6 flex flex-col items-center justify-center text-center">
-        <div className="flex flex-col gap-2">
+      <section className="w-full py-32 md:py-48 px-6 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="flex flex-col gap-0">
           {statement.map((word, i) => (
             <motion.h2 
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
-              className="text-6xl md:text-8xl lg:text-9xl font-extrabold uppercase leading-[0.85] tracking-tighter text-foreground"
+              transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="text-7xl sm:text-8xl md:text-[12rem] lg:text-[15rem] font-extrabold uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap"
             >
               {word}
             </motion.h2>
