@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -73,8 +72,11 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ fontSize: 'clamp(32px, 16vw, 260.48px)' }}
-              className="font-normal font-thunder uppercase leading-[0.8] tracking-tighter text-foreground whitespace-nowrap select-none"
+              style={{ 
+                fontSize: 'clamp(32px, 16vw, 260.48px)',
+                lineHeight: 'clamp(28px, 15vw, 248.832px)'
+              }}
+              className="font-bold font-thunder uppercase tracking-tighter text-foreground whitespace-nowrap select-none"
             >
               {word}
             </motion.h2>
