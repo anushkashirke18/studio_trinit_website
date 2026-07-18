@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 /**
  * Main landing page featuring the TRINIT logo in the center of the hero section,
  * followed by a high-impact typography section with "Thunder" styling and editorial overlays.
- * Proportions and colors are tuned for an elegant, editorial agency aesthetic.
+ * The mission statement reveals word-by-word on scroll for a premium agency feel.
  */
 export default function Home() {
   const rows = [
@@ -15,7 +15,7 @@ export default function Home() {
     { items: [{ word: "UNFORGETTABLE", overlay: "premium - luxury" }] },
     { items: [{ word: "DIGITAL", overlay: "web - mobile" }] },
     { items: [{ word: "EXPERIENCES", overlay: "brands & websites" }] },
-    { items: [{ word: "FOR" }, { word: "AMBITIOUS", overlay: "extraordinary" }] },
+    { items: [{ word: "FOR", overlay: null }, { word: "AMBITIOUS", overlay: "extraordinary" }] },
     { items: [{ word: "CLIENTS", overlay: "people" }] }
   ];
 
@@ -24,8 +24,8 @@ export default function Home() {
 
   const getOverlaySize = (overlay: string) => {
     switch (overlay) {
-      case 'premium - luxury': return 'clamp(18px, 6.5vw, 102px)';
-      case 'designing': return 'clamp(17px, 6.2vw, 98px)';
+      case 'premium - luxury': return 'clamp(18px, 6.5vw, 110px)';
+      case 'designing': return 'clamp(16px, 5.8vw, 100px)';
       case 'extraordinary': return 'clamp(14px, 5.5vw, 90px)';
       case 'web - mobile': return 'clamp(16px, 6vw, 94px)';
       case 'brands & websites': return 'clamp(16px, 6vw, 94px)';
@@ -35,21 +35,30 @@ export default function Home() {
   };
 
   // Animation variants for global word-by-word reveal
-  const containerVariants = {
+  const sectionVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Delay between each word
-        delayChildren: 0.3,
+        staggerChildren: 0.2, // Delay between each row
+        delayChildren: 0.1,
       },
     },
   };
 
-  const itemVariants = {
+  const rowVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2, // Delay between words within a row
+      }
+    }
+  };
+
+  const wordVariants = {
     hidden: { 
       opacity: 0, 
-      y: 30,
+      y: 40,
     },
     visible: {
       opacity: 1, 
@@ -105,25 +114,26 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* High-Impact Statement Section */}
+      {/* High-Impact Statement Section - Sequential Reveal */}
       <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <motion.div 
           className="flex flex-col gap-0 items-center w-full max-w-[100vw]"
-          variants={containerVariants}
+          variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-20%" }}
         >
           {rows.map((row, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={rowVariants}
               className="relative w-full flex flex-row flex-wrap justify-center items-center gap-x-4 md:gap-x-12"
             >
               {row.items.map((item, itemIndex) => (
                 <motion.div 
                   key={itemIndex} 
                   className="relative inline-block"
-                  variants={itemVariants}
+                  variants={wordVariants}
                 >
                   <h2 
                     style={{ 
@@ -135,7 +145,7 @@ export default function Home() {
                     {item.word}
                   </h2>
                   
-                  {/* Overlays for specific words */}
+                  {/* Overlays for specific words - Partsold style, static */}
                   {item.overlay && (
                     <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                       <span
@@ -150,7 +160,7 @@ export default function Home() {
                   )}
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </section>
