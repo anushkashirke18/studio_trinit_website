@@ -78,7 +78,6 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* This inner div ensures the overlay is relative to the exact word box */}
               <div className="relative inline-block">
                 <h2 
                   style={{ 
@@ -93,8 +92,8 @@ export default function Home() {
                 {/* Overlay for "designing" on "CRAFTING" */}
                 {word === "CRAFTING" && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
-                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
                     className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
