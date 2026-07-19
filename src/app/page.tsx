@@ -349,12 +349,49 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* UI/UX Description Text - Updated to ensure text-primary matches headings */}
+              {/* UI/UX Description Text */}
               <motion.p
                 variants={overlayVariants}
                 className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
+              </motion.p>
+            </motion.div>
+          </div>
+
+          {/* ANDROID Section Aligned to the Rightmost position */}
+          <div className="w-full flex justify-end mt-32 md:mt-48">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-10%" }}
+              variants={rowVariants}
+              className="relative flex flex-col items-end"
+            >
+              <div className="relative inline-block py-2">
+                <div className="flex">
+                  {"ANDROID".split('').map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={charVariants}
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+
+              {/* ANDROID Description Text */}
+              <motion.p
+                variants={overlayVariants}
+                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-right leading-relaxed"
+              >
+                We create high-performance mobile applications designed for smooth, intuitive user experiences. Built with precision for both Android and iOS, our apps are scalable, secure, and user-focused.
               </motion.p>
             </motion.div>
           </div>
