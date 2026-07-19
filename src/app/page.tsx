@@ -28,12 +28,32 @@ function Word({ children, progress, range }: { children: string, progress: any, 
 }
 
 /**
+ * Character component for the "OUR SERVICES" horizontal scroll section.
+ * Animates each letter from downwards to upwards.
+ */
+function ServiceChar({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
+  // Translate from 100% below to 0
+  const y = useTransform(progress, range, ["100%", "0%"]);
+  const opacity = useTransform(progress, range, [0, 1]);
+
+  return (
+    <span className="inline-block overflow-hidden">
+      <motion.span 
+        style={{ y, opacity }} 
+        className="inline-block"
+      >
+        {children === " " ? "\u00A0" : children}
+      </motion.span>
+    </span>
+  );
+}
+
+/**
  * A refined, rounded scalloped badge with rotating text.
  */
 function ScallopedBadge() {
   return (
     <div className="relative w-[clamp(80px,15vw,160px)] h-[clamp(80px,15vw,160px)] flex items-center justify-center shrink-0">
-      {/* Refined Rounded Scalloped Shape (Cloud/Stamp style) */}
       <svg 
         viewBox="0 0 100 100" 
         className="absolute inset-0 w-full h-full text-[#D4C4FB]"
@@ -44,7 +64,6 @@ function ScallopedBadge() {
         />
       </svg>
       
-      {/* Rotating Text Container */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
@@ -62,7 +81,6 @@ function ScallopedBadge() {
         </svg>
       </motion.div>
       
-      {/* Central Icon */}
       <div className="relative z-10 text-[#34192F]">
         <Mail size={24} strokeWidth={1.5} />
       </div>
@@ -88,28 +106,6 @@ export default function Home() {
   const FONT_SIZE_MAX = "260.48px";
   const LINE_HEIGHT_MAX = "248.832px";
 
-  const getOverlaySize = (overlay: string) => {
-    switch (overlay) {
-      case 'premium - luxury': return 'clamp(22px, 8vw, 135px)';
-      case 'designing': return 'clamp(20px, 7.5vw, 130px)';
-      case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
-      case 'people': return 'clamp(18px, 7vw, 105px)';
-      case 'what we can do': return 'clamp(16px, 6.5vw, 110px)';
-      default: return 'clamp(18px, 7vw, 105px)';
-    }
-  };
-
-  const rowVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      }
-    }
-  };
-
   const charVariants = {
     hidden: { 
       opacity: 0, 
@@ -125,6 +121,17 @@ export default function Home() {
     },
   };
 
+  const rowVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
   const overlayVariants = {
     hidden: { opacity: 0, scale: 0.8, y: 15 },
     visible: {
@@ -136,6 +143,17 @@ export default function Home() {
         ease: [0.22, 1, 0.36, 1],
         delay: 0.6
       }
+    }
+  };
+
+  const getOverlaySize = (overlay: string) => {
+    switch (overlay) {
+      case 'premium - luxury': return 'clamp(22px, 8vw, 135px)';
+      case 'designing': return 'clamp(20px, 7.5vw, 130px)';
+      case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
+      case 'people': return 'clamp(18px, 7vw, 105px)';
+      case 'what we can do': return 'clamp(16px, 6.5vw, 110px)';
+      default: return 'clamp(18px, 7vw, 105px)';
     }
   };
 
@@ -155,6 +173,24 @@ export default function Home() {
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
+
+  // Services Scroll Logic
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: servicesScrollProgress } = useScroll({
+    target: servicesRef,
+    offset: ["start end", "end start"]
+  });
+
+  const smoothServicesProgress = useSpring(servicesScrollProgress, {
+    stiffness: 80,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const servicesTranslateX = useTransform(smoothServicesProgress, [0.1, 0.9], ["0%", "-80%"]);
+  
+  const servicesText = "OUR SERVICES";
+  const serviceChars = servicesText.split("");
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -263,7 +299,7 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Horizontal Scroll Section */}
+      {/* Horizontal Scroll Section - About Us */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
@@ -322,7 +358,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Floating Overlay Text perfectly centered */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
           <span 
             className="font-playground italic lowercase text-accent whitespace-nowrap"
@@ -330,6 +365,39 @@ export default function Home() {
           >
             what we can do
           </span>
+        </div>
+      </section>
+
+      {/* OUR SERVICES Horizontal Scroll Section */}
+      <section ref={servicesRef} className="relative h-[400vh] w-full bg-background mt-24">
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+          <motion.div 
+            style={{ x: servicesTranslateX }} 
+            className="flex whitespace-nowrap px-[10vw]"
+          >
+            <h2 className="flex flex-nowrap items-center">
+              {serviceChars.map((char, i) => {
+                // Determine animation range for each character
+                const start = (i / serviceChars.length) * 0.4 + 0.1;
+                const end = start + 0.15;
+                return (
+                  <div key={i} className="flex items-center">
+                    <span 
+                      style={{ 
+                        fontSize: `clamp(60px, 20vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "1"
+                      }}
+                      className="font-thunder uppercase tracking-tighter text-foreground select-none flex"
+                    >
+                      <ServiceChar progress={smoothServicesProgress} range={[start, end]}>
+                        {char}
+                      </ServiceChar>
+                    </span>
+                  </div>
+                );
+              })}
+            </h2>
+          </motion.div>
         </div>
       </section>
 
@@ -362,3 +430,4 @@ export default function Home() {
     </div>
   );
 }
+
