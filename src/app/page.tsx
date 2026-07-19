@@ -123,7 +123,7 @@ export default function Home() {
           transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 flex flex-col items-center"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.35em] text-foreground font-headline uppercase select-none mr-[-0.35em]">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.35em] text-foreground font-thunder uppercase select-none mr-[-0.35em]">
             TRINIT
           </h1>
           
@@ -242,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* Marquee Section */}
-      <section className="w-full bg-[#34192F] py-12 md:py-24 overflow-hidden">
+      <section className="w-full bg-[#34192F] py-2 md:py-4 overflow-hidden">
         <div className="flex whitespace-nowrap overflow-hidden">
           <motion.div
             animate={{ x: "-50%" }}
