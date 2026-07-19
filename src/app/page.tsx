@@ -187,8 +187,13 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Updated to start from the right (100vw) and move left
-  const servicesTranslateX = useTransform(smoothServicesProgress, [0, 0.9], ["100vw", "-100%"]);
+  // Updated to include a "stick" phase in the middle of the scroll
+  // Range: [Start (off-screen), Visible (stick start), Visible (stick end), End (off-screen)]
+  const servicesTranslateX = useTransform(
+    smoothServicesProgress, 
+    [0, 0.4, 0.7, 1], 
+    ["100vw", "0vw", "0vw", "-100vw"]
+  );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
@@ -374,7 +379,7 @@ export default function Home() {
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: servicesTranslateX }} 
-            className="flex whitespace-nowrap"
+            className="flex whitespace-nowrap w-full justify-center"
           >
             <h2 className="flex flex-nowrap items-center">
               {serviceChars.map((char, i) => {
