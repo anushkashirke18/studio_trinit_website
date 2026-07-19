@@ -395,6 +395,43 @@ export default function Home() {
               </motion.p>
             </motion.div>
           </div>
+
+          {/* WEB Section Aligned to the Leftmost position */}
+          <div className="w-full flex justify-start mt-32 md:mt-48">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-10%" }}
+              variants={rowVariants}
+              className="relative flex flex-col items-start"
+            >
+              <div className="relative inline-block py-2">
+                <div className="flex">
+                  {"WEB".split('').map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={charVariants}
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+
+              {/* WEB Description Text */}
+              <motion.p
+                variants={overlayVariants}
+                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
+              >
+                We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
+              </motion.p>
+            </motion.div>
+          </div>
         </section>
 
         {/* Footer */}
