@@ -267,12 +267,12 @@ export default function Home() {
       </section>
 
       {/* About Us Label */}
-      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-start">
+      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false }}
-          className="text-[10px] uppercase tracking-[0.8em] text-muted-foreground font-medium"
+          className="text-[13px] uppercase tracking-[1em] text-muted-foreground font-medium"
         >
           [about us]
         </motion.p>
