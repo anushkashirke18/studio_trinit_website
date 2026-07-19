@@ -247,7 +247,7 @@ export default function Home() {
           <motion.div
             animate={{ x: "-50%" }}
             transition={{
-              duration: 30,
+              duration: 20,
               ease: "linear",
               repeat: Infinity,
             }}
@@ -262,7 +262,7 @@ export default function Home() {
                   }}
                   className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap pr-12 md:pr-24"
                 >
-                  TRINIT CRAFTING EXCELLENCE • DIGITAL PRODUCTS • DESIGN SOLUTIONS • TRINIT CRAFTING EXCELLENCE • DIGITAL PRODUCTS • DESIGN SOLUTIONS •&nbsp;
+                  OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES •&nbsp;
                 </span>
               </div>
             ))}
