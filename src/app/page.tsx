@@ -432,6 +432,43 @@ export default function Home() {
               </motion.p>
             </motion.div>
           </div>
+
+          {/* SOLUTIONS Section Aligned to the Rightmost position */}
+          <div className="w-full flex justify-end mt-32 md:mt-48">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-10%" }}
+              variants={rowVariants}
+              className="relative flex flex-col items-end"
+            >
+              <div className="relative inline-block py-2">
+                <div className="flex">
+                  {"SOLUTIONS".split('').map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={charVariants}
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+
+              {/* SOLUTIONS Description Text */}
+              <motion.p
+                variants={overlayVariants}
+                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-right leading-relaxed"
+              >
+                We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
+              </motion.p>
+            </motion.div>
+          </div>
         </section>
 
         {/* Footer */}
