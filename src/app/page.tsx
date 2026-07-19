@@ -303,82 +303,9 @@ export default function Home() {
       <div className="w-full bg-background text-primary transition-colors duration-700">
         {/* OUR SERVICES Section */}
         <section className="w-full px-6 md:px-12 py-24 flex flex-col items-end overflow-hidden">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, margin: "-10%" }}
-            variants={rowVariants}
-            className="relative flex flex-col items-end"
-          >
-            {/* OUR with "what" overlay */}
-            <div className="relative inline-block py-2">
-              <div className="flex">
-                {"OUR".split('').map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={charVariants}
-                    style={{ 
-                      fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                      lineHeight: "0.85"
-                    }}
-                    className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </div>
-              
-              <motion.div 
-                variants={overlayVariants}
-                className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-              >
-                <span
-                  style={{
-                    fontSize: getOverlaySize('what'),
-                  }}
-                  className="font-playground italic lowercase text-accent whitespace-nowrap"
-                >
-                  what
-                </span>
-              </motion.div>
-            </div>
-
-            {/* SERVICES with "we can do" overlay */}
-            <div className="relative inline-block py-2">
-              <div className="flex">
-                {"SERVICES".split('').map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={charVariants}
-                    style={{ 
-                      fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                      lineHeight: "0.85"
-                    }}
-                    className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </div>
-
-              <motion.div 
-                variants={overlayVariants}
-                className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-              >
-                <span
-                  style={{
-                    fontSize: getOverlaySize('we can do'),
-                  }}
-                  className="font-playground italic lowercase text-accent whitespace-nowrap"
-                >
-                  we can do
-                </span>
-              </motion.div>
-            </div>
-          </motion.div>
-
+          
           {/* UI/UX Section Aligned to the Leftmost position */}
-          <div className="w-full flex justify-start mt-32 md:mt-48">
+          <div className="w-full flex justify-start mt-12 md:mt-24">
             <motion.div
               initial="hidden"
               whileInView="visible"
