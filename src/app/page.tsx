@@ -182,18 +182,15 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Card Transforms - Sequential reveal
-  const card1Opacity = useTransform(smoothServicesProgress, [0.25, 0.4], [0, 1]);
-  const card1Scale = useTransform(smoothServicesProgress, [0.25, 0.4], [0.8, 1]);
-  const card1Rotate = useTransform(smoothServicesProgress, [0.25, 0.4], [-5, -2]);
+  // Card Transforms - Rising sequentially from bottom
+  const card1Y = useTransform(smoothServicesProgress, [0.25, 0.4], ["100vh", "0vh"]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.25, 0.3], [0, 1]);
 
-  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.6], [0, 1]);
-  const card2Scale = useTransform(smoothServicesProgress, [0.45, 0.6], [0.8, 1]);
-  const card2Rotate = useTransform(smoothServicesProgress, [0.45, 0.6], [5, 2]);
+  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.5], [0, 1]);
 
-  const card3Opacity = useTransform(smoothServicesProgress, [0.65, 0.8], [0, 1]);
-  const card3Scale = useTransform(smoothServicesProgress, [0.65, 0.8], [0.8, 1]);
-  const card3Rotate = useTransform(smoothServicesProgress, [0.65, 0.8], [-2, 0]);
+  const card3Y = useTransform(smoothServicesProgress, [0.65, 0.8], ["100vh", "0vh"]);
+  const card3Opacity = useTransform(smoothServicesProgress, [0.65, 0.7], [0, 1]);
 
   // Global exit for cards
   const cardsExitX = useTransform(smoothServicesProgress, [0.8, 1], ["0%", "-100%"]);
@@ -322,7 +319,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - New Scroll Section */}
+      {/* OUR SERVICES - Sequential Rising Cards */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
@@ -350,56 +347,58 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Sequential Service Cards */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden">
-            <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center">
-              {/* Card 1: UI/UX */}
+          {/* Sequential Rising Cards: Side-by-Side */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[5vw]">
+            <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[4vw]">
+              
+              {/* Card 1: UI/UX Rising */}
               <motion.div 
-                style={{ opacity: card1Opacity, scale: card1Scale, rotate: card1Rotate }}
-                className="absolute w-[clamp(320px,48vw,580px)] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 -translate-x-12 -translate-y-8"
+                style={{ y: card1Y, opacity: card1Opacity }}
+                className="w-[28vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 pointer-events-auto"
               >
-                <div className="relative flex-[1.5] bg-muted">
+                <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[0]?.imageUrl} alt="UI/UX" fill className="object-cover" data-ai-hint="ui design" />
                 </div>
                 <div className="flex flex-col gap-3">
                   <p className="font-thunder text-3xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
-                  <p className="font-dmsans text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
                     {serviceDescription}
                   </p>
                 </div>
               </motion.div>
 
-              {/* Card 2: Development */}
+              {/* Card 2: Development Rising */}
               <motion.div 
-                style={{ opacity: card2Opacity, scale: card2Scale, rotate: card2Rotate }}
-                className="absolute w-[clamp(320px,48vw,580px)] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 translate-x-12 translate-y-8"
+                style={{ y: card2Y, opacity: card2Opacity }}
+                className="w-[28vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 pointer-events-auto"
               >
-                <div className="relative flex-[1.5] bg-muted">
+                <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[1]?.imageUrl} alt="Web" fill className="object-cover" data-ai-hint="development" />
                 </div>
                 <div className="flex flex-col gap-3">
                   <p className="font-thunder text-3xl uppercase tracking-widest text-primary">WEB & APP</p>
-                  <p className="font-dmsans text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices.
                   </p>
                 </div>
               </motion.div>
 
-              {/* Card 3: Branding */}
+              {/* Card 3: Branding Rising */}
               <motion.div 
-                style={{ opacity: card3Opacity, scale: card3Scale, rotate: card3Rotate }}
-                className="absolute w-[clamp(320px,48vw,580px)] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 -translate-y-20 translate-x-4"
+                style={{ y: card3Y, opacity: card3Opacity }}
+                className="w-[28vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-6 flex flex-col gap-6 pointer-events-auto"
               >
-                <div className="relative flex-[1.5] bg-muted">
+                <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[2]?.imageUrl} alt="Branding" fill className="object-cover" data-ai-hint="branding logo" />
                 </div>
                 <div className="flex flex-col gap-3">
                   <p className="font-thunder text-3xl uppercase tracking-widest text-primary">BRANDING</p>
-                  <p className="font-dmsans text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
                     We define visual identities that tell your story. From strategy to logo design, we help ambitious brands connect with their global audience.
                   </p>
                 </div>
               </motion.div>
+
             </motion.div>
           </div>
         </div>
