@@ -330,7 +330,7 @@ export default function Home() {
 
               <motion.p
                 variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
@@ -366,7 +366,7 @@ export default function Home() {
 
               <motion.p
                 variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-right leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
               >
                 We create high-performance mobile applications designed for smooth, intuitive user experiences. Built with precision for both Android and iOS, our apps are scalable, secure, and user-focused.
               </motion.p>
@@ -402,7 +402,7 @@ export default function Home() {
 
               <motion.p
                 variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
@@ -438,7 +438,7 @@ export default function Home() {
 
               <motion.p
                 variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-right leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
               >
                 We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
               </motion.p>
