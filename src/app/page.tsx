@@ -352,7 +352,7 @@ export default function Home() {
               {/* Added Description */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-accent text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-playground italic lowercase text-background text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
