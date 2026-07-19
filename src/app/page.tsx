@@ -360,8 +360,8 @@ export default function Home() {
                   <Image src={PlaceHolderImages[0]?.imageUrl} alt="UI/UX" fill className="object-cover" data-ai-hint="ui design" />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     {serviceDescription}
                   </p>
                 </div>
@@ -376,8 +376,8 @@ export default function Home() {
                   <Image src={PlaceHolderImages[1]?.imageUrl} alt="Web" fill className="object-cover" data-ai-hint="development" />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">WEB & APP</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
@@ -392,8 +392,8 @@ export default function Home() {
                   <Image src={PlaceHolderImages[2]?.imageUrl} alt="Branding" fill className="object-cover" data-ai-hint="branding logo" />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">BRANDING</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-justify">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">BRANDING</p>
+                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
