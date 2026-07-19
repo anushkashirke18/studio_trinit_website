@@ -321,6 +321,19 @@ export default function Home() {
               </motion.div>
             </div>
           </motion.div>
+
+          {/* UI/UX text on the left */}
+          <div className="w-full flex justify-start mt-12">
+            <motion.h3 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight text-background"
+            >
+              UI/UX
+            </motion.h3>
+          </div>
         </section>
 
         {/* Footer */}
