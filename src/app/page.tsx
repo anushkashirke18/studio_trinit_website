@@ -187,7 +187,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const servicesTranslateX = useTransform(smoothServicesProgress, [0.1, 0.9], ["0%", "-80%"]);
+  // Updated to start from the right (100vw) and move left
+  const servicesTranslateX = useTransform(smoothServicesProgress, [0, 0.9], ["100vw", "-100%"]);
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
@@ -373,12 +374,12 @@ export default function Home() {
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <motion.div 
             style={{ x: servicesTranslateX }} 
-            className="flex whitespace-nowrap px-[10vw]"
+            className="flex whitespace-nowrap"
           >
             <h2 className="flex flex-nowrap items-center">
               {serviceChars.map((char, i) => {
-                // Determine animation range for each character
-                const start = (i / serviceChars.length) * 0.4 + 0.1;
+                // Determine animation range for each character's slide-up
+                const start = (i / serviceChars.length) * 0.4 + 0.05;
                 const end = start + 0.15;
                 return (
                   <div key={i} className="flex items-center">
@@ -430,4 +431,3 @@ export default function Home() {
     </div>
   );
 }
-
