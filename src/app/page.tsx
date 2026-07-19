@@ -322,8 +322,8 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* UI/UX Section Styled like the header */}
-          <div className="w-full flex justify-start mt-12">
+          {/* UI/UX Section Styled like the header with an increased gap */}
+          <div className="w-full flex justify-start mt-32 md:mt-48">
             <motion.div
               initial="hidden"
               whileInView="visible"
