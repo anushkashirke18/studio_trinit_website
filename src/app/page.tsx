@@ -266,6 +266,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Us Label */}
+      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-start">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false }}
+          className="text-[10px] uppercase tracking-[0.8em] text-muted-foreground font-medium"
+        >
+          [about us]
+        </motion.p>
+      </div>
+
       {/* About Us Horizontal Scroll */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
@@ -355,7 +367,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
-                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
+                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
                     {serviceDescription}
                   </p>
                 </div>
@@ -368,7 +380,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
-                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
+                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
@@ -381,7 +393,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">BRANDING</p>
-                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
+                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
