@@ -322,17 +322,33 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* UI/UX text on the left */}
+          {/* UI/UX Section Styled like the header */}
           <div className="w-full flex justify-start mt-12">
-            <motion.h3 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight text-background"
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-10%" }}
+              variants={rowVariants}
+              className="relative flex flex-col items-start"
             >
-              UI/UX
-            </motion.h3>
+              <div className="relative inline-block py-2">
+                <div className="flex">
+                  {"UI/UX".split('').map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={charVariants}
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
