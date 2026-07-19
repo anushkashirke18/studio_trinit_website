@@ -28,15 +28,15 @@ function Word({ children, progress, range }: { children: string, progress: any, 
 
 /**
  * Character component for the "OUR SERVICES" horizontal scroll section.
- * Now handles both entrance and exit stagger.
+ * Handles both entrance and exit stagger with refined timing.
  */
 function ServiceChar({ children, i, total, progress }: { children: string, i: number, total: number, progress: any }) {
-  // Entrance ranges (0 to 0.25)
-  const start = (i / total) * 0.15;
+  // Entrance ranges (0 to 0.2)
+  const start = (i / total) * 0.1;
   const end = start + 0.1;
   
-  // Exit ranges (0.85 to 1.0)
-  const exitStart = 0.85 + (i / total) * 0.1;
+  // Exit ranges (0.9 to 1.0)
+  const exitStart = 0.9 + (i / total) * 0.05;
   const exitEnd = Math.min(exitStart + 0.05, 1);
 
   const y = useTransform(
@@ -186,35 +186,38 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Stages: Arrival (0-0.25), Stability (0.25-0.85), Exit (0.85-1)
+  // Stages: Arrival (0-0.2), Stability & Card Entrance (0.3-0.9), Exit (0.9-1)
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
-    [0, 0.25, 0.85, 1], 
+    [0, 0.2, 0.9, 1], 
     ["100vw", "0vw", "0vw", "-100vw"]
   );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Overlay text logic with exit range
-  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.3, 0.4, 0.8, 0.9], [0, 1, 1, 0]);
-  const whatWeDoScale = useTransform(smoothServicesProgress, [0.3, 0.4, 0.8, 0.9], [0.8, 1, 1, 0.8]);
+  // "what we do" Overlay text logic - synced with stable phase
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.25, 0.35, 0.85, 0.95], [0, 1, 1, 0]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, [0.25, 0.35, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Card Transforms - Wait for stability (starts at 0.4)
-  const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
+  // Card Transforms - Staggered entrance after header is stable (starts at 0.3)
+  // Card 1: 0.3 -> 0.45
+  const card1Y = useTransform(smoothServicesProgress, [0.3, 0.45], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, [0.3, 0.45], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, [0.55, 0.7], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, [0.55, 0.7], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.55, 0.65], [0, 1]);
+  // Card 2: 0.45 -> 0.6
+  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, [0.45, 0.6], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.55], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, [0.7, 0.85], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, [0.7, 0.85], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, [0.7, 0.8], [0, 1]);
+  // Card 3: 0.6 -> 0.75
+  const card3Y = useTransform(smoothServicesProgress, [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
 
-  // Global exit for cards synced with text exit
-  const cardsExitX = useTransform(smoothServicesProgress, [0.85, 1], ["0%", "-100%"]);
+  // Global exit for cards synced with section exit at 0.9
+  const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -354,6 +357,7 @@ export default function Home() {
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
+          {/* Header Text Layer */}
           <motion.div 
             style={{ x: servicesTranslateX }} 
             className="flex whitespace-nowrap w-full justify-center relative z-10"
@@ -388,7 +392,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Sequential Rising Cards Side-by-Side */}
+          {/* Sequential Rising Cards Layer */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
               
