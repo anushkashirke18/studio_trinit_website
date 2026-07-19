@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -410,7 +409,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
             <h4 className="text-xl font-headline font-bold tracking-tighter text-primary">TRINIT.</h4>
             <div className="flex gap-10">
-              {['Instagram', 'LinkedIn', 'Twitter', 'Email'].map((link) => (
+              {linkNames.map((link) => (
                 <a key={link} href="#" className="text-[10px] uppercase tracking-[0.4em] font-medium text-primary hover:text-accent">
                   {link}
                 </a>
@@ -422,3 +421,5 @@ export default function Home() {
     </div>
   );
 }
+
+const linkNames = ['Instagram', 'LinkedIn', 'Twitter', 'Email'];
