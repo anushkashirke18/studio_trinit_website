@@ -51,6 +51,7 @@ export default function Home() {
       case 'people': return 'clamp(18px, 7vw, 105px)';
       case 'what': return 'clamp(12px, 4vw, 55px)';
       case 'we can do': return 'clamp(16px, 6.5vw, 110px)';
+      case 'what we can do': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
   };
@@ -297,10 +298,10 @@ export default function Home() {
 
       {/* Color Block: Services & Footer */}
       <div className="w-full bg-background text-primary transition-colors duration-700">
-        {/* OUR SERVICES Section */}
+        {/* OUR SERVICES Section Items */}
         <section className="w-full px-6 md:px-12 pt-12 pb-24 flex flex-col items-end overflow-hidden">
           
-          {/* UI/UX Section Aligned to the Leftmost position */}
+          {/* UI/UX Section */}
           <div className="w-full flex justify-start mt-12 md:mt-24">
             <motion.div
               initial="hidden"
@@ -327,17 +328,16 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* UI/UX Description Text */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[9pt] mt-8 max-w-2xl text-left leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
             </motion.div>
           </div>
 
-          {/* ANDROID Section Aligned to the Rightmost position */}
+          {/* ANDROID Section */}
           <div className="w-full flex justify-end mt-32 md:mt-48">
             <motion.div
               initial="hidden"
@@ -364,17 +364,16 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* ANDROID Description Text */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-right leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[9pt] mt-8 max-w-2xl text-right leading-relaxed"
               >
                 We create high-performance mobile applications designed for smooth, intuitive user experiences. Built with precision for both Android and iOS, our apps are scalable, secure, and user-focused.
               </motion.p>
             </motion.div>
           </div>
 
-          {/* WEB Section Aligned to the Leftmost position */}
+          {/* WEB Section */}
           <div className="w-full flex justify-start mt-32 md:mt-48">
             <motion.div
               initial="hidden"
@@ -401,17 +400,16 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* WEB Description Text */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[9pt] mt-8 max-w-2xl text-left leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
             </motion.div>
           </div>
 
-          {/* SOLUTIONS Section Aligned to the Rightmost position */}
+          {/* SOLUTIONS Section */}
           <div className="w-full flex justify-end mt-32 md:mt-48">
             <motion.div
               initial="hidden"
@@ -438,10 +436,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* SOLUTIONS Description Text */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-right leading-relaxed"
+                className="font-dmsans font-normal text-primary text-[9pt] mt-8 max-w-2xl text-right leading-relaxed"
               >
                 We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
               </motion.p>

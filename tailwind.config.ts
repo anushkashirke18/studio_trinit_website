@@ -14,6 +14,7 @@ export default {
         headline: ['Space Grotesk', 'sans-serif'],
         thunder: ['Anton', 'Impact', 'sans-serif'],
         playground: ['Partsold', '"Cormorant Garamond"', 'serif'],
+        dmsans: ['"DM Sans"', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
