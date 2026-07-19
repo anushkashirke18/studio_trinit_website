@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -60,7 +59,7 @@ function ScallopedBadge() {
         className="absolute inset-0 w-full h-full text-[#D4C4FB]"
         fill="currentColor"
       >
-        <path d="M50,5 C58,5 65,12 65,20 C65,28 72,35 80,35 C88,35 95,42 95,50 C95,58 88,65 80,65 C72,65 65,72 65,80 C65,88 58,95 50,95 C42,95 35,88 35,80 C35,72 28,65 20,65 C12,65 5,58 5,50 C5,42 12,35 20,35 C28,35 35,28 35,20 C35,12 42,5 50,5 Z" />
+        <path d="M50,5 C58.2,5 64.9,11.7 64.9,20 C64.9,28.3 71.7,35.1 80,35.1 C88.3,35.1 95,41.8 95,50 C95,58.2 88.3,64.9 80,64.9 C71.7,64.9 64.9,71.7 64.9,80 C64.9,88.3 58.2,95 50,95 C41.8,95 35.1,88.3 35.1,80 C35.1,71.7 28.3,64.9 20,64.9 C11.7,64.9 5,58.2 5,50 C5,41.8 11.7,35.1 20,35.1 C28.3,35.1 35.1,28.3 35.1,20 C35.1,11.7 41.8,5 50,5 Z" />
       </svg>
       
       <motion.div
@@ -354,7 +353,7 @@ export default function Home() {
               {/* Card 1: UI/UX Rising */}
               <motion.div 
                 style={{ y: card1Y, opacity: card1Opacity }}
-                className="w-[32vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
               >
                 <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[0]?.imageUrl} alt="UI/UX" fill className="object-cover" data-ai-hint="ui design" />
@@ -370,7 +369,7 @@ export default function Home() {
               {/* Card 2: Development Rising */}
               <motion.div 
                 style={{ y: card2Y, opacity: card2Opacity }}
-                className="w-[32vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
               >
                 <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[1]?.imageUrl} alt="Web" fill className="object-cover" data-ai-hint="development" />
@@ -386,7 +385,7 @@ export default function Home() {
               {/* Card 3: Branding Rising */}
               <motion.div 
                 style={{ y: card3Y, opacity: card3Opacity }}
-                className="w-[32vw] aspect-square bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
               >
                 <div className="relative flex-1 bg-muted">
                   <Image src={PlaceHolderImages[2]?.imageUrl} alt="Branding" fill className="object-cover" data-ai-hint="branding logo" />
