@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Mail } from 'lucide-react';
 
 /**
  * Word component for the horizontal scroll section.
@@ -22,6 +23,49 @@ function Word({ children, progress, range }: { children: string, progress: any, 
     >
       {children}&nbsp;
     </motion.span>
+  );
+}
+
+/**
+ * A refined, rounded scalloped badge with rotating text.
+ */
+function ScallopedBadge() {
+  return (
+    <div className="relative w-[clamp(80px,15vw,160px)] h-[clamp(80px,15vw,160px)] flex items-center justify-center shrink-0">
+      {/* Refined Rounded Scalloped Shape (Cloud/Stamp style) */}
+      <svg 
+        viewBox="0 0 100 100" 
+        className="absolute inset-0 w-full h-full text-[#D4C4FB]"
+        fill="currentColor"
+      >
+        <path d="M50 0 C56 0 61 5 65 9 C69 13 75 14 80 14 C86 14 91 19 91 25 C91 30 90 36 94 40 C98 44 100 50 100 56 C100 62 98 68 94 72 C90 76 91 82 91 87 C91 93 86 98 80 98 C75 98 69 99 65 103 C61 107 56 112 50 112 C44 112 39 107 35 103 C31 99 25 98 20 98 C14 98 9 93 9 87 C9 82 10 76 6 72 C2 68 0 62 0 56 C0 50 2 44 6 40 C10 36 9 30 9 25 C9 19 14 14 20 14 C25 14 31 13 35 9 C39 5 44 0 50 0 Z" 
+          transform="scale(0.85) translate(8, 8)"
+        />
+      </svg>
+      
+      {/* Rotating Text Container */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 w-full h-full"
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <defs>
+            <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
+          </defs>
+          <text className="text-[10px] uppercase tracking-[0.2em] font-medium fill-[#34192F]">
+            <textPath href="#circlePath">
+              REACH OUT • REACH OUT • REACH OUT •
+            </textPath>
+          </text>
+        </svg>
+      </motion.div>
+      
+      {/* Central Icon */}
+      <div className="relative z-10 text-[#34192F]">
+        <Mail size={24} strokeWidth={1.5} />
+      </div>
+    </div>
   );
 }
 
@@ -119,7 +163,7 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8, hook: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.8 }}
           className="relative z-10 flex flex-col items-center"
         >
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.35em] text-foreground font-thunder uppercase select-none mr-[-0.35em]">
@@ -241,8 +285,12 @@ export default function Home() {
       </section>
 
       {/* Marquee Section */}
-      <section className="w-full bg-[#34192F] py-2 md:py-4 overflow-hidden relative">
-        <div className="flex whitespace-nowrap overflow-hidden">
+      <section className="w-full py-16 md:py-24 overflow-visible relative flex items-center">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-[clamp(40px,8vw,80px)] bg-[#34192F]" />
+        </div>
+        
+        <div className="flex whitespace-nowrap overflow-hidden relative z-10 w-full">
           <motion.div
             animate={{ x: "-50%" }}
             transition={{
@@ -250,202 +298,53 @@ export default function Home() {
               ease: "linear",
               repeat: Infinity,
             }}
-            className="flex"
+            className="flex items-center"
           >
             {[1, 2].map((i) => (
               <div key={i} className="flex items-center">
                 {[1, 2, 3, 4, 5, 6].map((j) => (
-                  <div key={j} className="flex items-center gap-4 md:gap-8 pr-12 md:pr-24">
-                    <div className="relative inline-block py-2">
-                      <div className="flex gap-4 md:gap-8 items-baseline">
-                        <span 
-                          style={{ 
-                            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                            lineHeight: "0.85"
-                          }}
-                          className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                        >
-                          OUR
-                        </span>
-                        <span 
-                          style={{ 
-                            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                            lineHeight: "0.85"
-                          }}
-                          className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                        >
-                          SERVICES
-                        </span>
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                        <span 
-                          className="font-playground italic lowercase text-accent whitespace-nowrap"
-                          style={{ fontSize: "clamp(16px, 6.5vw, 110px)" }}
-                        >
-                          what we can do
-                        </span>
-                      </div>
+                  <div key={j} className="flex items-center gap-8 md:gap-16 pr-12 md:pr-24">
+                    <div className="flex gap-4 md:gap-8 items-baseline">
+                      <span 
+                        style={{ 
+                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                          lineHeight: "1"
+                        }}
+                        className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                      >
+                        OUR
+                      </span>
+                      <span 
+                        style={{ 
+                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                          lineHeight: "1"
+                        }}
+                        className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                      >
+                        SERVICES
+                      </span>
                     </div>
+                    <ScallopedBadge />
                   </div>
                 ))}
               </div>
             ))}
           </motion.div>
         </div>
+
+        {/* Floating Overlay Text perfectly centered */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+          <span 
+            className="font-playground italic lowercase text-accent whitespace-nowrap"
+            style={{ fontSize: "clamp(24px, 8vw, 140px)" }}
+          >
+            what we can do
+          </span>
+        </div>
       </section>
 
-      {/* Color Block: Services & Footer */}
-      <div className="w-full bg-background text-primary transition-colors duration-700">
-        <section className="w-full px-6 md:px-12 pt-12 pb-24 flex flex-col items-end overflow-hidden">
-          
-          {/* UI/UX Section */}
-          <div className="w-full flex justify-start mt-12 md:mt-24">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-10%" }}
-              variants={rowVariants}
-              className="relative flex flex-col items-start"
-            >
-              <div className="relative inline-block py-2">
-                <div className="flex items-center gap-6 md:gap-12">
-                  <div className="flex">
-                    {"UI/UX".split('').map((char, charIndex) => (
-                      <motion.span
-                        key={charIndex}
-                        variants={charVariants}
-                        style={{ 
-                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                          lineHeight: "0.85"
-                        }}
-                        className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <motion.p
-                variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
-              >
-                We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* ANDROID Section */}
-          <div className="w-full flex justify-end mt-32 md:mt-48">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-10%" }}
-              variants={rowVariants}
-              className="relative flex flex-col items-end"
-            >
-              <div className="relative inline-block py-2">
-                <div className="flex">
-                  {"ANDROID".split('').map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      variants={charVariants}
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-
-              <motion.p
-                variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
-              >
-                We create high-performance mobile applications designed for smooth, intuitive user experiences. Built with precision for both Android and iOS, our apps are scalable, secure, and user-focused.
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* WEB Section */}
-          <div className="w-full flex justify-start mt-32 md:mt-48">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-10%" }}
-              variants={rowVariants}
-              className="relative flex flex-col items-start"
-            >
-              <div className="relative inline-block py-2">
-                <div className="flex">
-                  {"WEB".split('').map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      variants={charVariants}
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-
-              <motion.p
-                variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
-              >
-                We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* SOLUTIONS Section */}
-          <div className="w-full flex justify-end mt-32 md:mt-48">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-10%" }}
-              variants={rowVariants}
-              className="relative flex flex-col items-end"
-            >
-              <div className="relative inline-block py-2">
-                <div className="flex">
-                  {"SOLUTIONS".split('').map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      variants={charVariants}
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-
-              <motion.p
-                variants={overlayVariants}
-                className="font-dmsans font-normal text-primary text-[18pt] mt-8 max-w-2xl text-justify leading-relaxed"
-              >
-                We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
-              </motion.p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Footer */}
+      {/* Footer Block */}
+      <div className="w-full bg-background text-primary">
         <footer className="w-full border-t border-primary/10 py-20 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
             <div className="flex flex-col items-center md:items-start gap-2">
