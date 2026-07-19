@@ -25,6 +25,43 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   );
 }
 
+/**
+ * Luxury Star symbol component based on the provided reference image.
+ */
+const LuxuryStar = () => (
+  <svg 
+    width="clamp(24px, 10vw, 120px)" 
+    height="clamp(24px, 10vw, 120px)" 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className="shrink-0"
+  >
+    {/* Cardinal Points (Sharp Petals) */}
+    <path 
+      d="M50 0C50 0 54 35 85 50C54 65 50 100 50 100C50 100 46 65 15 50C46 35 50 0 50 0Z" 
+      fill="#DC9632"
+    />
+    <path 
+      d="M100 50C100 50 65 54 50 85C35 54 0 50 0 50C0 50 35 46 50 15C65 46 100 50 100 50Z" 
+      fill="#DC9632"
+    />
+    {/* Diagonal Points (Diamonds) */}
+    <path 
+      d="M50 50L75 25L100 50L75 75L50 50Z" 
+      fill="#DC9632" 
+      transform="rotate(0 50 50)"
+      opacity="0.8"
+    />
+    <path 
+      d="M50 50L25 25L0 50L25 75L50 50Z" 
+      fill="#DC9632" 
+      transform="rotate(0 50 50)"
+      opacity="0.8"
+    />
+  </svg>
+);
+
 export default function Home() {
   const rows = [
     { items: [{ word: "CRAFTING", overlay: "designing" }] },
@@ -49,8 +86,6 @@ export default function Home() {
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
-      case 'what': return 'clamp(12px, 4vw, 55px)';
-      case 'we can do': return 'clamp(16px, 6.5vw, 110px)';
       case 'what we can do': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
@@ -243,7 +278,7 @@ export default function Home() {
       </section>
 
       {/* Marquee Section */}
-      <section className="w-full bg-[#34192F] py-2 md:py-4 overflow-hidden">
+      <section className="w-full bg-[#34192F] py-2 md:py-4 overflow-hidden relative">
         <div className="flex whitespace-nowrap overflow-hidden">
           <motion.div
             animate={{ x: "-50%" }}
@@ -276,7 +311,7 @@ export default function Home() {
                           }}
                           className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
                         >
-                          SERVICES •
+                          SERVICES
                         </span>
                       </div>
                       <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
@@ -298,7 +333,6 @@ export default function Home() {
 
       {/* Color Block: Services & Footer */}
       <div className="w-full bg-background text-primary transition-colors duration-700">
-        {/* OUR SERVICES Section Items */}
         <section className="w-full px-6 md:px-12 pt-12 pb-24 flex flex-col items-end overflow-hidden">
           
           {/* UI/UX Section */}
@@ -311,20 +345,27 @@ export default function Home() {
               className="relative flex flex-col items-start"
             >
               <div className="relative inline-block py-2">
-                <div className="flex">
-                  {"UI/UX".split('').map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      variants={charVariants}
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
+                <div className="flex items-center gap-6 md:gap-12">
+                  <div className="flex">
+                    {"UI/UX".split('').map((char, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        variants={charVariants}
+                        style={{ 
+                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                          lineHeight: "0.85"
+                        }}
+                        className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </div>
+                  <div className="flex gap-2 md:gap-4">
+                    <LuxuryStar />
+                    <LuxuryStar />
+                    <LuxuryStar />
+                  </div>
                 </div>
               </div>
 
