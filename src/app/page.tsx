@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -7,7 +6,6 @@ import { Mail } from 'lucide-react';
 
 /**
  * Word component for the horizontal scroll section.
- * Handles the individual color transition from grey to full color based on scroll progress.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.4, 1]);
@@ -29,7 +27,6 @@ function Word({ children, progress, range }: { children: string, progress: any, 
 
 /**
  * Character component for the "OUR SERVICES" horizontal scroll section.
- * Animates each letter from downwards to upwards.
  */
 function ServiceChar({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const y = useTransform(progress, range, ["100%", "0%"]);
@@ -180,7 +177,7 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Card Transforms - Only trigger after text is fully stable (starts at 0.4)
+  // Card Transforms - Wait for stability (starts at 0.4)
   const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
@@ -340,7 +337,7 @@ export default function Home() {
           >
             <h2 className="flex flex-nowrap items-center">
               {serviceChars.map((char, i) => {
-                const start = (i / serviceChars.length) * 0.15; // Complete text animation by 0.15
+                const start = (i / serviceChars.length) * 0.15; 
                 const end = start + 0.1;
                 return (
                   <div key={i} className="flex items-center">
@@ -369,7 +366,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6 text-center">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
-                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
+                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
                     We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
                   </p>
                 </div>
@@ -382,7 +379,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6 text-center">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary">WEB & APP</p>
-                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
+                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
@@ -395,7 +392,7 @@ export default function Home() {
               >
                 <div className="flex flex-col gap-6 text-center">
                   <p className="font-thunder text-4xl uppercase tracking-widest text-primary">BRANDING</p>
-                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
+                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
