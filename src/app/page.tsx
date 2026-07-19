@@ -241,11 +241,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Background Blend Gradient Section */}
-      <div className="w-full h-screen bg-gradient-to-b from-background to-primary" />
+      {/* Background Blend Gradient Section - Modified to blend to background instead of primary */}
+      <div className="w-full h-screen bg-gradient-to-b from-background to-background" />
 
-      {/* Inverted Color Block: Services & Footer */}
-      <div className="w-full bg-primary text-background transition-colors duration-700">
+      {/* Color Block: Services & Footer */}
+      <div className="w-full bg-background text-primary transition-colors duration-700">
         {/* OUR SERVICES Section */}
         <section className="w-full px-6 md:px-12 py-24 flex flex-col items-end overflow-hidden">
           <motion.div
@@ -266,7 +266,7 @@ export default function Home() {
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
                       lineHeight: "0.85"
                     }}
-                    className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
+                    className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
                   >
                     {char}
                   </motion.span>
@@ -299,7 +299,7 @@ export default function Home() {
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
                       lineHeight: "0.85"
                     }}
-                    className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
+                    className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
                   >
                     {char}
                   </motion.span>
@@ -341,7 +341,7 @@ export default function Home() {
                         fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
                         lineHeight: "0.85"
                       }}
-                      className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
+                      className="font-normal font-thunder uppercase tracking-tight text-primary select-none inline-block"
                     >
                       {char}
                     </motion.span>
@@ -352,7 +352,7 @@ export default function Home() {
               {/* Added Description */}
               <motion.p
                 variants={overlayVariants}
-                className="font-playground italic lowercase text-background text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
+                className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
               >
                 We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
               </motion.p>
@@ -361,11 +361,11 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="w-full border-t border-background/5 py-20 px-6">
+        <footer className="w-full border-t border-primary/10 py-20 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
             <div className="flex flex-col items-center md:items-start gap-2">
-              <h4 className="text-xl font-headline font-bold tracking-tighter text-background">TRINIT.</h4>
-              <p className="text-[10px] uppercase tracking-[0.3em] text-background/60">© 2024 All Rights Reserved</p>
+              <h4 className="text-xl font-headline font-bold tracking-tighter text-primary">TRINIT.</h4>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-primary/60">© 2024 All Rights Reserved</p>
             </div>
             
             <div className="flex gap-10">
@@ -373,14 +373,14 @@ export default function Home() {
                 <a 
                   key={link} 
                   href="#" 
-                  className="text-[10px] uppercase tracking-[0.4em] font-medium text-background hover:text-accent transition-colors duration-300"
+                  className="text-[10px] uppercase tracking-[0.4em] font-medium text-primary hover:text-accent transition-colors duration-300"
                 >
                   {link}
                 </a>
               ))}
             </div>
             
-            <p className="text-[10px] uppercase tracking-[0.3em] text-background/60">Digital Ether / Global</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/60">Digital Ether / Global</p>
           </div>
         </footer>
       </div>
