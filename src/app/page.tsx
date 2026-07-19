@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -241,13 +242,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Background Blend Gradient Section - Increased height for smoother transition */}
+      {/* Background Blend Gradient Section */}
       <div className="w-full h-screen bg-gradient-to-b from-background to-primary" />
 
       {/* Inverted Color Block: Services & Footer */}
       <div className="w-full bg-primary text-background transition-colors duration-700">
         {/* OUR SERVICES Section */}
-        <section className="w-full pl-[10vw] pr-[2vw] py-24 flex flex-col items-end overflow-hidden">
+        <section className="w-full px-6 md:px-12 py-24 flex flex-col items-end overflow-hidden">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -322,7 +323,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* UI/UX Section Styled like the header with an increased gap */}
+          {/* UI/UX Section Aligned to the Leftmost position */}
           <div className="w-full flex justify-start mt-32 md:mt-48">
             <motion.div
               initial="hidden"
