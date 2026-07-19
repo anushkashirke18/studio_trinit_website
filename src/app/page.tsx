@@ -353,13 +353,10 @@ export default function Home() {
               {/* Card 1: UI/UX Rising */}
               <motion.div 
                 style={{ y: card1Y, opacity: card1Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="relative flex-1 bg-muted">
-                  <Image src={PlaceHolderImages[0]?.imageUrl} alt="UI/UX" fill className="object-cover" data-ai-hint="ui design" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
+                <div className="flex flex-col gap-6">
+                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
                   <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     {serviceDescription}
                   </p>
@@ -369,13 +366,10 @@ export default function Home() {
               {/* Card 2: Development Rising */}
               <motion.div 
                 style={{ y: card2Y, opacity: card2Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="relative flex-1 bg-muted">
-                  <Image src={PlaceHolderImages[1]?.imageUrl} alt="Web" fill className="object-cover" data-ai-hint="development" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
+                <div className="flex flex-col gap-6">
+                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
                   <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
@@ -385,13 +379,10 @@ export default function Home() {
               {/* Card 3: Branding Rising */}
               <motion.div 
                 style={{ y: card3Y, opacity: card3Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="relative flex-1 bg-muted">
-                  <Image src={PlaceHolderImages[2]?.imageUrl} alt="Branding" fill className="object-cover" data-ai-hint="branding logo" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">BRANDING</p>
+                <div className="flex flex-col gap-6">
+                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">BRANDING</p>
                   <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
