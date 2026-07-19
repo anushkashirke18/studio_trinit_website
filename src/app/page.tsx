@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -304,26 +305,15 @@ export default function Home() {
               <div key={i} className="flex items-center">
                 {[1, 2, 3, 4, 5, 6].map((j) => (
                   <div key={j} className="flex items-center gap-8 md:gap-16 pr-12 md:pr-24">
-                    <div className="flex gap-4 md:gap-8 items-baseline">
-                      <span 
-                        style={{ 
-                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                          lineHeight: "1"
-                        }}
-                        className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                      >
-                        OUR
-                      </span>
-                      <span 
-                        style={{ 
-                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                          lineHeight: "1"
-                        }}
-                        className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                      >
-                        SERVICES
-                      </span>
-                    </div>
+                    <span 
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "1"
+                      }}
+                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                    >
+                      TRINIT
+                    </span>
                     <ScallopedBadge />
                   </div>
                 ))}
