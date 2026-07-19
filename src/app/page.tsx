@@ -241,7 +241,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Background Blend Gradient Section - Modified to blend to background instead of primary */}
+      {/* Background Blend Gradient Section */}
       <div className="w-full h-screen bg-gradient-to-b from-background to-background" />
 
       {/* Color Block: Services & Footer */}
@@ -349,7 +349,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Added Description */}
+              {/* UI/UX Description Text - Updated to ensure text-primary matches headings */}
               <motion.p
                 variants={overlayVariants}
                 className="font-playground italic lowercase text-primary text-xl md:text-3xl mt-8 max-w-2xl text-left leading-relaxed"
