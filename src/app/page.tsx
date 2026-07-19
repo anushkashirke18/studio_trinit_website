@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -179,20 +180,21 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Card Transforms - Rising with more overlap and duration for smoothness
-  const card1Y = useTransform(smoothServicesProgress, [0.25, 0.45], ["100vh", "0vh"]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.25, 0.35], [0, 1]);
+  // Card Transforms - Trigger AFTER header is stable (starts at 0.3)
+  const card1Y = useTransform(smoothServicesProgress, [0.3, 0.45], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, [0.3, 0.45], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, [0.4, 0.6], ["100vh", "0vh"]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, [0.45, 0.6], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.55], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, [0.55, 0.75], ["100vh", "0vh"]);
-  const card3Opacity = useTransform(smoothServicesProgress, [0.55, 0.65], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
 
   // Global exit for cards
   const cardsExitX = useTransform(smoothServicesProgress, [0.75, 1], ["0%", "-100%"]);
-
-  const serviceDescription = "We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.";
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -267,12 +269,12 @@ export default function Home() {
       </section>
 
       {/* About Us Label */}
-      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center">
+      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false }}
-          className="text-[13px] uppercase tracking-[1em] text-muted-foreground font-medium"
+          className="text-[15px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
         >
           [about us]
         </motion.p>
@@ -328,7 +330,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - Sequential Rising Cards Side-by-Side */}
+      {/* OUR SERVICES - Sequential Rising Cards */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
@@ -360,40 +362,40 @@ export default function Home() {
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
               
-              {/* Card 1: UI/UX Rising */}
+              {/* Card 1: UI/UX */}
               <motion.div 
-                style={{ y: card1Y, opacity: card1Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                style={{ y: card1Y, scale: card1Scale, opacity: card1Opacity }}
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
-                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
-                    {serviceDescription}
+                <div className="flex flex-col gap-6 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
+                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
+                    We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
                   </p>
                 </div>
               </motion.div>
 
-              {/* Card 2: Development Rising */}
+              {/* Card 2: Development */}
               <motion.div 
-                style={{ y: card2Y, opacity: card2Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                style={{ y: card2Y, scale: card2Scale, opacity: card2Opacity }}
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
-                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
+                <div className="flex flex-col gap-6 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">WEB & APP</p>
+                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
               </motion.div>
 
-              {/* Card 3: Branding Rising */}
+              {/* Card 3: Branding */}
               <motion.div 
-                style={{ y: card3Y, opacity: card3Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                style={{ y: card3Y, scale: card3Scale, opacity: card3Opacity }}
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">BRANDING</p>
-                  <p className="font-dmsans text-[14pt] leading-relaxed text-primary/90 text-center">
+                <div className="flex flex-col gap-6 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">BRANDING</p>
+                  <p className="font-playground italic text-[14pt] leading-relaxed text-primary/80">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
