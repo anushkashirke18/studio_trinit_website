@@ -247,7 +247,7 @@ export default function Home() {
           <motion.div
             animate={{ x: "-50%" }}
             transition={{
-              duration: 20,
+              duration: 30,
               ease: "linear",
               repeat: Infinity,
             }}
@@ -255,15 +255,34 @@ export default function Home() {
           >
             {[1, 2].map((i) => (
               <div key={i} className="flex items-center">
-                <span 
-                  style={{ 
-                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                    lineHeight: "0.85"
-                  }}
-                  className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap pr-12 md:pr-24"
-                >
-                  OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES • OUR SERVICES •&nbsp;
-                </span>
+                {[1, 2, 3, 4, 5, 6].map((j) => (
+                  <div key={j} className="flex items-center gap-4 md:gap-8 pr-12 md:pr-24">
+                    <span 
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                    >
+                      OUR
+                    </span>
+                    <span 
+                      className="font-playground italic lowercase text-accent"
+                      style={{ fontSize: "clamp(16px, 6.5vw, 90px)" }}
+                    >
+                      what we can do
+                    </span>
+                    <span 
+                      style={{ 
+                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                        lineHeight: "0.85"
+                      }}
+                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                    >
+                      SERVICES •
+                    </span>
+                  </div>
+                ))}
               </div>
             ))}
           </motion.div>
