@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -296,13 +295,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Background Blend Gradient Section */}
-      <div className="w-full h-screen bg-gradient-to-b from-background to-background" />
-
       {/* Color Block: Services & Footer */}
       <div className="w-full bg-background text-primary transition-colors duration-700">
         {/* OUR SERVICES Section */}
-        <section className="w-full px-6 md:px-12 py-24 flex flex-col items-end overflow-hidden">
+        <section className="w-full px-6 md:px-12 pt-12 pb-24 flex flex-col items-end overflow-hidden">
           
           {/* UI/UX Section Aligned to the Leftmost position */}
           <div className="w-full flex justify-start mt-12 md:mt-24">
