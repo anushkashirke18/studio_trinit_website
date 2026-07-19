@@ -25,43 +25,6 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   );
 }
 
-/**
- * Luxury Star symbol component based on the provided reference image.
- */
-const LuxuryStar = () => (
-  <svg 
-    width="clamp(24px, 10vw, 120px)" 
-    height="clamp(24px, 10vw, 120px)" 
-    viewBox="0 0 100 100" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    className="shrink-0"
-  >
-    {/* Cardinal Points (Sharp Petals) */}
-    <path 
-      d="M50 0C50 0 54 35 85 50C54 65 50 100 50 100C50 100 46 65 15 50C46 35 50 0 50 0Z" 
-      fill="#DC9632"
-    />
-    <path 
-      d="M100 50C100 50 65 54 50 85C35 54 0 50 0 50C0 50 35 46 50 15C65 46 100 50 100 50Z" 
-      fill="#DC9632"
-    />
-    {/* Diagonal Points (Diamonds) */}
-    <path 
-      d="M50 50L75 25L100 50L75 75L50 50Z" 
-      fill="#DC9632" 
-      transform="rotate(0 50 50)"
-      opacity="0.8"
-    />
-    <path 
-      d="M50 50L25 25L0 50L25 75L50 50Z" 
-      fill="#DC9632" 
-      transform="rotate(0 50 50)"
-      opacity="0.8"
-    />
-  </svg>
-);
-
 export default function Home() {
   const rows = [
     { items: [{ word: "CRAFTING", overlay: "designing" }] },
@@ -156,7 +119,7 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.8, hook: [0.16, 1, 0.3, 1] }}
           className="relative z-10 flex flex-col items-center"
         >
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.35em] text-foreground font-thunder uppercase select-none mr-[-0.35em]">
@@ -360,11 +323,6 @@ export default function Home() {
                         {char}
                       </motion.span>
                     ))}
-                  </div>
-                  <div className="flex gap-2 md:gap-4">
-                    <LuxuryStar />
-                    <LuxuryStar />
-                    <LuxuryStar />
                   </div>
                 </div>
               </div>
