@@ -241,8 +241,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Background Blend Gradient Section */}
-      <div className="w-full h-[60vh] bg-gradient-to-b from-background to-primary" />
+      {/* Background Blend Gradient Section - Increased height for smoother transition */}
+      <div className="w-full h-screen bg-gradient-to-b from-background to-primary" />
 
       {/* Inverted Color Block: Services & Footer */}
       <div className="w-full bg-primary text-background transition-colors duration-700">
