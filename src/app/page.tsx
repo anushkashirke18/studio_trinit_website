@@ -3,8 +3,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 /**
  * Word component for the horizontal scroll section.
@@ -356,8 +354,8 @@ export default function Home() {
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
                 <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">UI/UX DESIGN</p>
+                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
                     {serviceDescription}
                   </p>
                 </div>
@@ -369,8 +367,8 @@ export default function Home() {
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
                 <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">WEB & APP</p>
+                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
@@ -382,8 +380,8 @@ export default function Home() {
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
                 <div className="flex flex-col gap-6">
-                  <p className="font-thunder text-5xl uppercase tracking-widest text-primary text-center">BRANDING</p>
-                  <p className="font-dmsans text-[14pt] md:text-[18pt] leading-relaxed text-primary/90 text-center">
+                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary text-center">BRANDING</p>
+                  <p className="font-dmsans text-[12pt] md:text-[16pt] leading-relaxed text-primary/90 text-center text-justify">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
