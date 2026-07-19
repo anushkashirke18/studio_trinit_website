@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -27,10 +28,28 @@ function Word({ children, progress, range }: { children: string, progress: any, 
 
 /**
  * Character component for the "OUR SERVICES" horizontal scroll section.
+ * Now handles both entrance and exit stagger.
  */
-function ServiceChar({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  const y = useTransform(progress, range, ["100%", "0%"]);
-  const opacity = useTransform(progress, range, [0, 1]);
+function ServiceChar({ children, i, total, progress }: { children: string, i: number, total: number, progress: any }) {
+  // Entrance ranges (0 to 0.25)
+  const start = (i / total) * 0.15;
+  const end = start + 0.1;
+  
+  // Exit ranges (0.85 to 1.0)
+  const exitStart = 0.85 + (i / total) * 0.1;
+  const exitEnd = Math.min(exitStart + 0.05, 1);
+
+  const y = useTransform(
+    progress, 
+    [start, end, exitStart, exitEnd], 
+    ["100%", "0%", "0%", "100%"]
+  );
+  
+  const opacity = useTransform(
+    progress, 
+    [start, end, exitStart, exitEnd], 
+    [0, 1, 1, 0]
+  );
 
   return (
     <span className="inline-block overflow-hidden">
@@ -177,9 +196,9 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Overlay text logic
-  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
-  const whatWeDoScale = useTransform(smoothServicesProgress, [0.3, 0.4], [0.8, 1]);
+  // Overlay text logic with exit range
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.3, 0.4, 0.8, 0.9], [0, 1, 1, 0]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, [0.3, 0.4, 0.8, 0.9], [0.8, 1, 1, 0.8]);
 
   // Card Transforms - Wait for stability (starts at 0.4)
   const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
@@ -340,22 +359,23 @@ export default function Home() {
             className="flex whitespace-nowrap w-full justify-center relative z-10"
           >
             <h2 className="flex flex-nowrap items-center relative">
-              {serviceChars.map((char, i) => {
-                const start = (i / serviceChars.length) * 0.15; 
-                const end = start + 0.1;
-                return (
-                  <div key={i} className="flex items-center">
-                    <span 
-                      style={{ fontSize: `clamp(60px, 20vw, ${FONT_SIZE_MAX})`, lineHeight: "1" }}
-                      className="font-thunder uppercase tracking-tighter text-foreground select-none flex"
+              {serviceChars.map((char, i) => (
+                <div key={i} className="flex items-center">
+                  <span 
+                    style={{ fontSize: `clamp(60px, 20vw, ${FONT_SIZE_MAX})`, lineHeight: "1" }}
+                    className="font-thunder uppercase tracking-tighter text-foreground select-none flex"
+                  >
+                    <ServiceChar 
+                      i={i} 
+                      total={serviceChars.length} 
+                      progress={smoothServicesProgress} 
                     >
-                      <ServiceChar progress={smoothServicesProgress} range={[start, end]}>
-                        {char}
-                      </ServiceChar>
-                    </span>
-                  </div>
-                );
-              })}
+                      {char}
+                    </ServiceChar>
+                  </span>
+                </div>
+              ))}
+              
               {/* "what we do" Overlay */}
               <motion.div 
                 style={{ opacity: whatWeDoOpacity, scale: whatWeDoScale }}
