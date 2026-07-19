@@ -177,6 +177,10 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
+  // Overlay text logic
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, [0.3, 0.4], [0.8, 1]);
+
   // Card Transforms - Wait for stability (starts at 0.4)
   const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
@@ -335,7 +339,7 @@ export default function Home() {
             style={{ x: servicesTranslateX }} 
             className="flex whitespace-nowrap w-full justify-center relative z-10"
           >
-            <h2 className="flex flex-nowrap items-center">
+            <h2 className="flex flex-nowrap items-center relative">
               {serviceChars.map((char, i) => {
                 const start = (i / serviceChars.length) * 0.15; 
                 const end = start + 0.1;
@@ -352,6 +356,15 @@ export default function Home() {
                   </div>
                 );
               })}
+              {/* "what we do" Overlay */}
+              <motion.div 
+                style={{ opacity: whatWeDoOpacity, scale: whatWeDoScale }}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+              >
+                <span className="font-playground italic lowercase text-accent whitespace-nowrap" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
+                  what we do
+                </span>
+              </motion.div>
             </h2>
           </motion.div>
 
