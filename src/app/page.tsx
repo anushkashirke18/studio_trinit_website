@@ -165,36 +165,36 @@ export default function Home() {
   });
 
   const smoothServicesProgress = useSpring(servicesScrollProgress, {
-    stiffness: 45,
-    damping: 25,
+    stiffness: 35,
+    damping: 30,
     restDelta: 0.001
   });
 
-  // Stages: 0-0.25 (In from right), 0.25-0.75 (Stick in Center), 0.75-1 (Exit left)
+  // Stages: Arrival (0-0.25), Stability (0.25-0.85), Exit (0.85-1)
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
-    [0, 0.25, 0.75, 1], 
+    [0, 0.25, 0.85, 1], 
     ["100vw", "0vw", "0vw", "-100vw"]
   );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Card Transforms - Trigger AFTER header is stable (starts at 0.3)
-  const card1Y = useTransform(smoothServicesProgress, [0.3, 0.45], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, [0.3, 0.45], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
+  // Card Transforms - Only trigger after text is fully stable (starts at 0.4)
+  const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, [0.45, 0.6], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.55], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, [0.55, 0.7], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, [0.55, 0.7], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.55, 0.65], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, [0.7, 0.85], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, [0.7, 0.85], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, [0.7, 0.8], [0, 1]);
 
-  // Global exit for cards
-  const cardsExitX = useTransform(smoothServicesProgress, [0.75, 1], ["0%", "-100%"]);
+  // Global exit for cards synced with text exit
+  const cardsExitX = useTransform(smoothServicesProgress, [0.85, 1], ["0%", "-100%"]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
@@ -340,8 +340,8 @@ export default function Home() {
           >
             <h2 className="flex flex-nowrap items-center">
               {serviceChars.map((char, i) => {
-                const start = (i / serviceChars.length) * 0.2 + 0.05;
-                const end = start + 0.15;
+                const start = (i / serviceChars.length) * 0.15; // Complete text animation by 0.15
+                const end = start + 0.1;
                 return (
                   <div key={i} className="flex items-center">
                     <span 
