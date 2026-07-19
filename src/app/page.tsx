@@ -25,44 +25,6 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   );
 }
 
-/**
- * Animated Waving Hand Sticker component.
- */
-function WavingHand() {
-  return (
-    <motion.div
-      className="inline-block align-middle ml-2 w-[0.8em] h-[0.8em] relative top-[-0.05em]"
-      animate={{ 
-        rotate: [0, 20, -10, 20, 0],
-        scale: [1, 1.05, 1]
-      }}
-      transition={{ 
-        rotate: { repeat: Infinity, duration: 2, ease: "easeInOut" },
-        scale: { repeat: Infinity, duration: 4, ease: "easeInOut" }
-      }}
-    >
-      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-        {/* Blue Cuff */}
-        <rect x="30" y="75" width="40" height="15" rx="4" fill="#3B82F6" />
-        {/* Hand Body */}
-        <path 
-          d="M30 75 L30 45 Q30 35 40 35 L45 35 Q50 35 50 45 L50 75 Z" 
-          fill="#F3EEE8" 
-          stroke="#34192F" 
-          strokeWidth="2" 
-        />
-        {/* Fingers */}
-        <path d="M40 35 V20 Q40 15 45 15 Q50 15 50 20 V35" fill="#F3EEE8" stroke="#34192F" strokeWidth="2" />
-        <path d="M50 35 V22 Q50 17 55 17 Q60 17 60 22 V40" fill="#F3EEE8" stroke="#34192F" strokeWidth="2" />
-        <path d="M60 40 V25 Q60 20 65 20 Q70 20 70 25 V45" fill="#F3EEE8" stroke="#34192F" strokeWidth="2" />
-        <path d="M70 45 V30 Q70 25 75 25 Q80 25 80 30 V55" fill="#F3EEE8" stroke="#34192F" strokeWidth="2" />
-        {/* Thumb */}
-        <path d="M30 55 Q20 55 15 45 Q12 40 18 38 Q22 36 30 45" fill="#F3EEE8" stroke="#34192F" strokeWidth="2" />
-      </svg>
-    </motion.div>
-  );
-}
-
 export default function Home() {
   const rows = [
     { items: [{ word: "CRAFTING", overlay: "designing" }] },
@@ -269,20 +231,9 @@ export default function Home() {
                 const start = (i / words.length) * 0.8 + 0.05;
                 const end = start + 0.001; 
                 return (
-                  <React.Fragment key={i}>
-                    <Word progress={smoothProgress} range={[start, end]}>
-                      {word}
-                    </Word>
-                    {word.replace(/[—,.!]/g, "").trim() === "Trinit" && (
-                      <motion.span
-                        style={{ opacity: useTransform(smoothProgress, [start, end], [0.4, 1]) }}
-                        className="inline-flex items-center"
-                      >
-                        <WavingHand />
-                        &nbsp;
-                      </motion.span>
-                    )}
-                  </React.Fragment>
+                  <Word key={i} progress={smoothProgress} range={[start, end]}>
+                    {word}
+                  </Word>
                 );
               })}
             </h2>
