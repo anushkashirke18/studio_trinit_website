@@ -49,7 +49,7 @@ export default function Home() {
       case 'designing': return 'clamp(20px, 7.5vw, 130px)';
       case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
       case 'people': return 'clamp(18px, 7vw, 105px)';
-      case 'what': return 'clamp(12px, 4vw, 55px)'; // Reduced font size as requested
+      case 'what': return 'clamp(12px, 4vw, 55px)';
       case 'we can do': return 'clamp(16px, 6.5vw, 110px)';
       default: return 'clamp(18px, 7vw, 105px)';
     }
@@ -241,6 +241,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Background Blend Gradient Section */}
+      <div className="w-full h-[60vh] bg-gradient-to-b from-background to-primary" />
+
       {/* Inverted Color Block: Services & Footer */}
       <div className="w-full bg-primary text-background transition-colors duration-700">
         {/* OUR SERVICES Section */}
@@ -261,7 +264,7 @@ export default function Home() {
                     variants={charVariants}
                     style={{ 
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                      lineHeight: "0.85" // Removed line spacing
+                      lineHeight: "0.85"
                     }}
                     className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
                   >
@@ -294,7 +297,7 @@ export default function Home() {
                     variants={charVariants}
                     style={{ 
                       fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                      lineHeight: "0.85" // Removed line spacing
+                      lineHeight: "0.85"
                     }}
                     className="font-normal font-thunder uppercase tracking-tight text-background select-none inline-block"
                   >
