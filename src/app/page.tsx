@@ -241,6 +241,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Marquee Section */}
+      <section className="w-full bg-[#34192F] py-12 md:py-24 overflow-hidden">
+        <div className="flex whitespace-nowrap overflow-hidden">
+          <motion.div
+            animate={{ x: "-50%" }}
+            transition={{
+              duration: 30,
+              ease: "linear",
+              repeat: Infinity,
+            }}
+            className="flex"
+          >
+            {[1, 2].map((i) => (
+              <div key={i} className="flex items-center">
+                <span 
+                  style={{ 
+                    fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                    lineHeight: "0.85"
+                  }}
+                  className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap pr-12 md:pr-24"
+                >
+                  TRINIT CRAFTING EXCELLENCE • DIGITAL PRODUCTS • DESIGN SOLUTIONS • TRINIT CRAFTING EXCELLENCE • DIGITAL PRODUCTS • DESIGN SOLUTIONS •&nbsp;
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Background Blend Gradient Section */}
       <div className="w-full h-screen bg-gradient-to-b from-background to-background" />
 
