@@ -149,8 +149,8 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 40,
+    damping: 25,
     restDelta: 0.001
   });
 
@@ -167,33 +167,33 @@ export default function Home() {
   });
 
   const smoothServicesProgress = useSpring(servicesScrollProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 45,
+    damping: 25,
     restDelta: 0.001
   });
 
-  // Stages: 0-0.2 (In from right), 0.2-0.8 (Stick in Center), 0.8-1 (Exit left)
+  // Stages: 0-0.25 (In from right), 0.25-0.75 (Stick in Center), 0.75-1 (Exit left)
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
-    [0, 0.2, 0.8, 1], 
+    [0, 0.25, 0.75, 1], 
     ["100vw", "0vw", "0vw", "-100vw"]
   );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // Card Transforms - Rising sequentially from bottom
-  const card1Y = useTransform(smoothServicesProgress, [0.25, 0.4], ["100vh", "0vh"]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.25, 0.3], [0, 1]);
+  // Card Transforms - Rising with more overlap and duration for smoothness
+  const card1Y = useTransform(smoothServicesProgress, [0.25, 0.45], ["100vh", "0vh"]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.25, 0.35], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.5], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, [0.4, 0.6], ["100vh", "0vh"]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, [0.65, 0.8], ["100vh", "0vh"]);
-  const card3Opacity = useTransform(smoothServicesProgress, [0.65, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, [0.55, 0.75], ["100vh", "0vh"]);
+  const card3Opacity = useTransform(smoothServicesProgress, [0.55, 0.65], [0, 1]);
 
   // Global exit for cards
-  const cardsExitX = useTransform(smoothServicesProgress, [0.8, 1], ["0%", "-100%"]);
+  const cardsExitX = useTransform(smoothServicesProgress, [0.75, 1], ["0%", "-100%"]);
 
   const serviceDescription = "We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.";
 
@@ -284,7 +284,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee RESTORED */}
+      {/* Marquee */}
       <section className="w-full py-16 md:py-24 overflow-visible relative flex items-center">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full h-[clamp(50px,10vw,100px)] bg-[#34192F]" />
@@ -319,7 +319,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - Sequential Rising Cards */}
+      {/* OUR SERVICES - Sequential Rising Cards Side-by-Side */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
@@ -330,7 +330,7 @@ export default function Home() {
             <h2 className="flex flex-nowrap items-center">
               {serviceChars.map((char, i) => {
                 const start = (i / serviceChars.length) * 0.2 + 0.05;
-                const end = start + 0.1;
+                const end = start + 0.15;
                 return (
                   <div key={i} className="flex items-center">
                     <span 
@@ -347,7 +347,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Sequential Rising Cards: Side-by-Side - BIGGER CARDS */}
+          {/* Sequential Rising Cards Side-by-Side */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
               
