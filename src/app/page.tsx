@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -257,30 +258,36 @@ export default function Home() {
               <div key={i} className="flex items-center">
                 {[1, 2, 3, 4, 5, 6].map((j) => (
                   <div key={j} className="flex items-center gap-4 md:gap-8 pr-12 md:pr-24">
-                    <span 
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                    >
-                      OUR
-                    </span>
-                    <span 
-                      className="font-playground italic lowercase text-accent"
-                      style={{ fontSize: "clamp(16px, 6.5vw, 90px)" }}
-                    >
-                      what we can do
-                    </span>
-                    <span 
-                      style={{ 
-                        fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                        lineHeight: "0.85"
-                      }}
-                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                    >
-                      SERVICES •
-                    </span>
+                    <div className="relative inline-block py-2">
+                      <div className="flex gap-4 md:gap-8 items-baseline">
+                        <span 
+                          style={{ 
+                            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                            lineHeight: "0.85"
+                          }}
+                          className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                        >
+                          OUR
+                        </span>
+                        <span 
+                          style={{ 
+                            fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
+                            lineHeight: "0.85"
+                          }}
+                          className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
+                        >
+                          SERVICES •
+                        </span>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <span 
+                          className="font-playground italic lowercase text-accent whitespace-nowrap"
+                          style={{ fontSize: "clamp(16px, 6.5vw, 110px)" }}
+                        >
+                          what we can do
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
