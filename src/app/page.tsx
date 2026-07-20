@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -68,7 +67,7 @@ function ServiceChar({ children, i, total, progress }: { children: string, i: nu
  */
 function ScallopedBadge() {
   return (
-    <div className="relative w-[clamp(110px,22vw,220px)] h-[clamp(110px,22vw,220px)] flex items-center justify-center shrink-0">
+    <div className="relative w-[clamp(120px,25vw,240px)] h-[clamp(120px,25vw,240px)] flex items-center justify-center shrink-0">
       <svg 
         viewBox="0 0 100 100" 
         className="absolute inset-0 w-full h-full text-[#D4C4FB]"
@@ -95,7 +94,7 @@ function ScallopedBadge() {
       </motion.div>
       
       <div className="relative z-10 text-[#34192F]">
-        <Mail size={28} strokeWidth={1.5} />
+        <Mail size={32} strokeWidth={1.2} />
       </div>
     </div>
   );
@@ -196,27 +195,22 @@ export default function Home() {
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  // "what we do" Overlay text logic - synced with stable phase
-  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.25, 0.35, 0.85, 0.95], [0, 1, 1, 0]);
-  const whatWeDoScale = useTransform(smoothServicesProgress, [0.25, 0.35, 0.85, 0.95], [0.8, 1, 1, 0.8]);
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Card Transforms - Staggered entrance after header is stable (starts at 0.3)
-  // Card 1: 0.3 -> 0.45
-  const card1Y = useTransform(smoothServicesProgress, [0.3, 0.45], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, [0.3, 0.45], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.3, 0.4], [0, 1]);
+  // Card Transforms - Triggered after header is fully stable
+  const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
 
-  // Card 2: 0.45 -> 0.6
-  const card2Y = useTransform(smoothServicesProgress, [0.45, 0.6], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, [0.45, 0.6], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.45, 0.55], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, [0.5, 0.65], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, [0.5, 0.65], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, [0.5, 0.6], [0, 1]);
 
-  // Card 3: 0.6 -> 0.75
   const card3Y = useTransform(smoothServicesProgress, [0.6, 0.75], ["100vh", "0vh"]);
   const card3Scale = useTransform(smoothServicesProgress, [0.6, 0.75], [0.8, 1]);
   const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
 
-  // Global exit for cards synced with section exit at 0.9
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   return (
@@ -230,7 +224,7 @@ export default function Home() {
           transition={{ duration: 1.8 }}
           className="relative z-10 flex flex-col items-center"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.35em] text-foreground font-thunder uppercase select-none mr-[-0.35em]">
+          <h1 className="text-6xl md:text-8xl lg:text-[14vw] font-bold tracking-[0.35em] text-foreground font-macker uppercase select-none mr-[-0.35em] leading-none">
             TRINIT
           </h1>
           <motion.div 
@@ -291,7 +285,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us Label */}
+      {/* About Us Label - Centered */}
       <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -402,6 +396,42 @@ export default function Home() {
 
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
+        <div className="flex flex-col items-start gap-6">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+          >
+            [contact us]
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-7xl md:text-[12vw] font-macker uppercase tracking-tighter leading-[0.85] text-primary"
+          >
+            LET'S<br />TALK
+          </motion.h2>
+        </div>
+        
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-12 mt-8">
+          <div className="flex flex-col gap-8">
+            <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
+              Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
+            </p>
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
+              <a href="mailto:hello@trinit.studio" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                hello@trinit.studio
+              </a>
+            </div>
+          </div>
+          <ScallopedBadge />
         </div>
       </section>
 

@@ -13,6 +13,7 @@ export default {
         body: ['Inter', 'sans-serif'],
         headline: ['Space Grotesk', 'sans-serif'],
         thunder: ['Anton', 'Impact', 'sans-serif'],
+        macker: ['"Bebas Neue"', 'Impact', 'sans-serif'],
         playground: ['Partsold', '"Cormorant Garamond"', 'serif'],
         playfair: ['"Playfair Display"', 'serif'],
         dmsans: ['"DM Sans"', 'sans-serif'],
