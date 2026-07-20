@@ -318,41 +318,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee */}
-      <section className="w-full py-16 md:py-24 overflow-visible relative flex items-center">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-[clamp(50px,10vw,100px)] bg-[#34192F]" />
-        </div>
-        <div className="flex whitespace-nowrap overflow-hidden relative z-10 w-full">
-          <motion.div
-            animate={{ x: "-50%" }}
-            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-            className="flex items-center"
-          >
-            {[1, 2].map((i) => (
-              <div key={i} className="flex items-center">
-                {[1, 2, 3, 4, 5, 6].map((j) => (
-                  <div key={j} className="flex items-center gap-8 md:gap-16 pr-12 md:pr-24">
-                    <span 
-                      style={{ fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`, lineHeight: "1" }}
-                      className="font-thunder uppercase tracking-tight text-background select-none whitespace-nowrap"
-                    >
-                      TRINIT
-                    </span>
-                    <ScallopedBadge />
-                  </div>
-                ))}
-              </div>
-            ))}
-          </motion.div>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-          <span className="font-playground italic lowercase text-accent whitespace-nowrap" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
-            what we can do
-          </span>
-        </div>
-      </section>
-
       {/* OUR SERVICES - Sequential Rising Cards */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
