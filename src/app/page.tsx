@@ -6,24 +6,34 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'fra
 import { Mail } from 'lucide-react';
 
 /**
- * Vertical Split Reveal Component
- * Creates two panels that slide out to reveal the content.
+ * Triple Vertical Reveal Component
+ * Three panels that slide upwards one by one to reveal the page content.
  */
-function VerticalSplit() {
+function TripleVerticalReveal() {
+  const panelVariants = {
+    initial: { y: "0%" },
+    animate: (i: number) => ({
+      y: "-100%",
+      transition: {
+        duration: 1.2,
+        ease: [0.85, 0, 0.15, 1],
+        delay: 0.2 + i * 0.15,
+      }
+    })
+  };
+
   return (
     <div className="fixed inset-0 pointer-events-none z-[100] flex overflow-hidden">
-      <motion.div 
-        initial={{ x: "0%" }}
-        animate={{ x: "-100%" }}
-        transition={{ duration: 1.4, ease: [0.85, 0, 0.15, 1], delay: 0.2 }}
-        className="h-full w-1/2 bg-primary border-r border-primary-foreground/10"
-      />
-      <motion.div 
-        initial={{ x: "0%" }}
-        animate={{ x: "100%" }}
-        transition={{ duration: 1.4, ease: [0.85, 0, 0.15, 1], delay: 0.2 }}
-        className="h-full w-1/2 bg-primary border-l border-primary-foreground/10"
-      />
+      {[0, 1, 2].map((i) => (
+        <motion.div 
+          key={i}
+          custom={i}
+          initial="initial"
+          animate="animate"
+          variants={panelVariants}
+          className="h-full w-1/3 bg-primary border-r border-primary-foreground/5 last:border-r-0"
+        />
+      ))}
     </div>
   );
 }
@@ -240,9 +250,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
       
-      {/* Vertical Split Reveal Animation */}
+      {/* 3-Panel Vertical Reveal Animation */}
       <AnimatePresence>
-        {mounted && <VerticalSplit />}
+        {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
       {/* Hero Section */}
@@ -252,7 +262,7 @@ export default function Home() {
           <motion.p
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="text-[10px] uppercase tracking-[0.8em] text-muted-foreground font-medium"
           >
             [ studio based in nasik ]
@@ -264,7 +274,7 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.2, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 1.4, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-2xl md:text-4xl font-playground italic text-primary/60 text-center max-w-2xl leading-relaxed"
           >
             We define visual identities that tell your unique story across digital landscapes.
@@ -276,7 +286,7 @@ export default function Home() {
           <motion.h1 
             initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 1.6, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-[30vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-left -ml-[2vw]"
           >
             TRINIT
