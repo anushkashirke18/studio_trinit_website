@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Mail } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Word component for the horizontal scroll section.
@@ -217,21 +218,29 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col items-center">
       
       {/* Hero Section */}
-      <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center p-6 text-center">
+      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8 }}
-          className="relative z-10 flex flex-col items-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.8, ease: "circOut" }}
+          className="relative z-10"
         >
-          <h1 className="text-7xl md:text-9xl lg:text-[20vw] font-bold tracking-[0.2em] text-foreground font-macker uppercase select-none mr-[-0.2em] leading-none">
-            TRINIT
-          </h1>
+          {/* Logo Replacement */}
+          <div className="relative w-48 h-48 md:w-64 md:h-64">
+             <Image 
+                src="/2.png" 
+                alt="TRINIT Logo" 
+                fill
+                className="object-contain"
+                priority
+             />
+          </div>
+          
           <motion.div 
             initial={{ opacity: 0, width: 0 }}
             animate={{ opacity: 1, width: "100%" }}
             transition={{ delay: 1, duration: 1.5, ease: "circOut" }}
-            className="flex items-center justify-center gap-6 mt-8 overflow-hidden"
+            className="flex items-center justify-center gap-6 mt-12 overflow-hidden"
           >
             <div className="h-[1px] flex-1 bg-foreground/20" />
             <p className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-muted-foreground font-body font-light whitespace-nowrap mr-[-0.8em]">
@@ -285,7 +294,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us Label - Centered */}
+      {/* About Us Label */}
       <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -312,7 +321,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - Sequential Rising Cards */}
+      {/* OUR SERVICES */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
@@ -433,6 +442,18 @@ export default function Home() {
           </div>
           <ScallopedBadge />
         </div>
+      </section>
+
+      {/* Bottom Large Heading */}
+      <section className="w-full py-20 flex flex-col items-center justify-center overflow-hidden border-t border-primary/10">
+        <motion.h2 
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+          className="text-7xl md:text-[25vw] font-bold tracking-[0.2em] text-foreground font-macker uppercase select-none mr-[-0.2em] leading-none text-center"
+        >
+          TRINIT
+        </motion.h2>
       </section>
 
       {/* Footer */}
