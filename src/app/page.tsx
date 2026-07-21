@@ -242,12 +242,12 @@ export default function Home() {
         </motion.div>
 
         {/* TRINIT Text at the bottom of the landing fold */}
-        <div className="w-full text-center pb-0 md:pb-2">
+        <div className="w-full pb-0 md:pb-2">
           <motion.h1 
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-center"
+            className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-left -ml-[2vw]"
           >
             TRINIT
           </motion.h1>
