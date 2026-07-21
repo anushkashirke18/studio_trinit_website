@@ -1,10 +1,32 @@
 
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import Image from 'next/image';
+
+/**
+ * Vertical Split Reveal Component
+ * Creates two panels that slide out to reveal the content.
+ */
+function VerticalSplit() {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[100] flex overflow-hidden">
+      <motion.div 
+        initial={{ x: "0%" }}
+        animate={{ x: "-100%" }}
+        transition={{ duration: 1.4, ease: [0.85, 0, 0.15, 1], delay: 0.2 }}
+        className="h-full w-1/2 bg-primary border-r border-primary-foreground/10"
+      />
+      <motion.div 
+        initial={{ x: "0%" }}
+        animate={{ x: "100%" }}
+        transition={{ duration: 1.4, ease: [0.85, 0, 0.15, 1], delay: 0.2 }}
+        className="h-full w-1/2 bg-primary border-l border-primary-foreground/10"
+      />
+    </div>
+  );
+}
 
 /**
  * Word component for the horizontal scroll section.
@@ -29,14 +51,10 @@ function Word({ children, progress, range }: { children: string, progress: any, 
 
 /**
  * Character component for the "OUR SERVICES" horizontal scroll section.
- * Handles both entrance and exit stagger with refined timing.
  */
 function ServiceChar({ children, i, total, progress }: { children: string, i: number, total: number, progress: any }) {
-  // Entrance ranges (0 to 0.2)
   const start = (i / total) * 0.1;
   const end = start + 0.1;
-  
-  // Exit ranges (0.9 to 1.0)
   const exitStart = 0.9 + (i / total) * 0.05;
   const exitEnd = Math.min(exitStart + 0.05, 1);
 
@@ -103,6 +121,12 @@ function ScallopedBadge() {
 }
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const rows = [
     { items: [{ word: "CRAFTING", overlay: "designing" }] },
     { items: [{ word: "UNFORGETTABLE", overlay: "premium - luxury" }] },
@@ -187,7 +211,6 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Stages: Arrival (0-0.2), Stability & Card Entrance (0.3-0.9), Exit (0.9-1)
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
     [0, 0.2, 0.9, 1], 
@@ -200,7 +223,6 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Card Transforms - Triggered after header is fully stable
   const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
@@ -218,21 +240,44 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
       
+      {/* Vertical Split Reveal Animation */}
+      <AnimatePresence>
+        {mounted && <VerticalSplit />}
+      </AnimatePresence>
+
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col items-center justify-between p-6 overflow-hidden">
-        {/* Empty space */}
-        <div className="h-12" />
+      <section className="relative w-full h-screen flex flex-col items-center justify-end p-6 overflow-hidden">
+        {/* Label Part (1/3) */}
+        <div className="absolute top-12 left-6 overflow-hidden">
+          <motion.p
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[10px] uppercase tracking-[0.8em] text-muted-foreground font-medium"
+          >
+            [ studio based in nasik ]
+          </motion.p>
+        </div>
 
-        {/* Center space (logo removed to fix broken image issue) */}
-        <div className="flex-1" />
+        {/* Statement Part (2/3) */}
+        <div className="flex-1 flex items-center justify-center w-full max-w-7xl">
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            className="text-2xl md:text-4xl font-playground italic text-primary/60 text-center max-w-2xl leading-relaxed"
+          >
+            We define visual identities that tell your unique story across digital landscapes.
+          </motion.p>
+        </div>
 
-        {/* TRINIT Text at the bottom of the landing fold */}
+        {/* TRINIT Text Finale (3/3) */}
         <div className="w-full pb-0 md:pb-2">
           <motion.h1 
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-left -ml-[2vw]"
+            transition={{ delay: 1.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[30vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-left -ml-[2vw]"
           >
             TRINIT
           </motion.h1>
@@ -313,7 +358,6 @@ export default function Home() {
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           
-          {/* Header Text Layer */}
           <motion.div 
             style={{ x: servicesTranslateX }} 
             className="flex whitespace-nowrap w-full justify-center relative z-10"
@@ -336,7 +380,6 @@ export default function Home() {
                 </div>
               ))}
               
-              {/* "what we do" Overlay */}
               <motion.div 
                 style={{ opacity: whatWeDoOpacity, scale: whatWeDoScale }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
@@ -348,11 +391,9 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Sequential Rising Cards Layer */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
               
-              {/* Card 1: UI/UX */}
               <motion.div 
                 style={{ y: card1Y, scale: card1Scale, opacity: card1Opacity }}
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
@@ -365,7 +406,6 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Card 2: Development */}
               <motion.div 
                 style={{ y: card2Y, scale: card2Scale, opacity: card2Opacity }}
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
@@ -378,7 +418,6 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Card 3: Branding */}
               <motion.div 
                 style={{ y: card3Y, scale: card3Scale, opacity: card3Opacity }}
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
@@ -438,7 +477,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
             <h4 className="text-xl font-headline font-bold tracking-tighter text-primary">TRINIT.</h4>
             <div className="flex gap-10">
-              {linkNames.map((link) => (
+              {['Instagram', 'LinkedIn', 'Twitter', 'Email'].map((link) => (
                 <a key={link} href="#" className="text-[10px] uppercase tracking-[0.4em] font-medium text-primary hover:text-accent">
                   {link}
                 </a>
@@ -450,5 +489,3 @@ export default function Home() {
     </div>
   );
 }
-
-const linkNames = ['Instagram', 'LinkedIn', 'Twitter', 'Email'];
