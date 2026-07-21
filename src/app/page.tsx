@@ -247,7 +247,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[25vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-center"
+            className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-center"
           >
             TRINIT
           </motion.h1>
