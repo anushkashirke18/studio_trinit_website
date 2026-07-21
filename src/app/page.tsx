@@ -194,7 +194,7 @@ export default function Home() {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
-    offset: ["start end", "end start"]
+    offset: ["start start", "end end"]
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -203,7 +203,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.95], ["0%", "-95%"]);
+  const xTranslate = useTransform(smoothProgress, [0.05, 0.9], ["0%", "-95%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -247,6 +247,13 @@ export default function Home() {
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
+  // Grouped characters for synced vertical reveal
+  const trinitGroups = [
+    { chars: ["T", "R"], delay: 0.4 },
+    { chars: ["I", "N"], delay: 0.55 },
+    { chars: ["I", "T"], delay: 0.7 },
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
       
@@ -256,17 +263,39 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col items-center justify-end p-6 overflow-hidden">
+      <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden">
+        
+        {/* CTA Text */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-playfair italic text-xl md:text-2xl text-primary/70 mb-4 ml-[1vw]"
+        >
+          Let's create things together
+        </motion.p>
+
         {/* TRINIT Text Finale */}
-        <div className="w-full pb-0 md:pb-2">
-          <motion.h1 
-            initial={{ opacity: 0, y: 200 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[30vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-left -ml-[2vw]"
-          >
-            TRINIT
-          </motion.h1>
+        <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
+          {trinitGroups.map((group, groupIdx) => (
+            <div key={groupIdx} className="flex">
+              {group.chars.map((char, charIdx) => (
+                <motion.span
+                  key={charIdx}
+                  initial={{ opacity: 0, y: 150 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    delay: group.delay + (charIdx * 0.05), 
+                    duration: 1.6, 
+                    ease: [0.16, 1, 0.3, 1] 
+                  }}
+                  className="text-[30vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
