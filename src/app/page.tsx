@@ -224,7 +224,7 @@ export default function Home() {
           transition={{ duration: 1.8 }}
           className="relative z-10 flex flex-col items-center"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-[14vw] font-bold tracking-[0.35em] text-foreground font-macker uppercase select-none mr-[-0.35em] leading-none">
+          <h1 className="text-7xl md:text-9xl lg:text-[20vw] font-bold tracking-[0.2em] text-foreground font-macker uppercase select-none mr-[-0.2em] leading-none">
             TRINIT
           </h1>
           <motion.div 
