@@ -215,7 +215,7 @@ export default function Home() {
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center">
+    <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
       
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-center justify-between p-6 overflow-hidden">
@@ -254,12 +254,12 @@ export default function Home() {
         </motion.div>
 
         {/* TRINIT Text at the bottom of the landing fold */}
-        <div className="w-full text-center pb-8 md:pb-12">
+        <div className="w-full text-center pb-0 md:pb-2">
           <motion.h1 
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[18vw] md:text-[20vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.8] select-none"
+            className="text-[22vw] font-bold tracking-tight text-foreground font-macker uppercase leading-[0.75] select-none whitespace-nowrap w-full text-center"
           >
             TRINIT
           </motion.h1>
