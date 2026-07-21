@@ -220,26 +220,11 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-center justify-between p-6 overflow-hidden">
-        {/* Empty space to push logo down a bit or use for nav */}
+        {/* Empty space */}
         <div className="h-12" />
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.8, ease: "circOut" }}
-          className="relative z-10 flex flex-col items-center"
-        >
-          {/* Logo */}
-          <div className="relative w-48 h-48 md:w-64 md:h-64">
-             <Image 
-                src="/2.png" 
-                alt="TRINIT Logo" 
-                fill
-                className="object-contain"
-                priority
-             />
-          </div>
-        </motion.div>
+        {/* Center space (logo removed to fix broken image issue) */}
+        <div className="flex-1" />
 
         {/* TRINIT Text at the bottom of the landing fold */}
         <div className="w-full pb-0 md:pb-2">
