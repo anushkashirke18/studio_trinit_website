@@ -239,19 +239,6 @@ export default function Home() {
                 priority
              />
           </div>
-          
-          <motion.div 
-            initial={{ opacity: 0, width: 0 }}
-            animate={{ opacity: 1, width: "100%" }}
-            transition={{ delay: 1, duration: 1.5, ease: "circOut" }}
-            className="flex items-center justify-center gap-6 mt-8 overflow-hidden w-full max-w-xs"
-          >
-            <div className="h-[1px] flex-1 bg-foreground/20" />
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-muted-foreground font-body font-light whitespace-nowrap mr-[-0.8em]">
-              Digital Excellence
-            </p>
-            <div className="h-[1px] flex-1 bg-foreground/20" />
-          </motion.div>
         </motion.div>
 
         {/* TRINIT Text at the bottom of the landing fold */}
