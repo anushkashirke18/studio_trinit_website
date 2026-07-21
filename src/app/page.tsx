@@ -257,31 +257,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-center justify-end p-6 overflow-hidden">
-        {/* Label Part (1/3) */}
-        <div className="absolute top-12 left-6 overflow-hidden">
-          <motion.p
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: 1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[10px] uppercase tracking-[0.8em] text-muted-foreground font-medium"
-          >
-            [ studio based in nasik ]
-          </motion.p>
-        </div>
-
-        {/* Statement Part (2/3) */}
-        <div className="flex-1 flex items-center justify-center w-full max-w-7xl">
-          <motion.p
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.4, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-2xl md:text-4xl font-playground italic text-primary/60 text-center max-w-2xl leading-relaxed"
-          >
-            We define visual identities that tell your unique story across digital landscapes.
-          </motion.p>
-        </div>
-
-        {/* TRINIT Text Finale (3/3) */}
+        {/* TRINIT Text Finale */}
         <div className="w-full pb-0 md:pb-2">
           <motion.h1 
             initial={{ opacity: 0, y: 200 }}
