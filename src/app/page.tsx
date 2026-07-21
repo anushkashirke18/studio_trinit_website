@@ -218,14 +218,17 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col items-center">
       
       {/* Hero Section */}
-      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
+      <section className="relative w-full h-screen flex flex-col items-center justify-between p-6 overflow-hidden">
+        {/* Empty space to push logo down a bit or use for nav */}
+        <div className="h-12" />
+
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.8, ease: "circOut" }}
-          className="relative z-10"
+          className="relative z-10 flex flex-col items-center"
         >
-          {/* Logo Replacement */}
+          {/* Logo */}
           <div className="relative w-48 h-48 md:w-64 md:h-64">
              <Image 
                 src="/2.png" 
@@ -240,7 +243,7 @@ export default function Home() {
             initial={{ opacity: 0, width: 0 }}
             animate={{ opacity: 1, width: "100%" }}
             transition={{ delay: 1, duration: 1.5, ease: "circOut" }}
-            className="flex items-center justify-center gap-6 mt-12 overflow-hidden"
+            className="flex items-center justify-center gap-6 mt-8 overflow-hidden w-full max-w-xs"
           >
             <div className="h-[1px] flex-1 bg-foreground/20" />
             <p className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-muted-foreground font-body font-light whitespace-nowrap mr-[-0.8em]">
@@ -249,6 +252,18 @@ export default function Home() {
             <div className="h-[1px] flex-1 bg-foreground/20" />
           </motion.div>
         </motion.div>
+
+        {/* TRINIT Text at the bottom of the landing fold */}
+        <div className="w-full text-center pb-8 md:pb-12">
+          <motion.h1 
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[18vw] md:text-[20vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.8] select-none"
+          >
+            TRINIT
+          </motion.h1>
+        </div>
       </section>
 
       {/* Reveal Section */}
@@ -367,11 +382,11 @@ export default function Home() {
               {/* Card 1: UI/UX */}
               <motion.div 
                 style={{ y: card1Y, scale: card1Scale, opacity: card1Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6 text-center">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
-                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
+                <div className="flex flex-col gap-4 text-center">
+                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
+                  <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
                   </p>
                 </div>
@@ -380,11 +395,11 @@ export default function Home() {
               {/* Card 2: Development */}
               <motion.div 
                 style={{ y: card2Y, scale: card2Scale, opacity: card2Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6 text-center">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">WEB & APP</p>
-                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
+                <div className="flex flex-col gap-4 text-center">
+                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">WEB & APP</p>
+                  <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
                 </div>
@@ -393,11 +408,11 @@ export default function Home() {
               {/* Card 3: Branding */}
               <motion.div 
                 style={{ y: card3Y, scale: card3Scale, opacity: card3Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-10 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
-                <div className="flex flex-col gap-6 text-center">
-                  <p className="font-thunder text-4xl uppercase tracking-widest text-primary">BRANDING</p>
-                  <p className="font-playfair italic text-[14pt] leading-relaxed text-primary/80">
+                <div className="flex flex-col gap-4 text-center">
+                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">BRANDING</p>
+                  <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
                 </div>
@@ -442,18 +457,6 @@ export default function Home() {
           </div>
           <ScallopedBadge />
         </div>
-      </section>
-
-      {/* Bottom Large Heading */}
-      <section className="w-full py-20 flex flex-col items-center justify-center overflow-hidden border-t border-primary/10">
-        <motion.h2 
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-7xl md:text-[25vw] font-bold tracking-[0.2em] text-foreground font-macker uppercase select-none mr-[-0.2em] leading-none text-center"
-        >
-          TRINIT
-        </motion.h2>
       </section>
 
       {/* Footer */}
