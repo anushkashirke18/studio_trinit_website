@@ -42,7 +42,7 @@ function TripleVerticalReveal() {
  * Word component for the horizontal scroll section.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.4, 1]);
+  const opacity = useTransform(progress, range, [0.1, 1]);
   const color = useTransform(
     progress, 
     range, 
@@ -199,11 +199,11 @@ export default function Home() {
 
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 40,
-    damping: 25,
+    damping: 30,
     restDelta: 0.001
   });
 
-  const xTranslate = useTransform(smoothProgress, [0.05, 0.9], ["0%", "-95%"]);
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-85%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -255,7 +255,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
+    <div className="min-h-screen bg-background flex flex-col items-center">
       
       {/* 3-Panel Vertical Reveal Animation */}
       <AnimatePresence>
@@ -354,14 +354,14 @@ export default function Home() {
         </motion.p>
       </div>
 
-      {/* About Us Horizontal Scroll */}
+      {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap items-center">
               {words.map((word, i) => {
-                const start = (i / words.length) * 0.8 + 0.05;
-                const end = start + 0.001; 
+                const start = (i / words.length) * 0.8 + 0.1;
+                const end = start + 0.05; 
                 return <Word key={i} progress={smoothProgress} range={[start, end]}>{word}</Word>;
               })}
             </h2>
@@ -371,7 +371,7 @@ export default function Home() {
 
       {/* OUR SERVICES */}
       <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
           <motion.div 
             style={{ x: servicesTranslateX }} 
@@ -451,7 +451,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
+      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16 overflow-hidden">
         <div className="flex flex-col items-start gap-6">
           <motion.p 
             initial={{ opacity: 0 }}
