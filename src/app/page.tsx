@@ -40,14 +40,14 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * "Upcoming" words are Silver (#C0C0C0).
- * "Existing" words are Deep Purple (#34192F).
+ * Past words turn Deep Purple (#34192F).
+ * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Tight transition: word turns purple as soon as the scroll reaches its start range.
+  // Tight transition: word turns purple once the scroll reaches its start range.
   const color = useTransform(
     progress, 
-    [range[0], range[0] + 0.005], 
+    [range[0], range[0] + 0.01], 
     ["#C0C0C0", "#34192F"]
   );
 
@@ -139,7 +139,7 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  // Hero character groups logic synced with splits
+  // Hero character groups logic
   const trinitGroups = [
     { chars: ["T", "R"], delay: 0.8 },
     { chars: ["I", "N"], delay: 0.95 },
@@ -154,13 +154,14 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 60,
+    stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
   // Moves the text container horizontally to reveal full text
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-350%"]);
+  // We use vw units for more consistent viewport-relative movement
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-350vw"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -262,9 +263,13 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[600vh] w-full bg-background overflow-visible">
+        {/* Sticky container that stays in view while translating text */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-          <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
+          <motion.div 
+            style={{ x: xTranslate }} 
+            className="flex whitespace-nowrap px-[10vw]"
+          >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
                 const step = 1 / words.length;
