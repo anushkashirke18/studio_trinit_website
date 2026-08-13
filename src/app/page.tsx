@@ -379,6 +379,14 @@ export default function Home() {
           >
             [meet the founders]
           </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1.2 }}
+            className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-lg leading-relaxed"
+          >
+            The minds. The makers. The vision behind it all.
+          </motion.p>
         </div>
 
         <div className="flex flex-col items-center gap-12 w-full">
