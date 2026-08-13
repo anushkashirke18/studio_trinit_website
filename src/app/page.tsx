@@ -40,14 +40,15 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * "Upcoming" words are #C0C0C0 (Silver).
- * "Existing" words are #34192F (Deep Purple).
+ * "Upcoming" words are Silver (#C0C0C0).
+ * "Existing" words are Deep Purple (#34192F).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
+  // Using RGB values for more reliable interpolation in Framer Motion
   const color = useTransform(
     progress, 
     range, 
-    ["#C0C0C0", "#34192F"]
+    ["rgb(192, 192, 192)", "rgb(52, 25, 47)"]
   );
 
   return (
@@ -153,13 +154,13 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 45,
-    damping: 35,
+    stiffness: 60,
+    damping: 30,
     restDelta: 0.001
   });
 
   // Moves the text container horizontally - Increased range for full text visibility
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-280%"]);
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-350%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -266,7 +267,7 @@ export default function Home() {
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
-                // Calculate color range for each word with a tight step
+                // Calculate color range for each word with a tighter mapping
                 const step = 1 / words.length;
                 const start = i * step;
                 const end = (i + 1) * step;
