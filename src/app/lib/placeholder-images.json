@@ -1,3 +1,4 @@
+
 {
   "placeholderImages": [
     {
@@ -17,6 +18,18 @@
       "description": "Branding Preview",
       "imageUrl": "https://picsum.photos/seed/service3/600/600",
       "imageHint": "branding logo"
+    },
+    {
+      "id": "founder-1",
+      "description": "Founder - Creative Lead",
+      "imageUrl": "https://picsum.photos/seed/founder1/800/1000",
+      "imageHint": "creative portrait"
+    },
+    {
+      "id": "founder-2",
+      "description": "Founder - Technical Lead",
+      "imageUrl": "https://picsum.photos/seed/founder2/800/1000",
+      "imageHint": "technology portrait"
     }
   ]
 }
