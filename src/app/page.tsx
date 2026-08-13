@@ -40,11 +40,11 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * "Upcoming" words are grey, "Existing" words are colored #34192F.
+ * "Upcoming" words are grey, "Existing" words are colored #34192F (hsl(311 35% 15%)).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // #34192F is hsl(311 35% 15%)
   // Grey is hsl(240 3.8% 46.1%)
+  // Purple is #34192F -> hsl(311 35% 15%)
   const color = useTransform(
     progress, 
     range, 
@@ -267,6 +267,7 @@ export default function Home() {
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
+                // Calculate color range for each word
                 const start = (i / words.length) * 0.8 + 0.1;
                 const end = start + 0.05; 
                 return <Word key={i} progress={smoothProgress} range={[start, end]}>{word}</Word>;
@@ -411,3 +412,4 @@ export default function Home() {
     </div>
   );
 }
+
