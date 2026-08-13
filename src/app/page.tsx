@@ -44,8 +44,8 @@ function TripleVerticalReveal() {
  * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Color transforms from grey to purple as progress moves through the word's designated range.
-  // Because it's a transform, it stays purple once progress is past range[1].
+  // Color transforms from silver (#C0C0C0) to purple (#34192F) as progress moves through the word's range.
+  // Because it's a transform, it stays purple once progress is past the end of the range.
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
@@ -161,8 +161,8 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Massive translation to ensure "every touchpoint" is fully revealed.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-250vw"]);
+  // Increased translation to ensure "every touchpoint" is fully revealed.
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-350vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
