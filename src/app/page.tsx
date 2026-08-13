@@ -40,22 +40,20 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * "Upcoming" words are grey, "Existing" words are colored.
+ * "Upcoming" words are grey, "Existing" words are colored #34192F.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Existing words (past the range) are colored. Upcoming words (before the range) are grey.
+  // #34192F is hsl(311 35% 15%)
+  // Grey is hsl(240 3.8% 46.1%)
   const color = useTransform(
     progress, 
     range, 
     ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"]
   );
-  
-  // Opacity also improves the "upcoming" vs "existing" feel
-  const opacity = useTransform(progress, range, [0.3, 1]);
 
   return (
     <motion.span 
-      style={{ color, opacity }} 
+      style={{ color }} 
       className="inline-block"
     >
       {children}&nbsp;
@@ -141,61 +139,14 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const rows = [
-    { items: [{ word: "CRAFTING", overlay: "designing" }] },
-    { items: [{ word: "UNFORGETTABLE", overlay: "premium - luxury" }] },
-    { items: [{ word: "DIGITAL", overlay: "web - mobile" }] },
-    { items: [{ word: "EXPERIENCES", overlay: "brands & websites" }] },
-    { 
-      items: [
-        { word: "FOR", overlay: null }, 
-        { word: "AMBITIOUS", overlay: "extraordinary" }
-      ] 
-    },
-    { items: [{ word: "CLIENTS", overlay: "people" }] }
+  // Hero character groups logic
+  const trinitGroups = [
+    { chars: ["T", "R"], delay: 0.4 },
+    { chars: ["I", "N"], delay: 0.55 },
+    { chars: ["I", "T"], delay: 0.7 },
   ];
 
-  const FONT_SIZE_MAX = "260.48px";
-  const LINE_HEIGHT_MAX = "248.832px";
-
-  const charVariants = {
-    hidden: { opacity: 0, x: -80 },
-    visible: {
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] }
-    },
-  };
-
-  const rowVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.1 }
-    }
-  };
-
-  const overlayVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 15 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }
-    }
-  };
-
-  const getOverlaySize = (overlay: string) => {
-    switch (overlay) {
-      case 'premium - luxury': return 'clamp(22px, 8vw, 135px)';
-      case 'designing': return 'clamp(20px, 7.5vw, 130px)';
-      case 'extraordinary': return 'clamp(16px, 6.5vw, 110px)';
-      case 'people': return 'clamp(18px, 7vw, 105px)';
-      default: return 'clamp(18px, 7vw, 105px)';
-    }
-  };
-
-  // About Us Horizontal Scroll Refs & Logic
+  // About Us Horizontal Scroll Logic
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
@@ -208,8 +159,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Ensure text scrolls off-screen horizontally
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-90%"]);
+  // Moves the text container horizontally
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-80%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -253,13 +204,6 @@ export default function Home() {
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
-  // Grouped characters for synced vertical reveal
-  const trinitGroups = [
-    { chars: ["T", "R"], delay: 0.4 },
-    { chars: ["I", "N"], delay: 0.55 },
-    { chars: ["I", "T"], delay: 0.7 },
-  ];
-
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
@@ -269,9 +213,9 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden">
+      <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden bg-background">
         
-        {/* CTA Text */}
+        {/* CTA Text revealed after panels */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -281,21 +225,21 @@ export default function Home() {
           Let's create things together
         </motion.p>
 
-        {/* TRINIT Text Finale */}
+        {/* TRINIT Text Finale synchronized with vertical panels */}
         <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
           {trinitGroups.map((group, groupIdx) => (
             <div key={groupIdx} className="flex">
               {group.chars.map((char, charIdx) => (
                 <motion.span
                   key={charIdx}
-                  initial={{ opacity: 0, y: 150 }}
+                  initial={{ opacity: 0, y: 250 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ 
                     delay: group.delay + (charIdx * 0.05), 
                     duration: 1.6, 
                     ease: [0.16, 1, 0.3, 1] 
                   }}
-                  className="text-[30vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none inline-block"
+                  className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none inline-block text-left"
                 >
                   {char}
                 </motion.span>
@@ -305,51 +249,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reveal Section */}
-      <section className="w-full py-24 md:py-40 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="flex flex-col gap-0 items-center w-full max-w-[100vw]">
-          {rows.map((row, i) => (
-            <motion.div
-              key={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-10%" }}
-              variants={rowVariants}
-              className="relative w-full flex flex-row flex-nowrap justify-center items-center gap-x-4 md:gap-x-12"
-            >
-              {row.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="relative inline-block py-2">
-                  <div className="flex">
-                    {item.word.split('').map((char, charIndex) => (
-                      <motion.span
-                        key={charIndex}
-                        variants={charVariants}
-                        style={{ 
-                          fontSize: `clamp(32px, 16vw, ${FONT_SIZE_MAX})`,
-                          lineHeight: `clamp(28px, 15vw, ${LINE_HEIGHT_MAX})`
-                        }}
-                        className="font-bold font-thunder uppercase tracking-tight text-foreground select-none inline-block"
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </div>
-                  {item.overlay && (
-                    <motion.div variants={overlayVariants} className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                      <span style={{ fontSize: getOverlaySize(item.overlay) }} className="font-playground italic lowercase text-accent whitespace-nowrap">
-                        {item.overlay}
-                      </span>
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* About Us Label */}
-      <div className="w-full max-w-7xl px-6 pt-24 pb-12 flex justify-center text-center">
+      {/* Spacing to About Label */}
+      <div className="w-full max-w-7xl px-6 pt-40 pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -361,10 +262,10 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[1000vh] w-full bg-background">
+      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
-            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap items-center">
+            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
                 const start = (i / words.length) * 0.8 + 0.1;
                 const end = start + 0.05; 
@@ -387,7 +288,7 @@ export default function Home() {
               {serviceChars.map((char, i) => (
                 <div key={i} className="flex items-center">
                   <span 
-                    style={{ fontSize: `clamp(60px, 20vw, ${FONT_SIZE_MAX})`, lineHeight: "1" }}
+                    style={{ fontSize: `clamp(60px, 20vw, 260px)`, lineHeight: "1" }}
                     className="font-thunder uppercase tracking-tighter text-foreground select-none flex"
                   >
                     <ServiceChar 
