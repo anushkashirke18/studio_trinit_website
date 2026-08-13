@@ -7,15 +7,15 @@ import { Mail } from 'lucide-react';
 
 /**
  * Triple Vertical Reveal Component
- * Three panels that slide upwards one by one to reveal the page content.
+ * Three panels that slide upwards from the bottom one by one to reveal the page content.
  */
 function TripleVerticalReveal() {
   const panelVariants = {
-    initial: { y: "0%" },
+    initial: { y: "100%" },
     animate: (i: number) => ({
       y: "-100%",
       transition: {
-        duration: 1.2,
+        duration: 1.5,
         ease: [0.85, 0, 0.15, 1],
         delay: 0.2 + i * 0.15,
       }
@@ -44,10 +44,11 @@ function TripleVerticalReveal() {
  * "Existing" words are Deep Purple (#34192F).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Using RGB values for more reliable interpolation in Framer Motion
+  // Tight transition range: the word turns purple as soon as its scroll 'start' is reached.
+  // This makes sure 'existing' words are purple and 'upcoming' (including the current last one) are grey.
   const color = useTransform(
     progress, 
-    range, 
+    [range[0], range[0] + 0.02], // Fast transition at the start of its allocated scroll space
     ["rgb(192, 192, 192)", "rgb(52, 25, 47)"]
   );
 
@@ -141,9 +142,9 @@ export default function Home() {
 
   // Hero character groups logic
   const trinitGroups = [
-    { chars: ["T", "R"], delay: 0.4 },
-    { chars: ["I", "N"], delay: 0.55 },
-    { chars: ["I", "T"], delay: 0.7 },
+    { chars: ["T", "R"], delay: 0.8 },
+    { chars: ["I", "N"], delay: 0.95 },
+    { chars: ["I", "T"], delay: 1.1 },
   ];
 
   // About Us Horizontal Scroll Logic
@@ -159,7 +160,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Moves the text container horizontally - Increased range for full text visibility
+  // Moves the text container horizontally
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-350%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
@@ -219,20 +220,20 @@ export default function Home() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="font-playfair italic text-xl md:text-2xl text-primary/70 mb-4 ml-[1vw]"
         >
           Let's create things together
         </motion.p>
 
-        {/* TRINIT Text Finale synchronized with vertical panels */}
+        {/* TRINIT Text Reveal synchronized with vertical panels */}
         <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
           {trinitGroups.map((group, groupIdx) => (
             <div key={groupIdx} className="flex">
               {group.chars.map((char, charIdx) => (
                 <motion.span
                   key={charIdx}
-                  initial={{ opacity: 0, y: 250 }}
+                  initial={{ opacity: 0, y: "100%" }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ 
                     delay: group.delay + (charIdx * 0.05), 
@@ -267,7 +268,7 @@ export default function Home() {
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
-                // Calculate color range for each word with a tighter mapping
+                // Calculate color range for each word
                 const step = 1 / words.length;
                 const start = i * step;
                 const end = (i + 1) * step;
