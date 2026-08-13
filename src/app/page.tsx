@@ -7,7 +7,7 @@ import { Mail } from 'lucide-react';
 
 /**
  * Triple Vertical Reveal Component
- * Three panels that slide upwards from the bottom one by one to reveal the page content.
+ * Three panels that slide upwards from the bottom to reveal the page content.
  */
 function TripleVerticalReveal() {
   const panelVariants = {
@@ -44,17 +44,17 @@ function TripleVerticalReveal() {
  * "Existing" words are Deep Purple (#34192F).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Tight transition range: the word turns purple as soon as its scroll 'start' is reached.
+  // Tight transition: word turns purple as soon as the scroll reaches its start range.
   const color = useTransform(
     progress, 
-    [range[0], range[0] + 0.01], 
+    [range[0], range[0] + 0.005], 
     ["#C0C0C0", "#34192F"]
   );
 
   return (
     <motion.span 
       style={{ color }} 
-      className="inline-block"
+      className="inline-block whitespace-nowrap"
     >
       {children}&nbsp;
     </motion.span>
@@ -139,7 +139,7 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  // Hero character groups logic
+  // Hero character groups logic synced with splits
   const trinitGroups = [
     { chars: ["T", "R"], delay: 0.8 },
     { chars: ["I", "N"], delay: 0.95 },
@@ -159,7 +159,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Moves the text container horizontally
+  // Moves the text container horizontally to reveal full text
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-350%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
@@ -205,7 +205,7 @@ export default function Home() {
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center">
+    <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
       
       {/* 3-Panel Vertical Reveal Animation */}
       <AnimatePresence>
@@ -215,7 +215,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden bg-background">
         
-        {/* CTA Text revealed after panels */}
+        {/* CTA Text revealed just above TRINIT */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -225,7 +225,7 @@ export default function Home() {
           Let's create things together
         </motion.p>
 
-        {/* TRINIT Text Reveal synchronized with vertical panels */}
+        {/* TRINIT Typography Reveal */}
         <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
           {trinitGroups.map((group, groupIdx) => (
             <div key={groupIdx} className="flex">
@@ -239,7 +239,7 @@ export default function Home() {
                     duration: 1.6, 
                     ease: [0.16, 1, 0.3, 1] 
                   }}
-                  className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-macker uppercase leading-[0.75] select-none inline-block text-left"
+                  className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-left"
                 >
                   {char}
                 </motion.span>
@@ -249,7 +249,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Spacing to About Label */}
+      {/* [about us] Label */}
       <div className="w-full max-w-7xl px-6 pt-40 pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -270,7 +270,15 @@ export default function Home() {
                 const step = 1 / words.length;
                 const start = i * step;
                 const end = (i + 1) * step;
-                return <Word key={i} progress={smoothProgress} range={[start, end]}>{word}</Word>;
+                return (
+                  <Word 
+                    key={i} 
+                    progress={smoothProgress} 
+                    range={[start, end]}
+                  >
+                    {word}
+                  </Word>
+                );
               })}
             </h2>
           </motion.div>
@@ -314,6 +322,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
+          {/* Cards revealing on scroll */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
               
@@ -359,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16 overflow-hidden">
+      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
         <div className="flex flex-col items-start gap-6">
           <motion.p 
             initial={{ opacity: 0 }}
@@ -372,7 +381,7 @@ export default function Home() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-7xl md:text-[12vw] font-macker uppercase tracking-tighter leading-[0.85] text-primary"
+            className="text-7xl md:text-[12vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
           >
             LET'S<br />TALK
           </motion.h2>
