@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -385,11 +384,11 @@ export default function Home() {
         <div className="flex flex-col items-center gap-12 w-full">
           {[
             { 
-              name: "Aryan Deshmukh", 
+              name: "Anushka Shirke", 
               role: "Creative Director", 
             },
             { 
-              name: "Vedant Patil", 
+              name: "Nikhil Shahane", 
               role: "Technical Lead", 
             }
           ].map((founder, i) => (
