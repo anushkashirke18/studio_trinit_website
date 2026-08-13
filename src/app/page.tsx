@@ -159,9 +159,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Moves the text container horizontally to reveal full text
-  // We use vw units for more consistent viewport-relative movement
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-350vw"]);
+  // Increased translation range to -650vw to reveal the entire narrative text
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-650vw"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -263,7 +262,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[600vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
         {/* Sticky container that stays in view while translating text */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
