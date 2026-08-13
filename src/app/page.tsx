@@ -203,9 +203,6 @@ export default function Home() {
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
-  const founder1Img = PlaceHolderImages.find(img => img.id === 'founder-1');
-  const founder2Img = PlaceHolderImages.find(img => img.id === 'founder-2');
-
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
@@ -374,7 +371,7 @@ export default function Home() {
       </section>
 
       {/* MEET THE FOUNDERS */}
-      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-center gap-24">
+      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-center gap-16">
         <div className="flex flex-col items-center text-center gap-6">
           <motion.p 
             initial={{ opacity: 0 }}
@@ -383,57 +380,32 @@ export default function Home() {
           >
             [meet the founders]
           </motion.p>
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-7xl md:text-[10vw] font-thunder uppercase tracking-tighter leading-none text-primary"
-          >
-            THE VISIONARIES
-          </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
+        <div className="flex flex-col items-center gap-12 w-full">
           {[
             { 
               name: "Aryan Deshmukh", 
               role: "Creative Director", 
-              image: founder1Img,
-              bio: "A visionary storyteller with a passion for minimal aesthetics and impactful brand identities."
             },
             { 
               name: "Vedant Patil", 
               role: "Technical Lead", 
-              image: founder2Img,
-              bio: "Architecting the future through clean code and innovative digital solutions."
             }
           ].map((founder, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2, duration: 1.2 }}
-              className="group relative flex flex-col gap-8"
+              transition={{ delay: i * 0.1, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="group flex flex-col items-center text-center gap-2"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-muted">
-                {founder.image && (
-                  <Image 
-                    src={founder.image.imageUrl} 
-                    alt={founder.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    data-ai-hint={founder.image.imageHint}
-                  />
-                )}
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <h3 className="text-3xl font-thunder uppercase tracking-tight text-primary">{founder.name}</h3>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-accent font-bold">{founder.role}</p>
-                <p className="font-playfair italic text-primary/60 max-w-sm mt-2 leading-relaxed">
-                  {founder.bio}
-                </p>
-              </div>
+              <h3 className="text-6xl md:text-[10vw] font-thunder uppercase tracking-tight text-primary leading-none transition-colors group-hover:text-accent">
+                {founder.name}
+              </h3>
+              <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground font-bold">
+                {founder.role}
+              </p>
             </motion.div>
           ))}
         </div>
