@@ -40,11 +40,11 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * Past words turn and stay Deep Purple (#34192F).
+ * Revealed words turn and stay Deep Purple (#34192F).
  * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Color transforms from silver (#C0C0C0) to purple (#34192F) as progress moves through the word's range.
+  // Color transforms from silver (#C0C0C0) to purple (#34192F)
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
@@ -159,7 +159,7 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Recalibrated translation to ensure the entire narrative is fully revealed and readable.
+  // Recalibrated translation to ensure the entire narrative is fully revealed.
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
 
   // Services Scroll Logic
@@ -260,7 +260,6 @@ export default function Home() {
 
       {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
-        {/* Sticky container */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -270,7 +269,7 @@ export default function Home() {
               {words.map((word, i) => {
                 const step = 1 / words.length;
                 const start = i * step;
-                // Sharp transition for immediate purple locking as words are hit by scroll focus
+                // Sharp transition for immediate purple locking
                 const end = start + (step * 0.1); 
                 return (
                   <Word 
