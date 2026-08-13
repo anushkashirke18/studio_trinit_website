@@ -44,12 +44,9 @@ function TripleVerticalReveal() {
  * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // tight transition: word turns purple once scroll progress enters its designated range.
-  const color = useTransform(
-    progress, 
-    [0, range[0], range[0] + 0.005], // tight transition
-    ["#C0C0C0", "#C0C0C0", "#34192F"]
-  );
+  // Color transforms from grey to purple as progress moves through the word's designated range.
+  // Because it's a transform, it stays purple once progress is past range[1].
+  const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
     <motion.span 
@@ -165,7 +162,7 @@ export default function Home() {
   const words = narrativeText.split(" ");
 
   // Massive translation to ensure "every touchpoint" is fully revealed.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-2500vw"]);
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-250vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -264,7 +261,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[1500vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[600vh] w-full bg-background overflow-visible">
         {/* Sticky container that stays in view while translating text */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
@@ -275,7 +272,8 @@ export default function Home() {
               {words.map((word, i) => {
                 const step = 1 / words.length;
                 const start = i * step;
-                const end = (i + 1) * step;
+                // Tight transition: turns from silver to purple as it hits its progress point
+                const end = start + 0.02; 
                 return (
                   <Word 
                     key={i} 
