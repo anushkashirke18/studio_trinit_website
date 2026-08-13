@@ -160,7 +160,7 @@ export default function Home() {
   const words = narrativeText.split(" ");
 
   // Recalibrated translation to ensure the entire narrative is fully revealed and readable.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-450vw"]);
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
