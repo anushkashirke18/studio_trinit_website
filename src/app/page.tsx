@@ -40,18 +40,22 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
+ * "Upcoming" words are grey, "Existing" words are colored.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.1, 1]);
+  // Existing words (past the range) are colored. Upcoming words (before the range) are grey.
   const color = useTransform(
     progress, 
     range, 
     ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"]
   );
+  
+  // Opacity also improves the "upcoming" vs "existing" feel
+  const opacity = useTransform(progress, range, [0.3, 1]);
 
   return (
     <motion.span 
-      style={{ opacity, color }} 
+      style={{ color, opacity }} 
       className="inline-block"
     >
       {children}&nbsp;
@@ -191,6 +195,7 @@ export default function Home() {
     }
   };
 
+  // About Us Horizontal Scroll Refs & Logic
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
@@ -203,7 +208,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-85%"]);
+  // Ensure text scrolls off-screen horizontally
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-90%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -355,7 +361,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background">
+      <section ref={horizontalRef} className="relative h-[1000vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none pr-[20vw] flex flex-nowrap items-center">
