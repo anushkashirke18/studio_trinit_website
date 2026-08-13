@@ -41,15 +41,15 @@ function TripleVerticalReveal() {
 /**
  * Word component for the horizontal scroll section.
  * "Upcoming" words are #C0C0C0 (Silver).
- * "Existing" words are #34192F (hsl(311 35% 15%)).
+ * "Existing" words are #34192F (Deep Purple).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   // Silver is #C0C0C0
-  // Purple is #34192F -> hsl(311 35% 15%)
+  // Purple is #34192F
   const color = useTransform(
     progress, 
     range, 
-    ["#C0C0C0", "hsl(311 35% 15%)"]
+    ["#C0C0C0", "#34192F"]
   );
 
   return (
@@ -161,7 +161,8 @@ export default function Home() {
   });
 
   // Moves the text container horizontally - Increased range to ensure full text visibility
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-160%"]);
+  // Animation starts immediately at 0
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0%", "-180%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
@@ -268,9 +269,9 @@ export default function Home() {
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
-                // Calculate color range for each word
-                const start = (i / words.length) * 0.8 + 0.1;
-                const end = start + 0.05; 
+                // Calculate color range for each word starting from 0 to 1
+                const start = (i / words.length) * 0.9;
+                const end = start + 0.1; 
                 return <Word key={i} progress={smoothProgress} range={[start, end]}>{word}</Word>;
               })}
             </h2>
