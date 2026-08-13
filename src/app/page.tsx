@@ -245,7 +245,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Restored Narrative Banner Section with Effects */}
+      {/* Narrative Banner Section with Staggered Effects */}
       <section className="w-full py-24 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {["CRAFTING UNFORGETTABLE", "DIGITAL EXPERIENCES", "FOR AMBITIOUS CLIENTS"].map((line, i) => (
