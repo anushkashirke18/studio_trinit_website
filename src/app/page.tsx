@@ -47,7 +47,7 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   // tight transition: word turns purple once scroll progress enters its designated range.
   const color = useTransform(
     progress, 
-    [0, range[0], range[0] + 0.001], // extremely tight transition
+    [0, range[0], range[0] + 0.005], // tight transition
     ["#C0C0C0", "#C0C0C0", "#34192F"]
   );
 
@@ -153,10 +153,10 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  // More responsive spring for the large translation range
+  // Smooth spring for better narrative revelation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 70,
+    damping: 35,
     restDelta: 0.001
   });
 
@@ -164,8 +164,8 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Increased translation range to -1800vw to ensure all text is revealed.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-1800vw"]);
+  // Massive translation to ensure "every touchpoint" is fully revealed.
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-2500vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -264,7 +264,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[1200vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[1500vh] w-full bg-background overflow-visible">
         {/* Sticky container that stays in view while translating text */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
