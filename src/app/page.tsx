@@ -245,18 +245,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Restored Narrative Banner Section */}
+      {/* Restored Narrative Banner Section with Effects */}
       <section className="w-full py-24 px-6 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-7xl mx-auto"
-        >
-          <h2 className="text-4xl md:text-7xl font-thunder uppercase leading-[0.9] text-primary tracking-tighter">
-            CRAFTING UNFORGETTABLE<br />DIGITAL EXPERIENCES<br />FOR AMBITIOUS CLIENTS
-          </h2>
-        </motion.div>
+        <div className="max-w-7xl mx-auto">
+          {["CRAFTING UNFORGETTABLE", "DIGITAL EXPERIENCES", "FOR AMBITIOUS CLIENTS"].map((line, i) => (
+            <div key={i} className="overflow-hidden">
+              <motion.h2
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: false }}
+                transition={{ 
+                  duration: 1.2, 
+                  ease: [0.16, 1, 0.3, 1], 
+                  delay: i * 0.1 
+                }}
+                className="text-4xl md:text-8xl font-thunder uppercase leading-[0.9] text-primary tracking-tighter"
+              >
+                {line}
+              </motion.h2>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* [about us] Label */}
