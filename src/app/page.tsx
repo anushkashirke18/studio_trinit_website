@@ -45,11 +45,10 @@ function TripleVerticalReveal() {
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   // Tight transition range: the word turns purple as soon as its scroll 'start' is reached.
-  // This makes sure 'existing' words are purple and 'upcoming' (including the current last one) are grey.
   const color = useTransform(
     progress, 
-    [range[0], range[0] + 0.02], // Fast transition at the start of its allocated scroll space
-    ["rgb(192, 192, 192)", "rgb(52, 25, 47)"]
+    [range[0], range[0] + 0.01], 
+    ["#C0C0C0", "#34192F"]
   );
 
   return (
@@ -268,7 +267,6 @@ export default function Home() {
           <motion.div style={{ x: xTranslate }} className="flex whitespace-nowrap px-[10vw]">
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {words.map((word, i) => {
-                // Calculate color range for each word
                 const step = 1 / words.length;
                 const start = i * step;
                 const end = (i + 1) * step;
