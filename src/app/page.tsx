@@ -206,7 +206,7 @@ export default function Home() {
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center overflow-x-hidden">
+    <div className="min-h-screen bg-background flex flex-col items-center">
       
       {/* 3-Panel Vertical Reveal Animation */}
       <AnimatePresence>
