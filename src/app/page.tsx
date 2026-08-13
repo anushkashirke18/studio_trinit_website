@@ -45,7 +45,6 @@ function TripleVerticalReveal() {
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   // Color transforms from silver (#C0C0C0) to purple (#34192F) as progress moves through the word's range.
-  // Because it's a transform, it stays purple once progress is past the end of the range.
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
@@ -150,10 +149,9 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  // Smooth spring for better narrative revelation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 35,
+    stiffness: 100,
+    damping: 30,
     restDelta: 0.001
   });
 
@@ -161,8 +159,8 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Increased translation to ensure "every touchpoint" is fully revealed.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-350vw"]);
+  // Increased translation to ensure the entire narrative is fully revealed.
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-800vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -261,8 +259,8 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[600vh] w-full bg-background overflow-visible">
-        {/* Sticky container that stays in view while translating text */}
+      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
+        {/* Sticky container */}
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -272,8 +270,7 @@ export default function Home() {
               {words.map((word, i) => {
                 const step = 1 / words.length;
                 const start = i * step;
-                // Tight transition: turns from silver to purple as it hits its progress point
-                const end = start + 0.02; 
+                const end = start + 0.05; // Slightly wider transition for smoothness
                 return (
                   <Word 
                     key={i} 
