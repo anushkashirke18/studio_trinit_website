@@ -40,15 +40,16 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * "Upcoming" words are grey, "Existing" words are colored #34192F (hsl(311 35% 15%)).
+ * "Upcoming" words are #C0C0C0 (Silver).
+ * "Existing" words are #34192F (hsl(311 35% 15%)).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Grey is hsl(240 3.8% 46.1%)
+  // Silver is #C0C0C0
   // Purple is #34192F -> hsl(311 35% 15%)
   const color = useTransform(
     progress, 
     range, 
-    ["hsl(240 3.8% 46.1%)", "hsl(311 35% 15%)"]
+    ["#C0C0C0", "hsl(311 35% 15%)"]
   );
 
   return (
@@ -412,4 +413,3 @@ export default function Home() {
     </div>
   );
 }
-
