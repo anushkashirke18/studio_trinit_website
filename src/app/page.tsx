@@ -160,8 +160,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Moves the text container horizontally
-  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-80%"]);
+  // Moves the text container horizontally - Increased range to ensure full text visibility
+  const xTranslate = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-160%"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
