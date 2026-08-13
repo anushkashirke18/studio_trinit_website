@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 /**
  * Triple Vertical Reveal Component
@@ -366,55 +365,6 @@ export default function Home() {
 
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* MEET THE FOUNDERS */}
-      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-center gap-16">
-        <div className="flex flex-col items-center text-center gap-6">
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
-          >
-            [meet the founders]
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 1.2 }}
-            className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-lg leading-relaxed"
-          >
-            The minds. The makers. The vision behind it all.
-          </motion.p>
-        </div>
-
-        <div className="flex flex-col items-center gap-12 w-full">
-          {[
-            { 
-              name: "Anushka Shirke", 
-              role: "Creative Director", 
-            },
-            { 
-              name: "Nikhil Shahane", 
-              role: "Technical Lead", 
-            }
-          ].map((founder, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="group flex flex-col items-center text-center gap-2"
-            >
-              <h3 className="text-6xl md:text-[10vw] font-thunder uppercase tracking-tight text-primary leading-none transition-colors group-hover:text-accent">
-                {founder.name}
-              </h3>
-              <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground font-bold">
-                {founder.role}
-              </p>
-            </motion.div>
-          ))}
         </div>
       </section>
 
