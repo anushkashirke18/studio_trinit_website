@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import Image from 'next/image';
 
 /**
  * Triple Vertical Reveal Component
@@ -159,7 +158,7 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Recalibrated translation to ensure the entire narrative is fully revealed.
+  // Standard horizontal translation for narrative
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
 
   // Services Scroll Logic
@@ -244,6 +243,20 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Restored Narrative Banner Section */}
+      <section className="w-full py-24 px-6 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-7xl mx-auto"
+        >
+          <h2 className="text-4xl md:text-7xl font-thunder uppercase leading-[0.9] text-primary tracking-tighter">
+            CRAFTING UNFORGETTABLE<br />DIGITAL EXPERIENCES<br />FOR AMBITIOUS CLIENTS
+          </h2>
+        </motion.div>
       </section>
 
       {/* [about us] Label */}
