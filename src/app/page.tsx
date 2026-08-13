@@ -44,10 +44,10 @@ function TripleVerticalReveal() {
  * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Tight transition: word turns purple once the scroll reaches its start range.
+  // Tight transition: word turns purple once the scroll reaches its specific range start.
   const color = useTransform(
     progress, 
-    [range[0], range[0] + 0.01], 
+    [range[0], range[0] + 0.005], 
     ["#C0C0C0", "#34192F"]
   );
 
@@ -159,8 +159,8 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Increased translation range to -650vw to reveal the entire narrative text
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-650vw"]);
+  // Increased translation range to -1100vw to reveal the entire narrative text including "every touchpoint"
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-1100vw"]);
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
