@@ -159,8 +159,8 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Recalibrated translation to ensure the entire narrative is fully revealed.
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-800vw"]);
+  // Recalibrated translation to ensure the entire narrative is fully revealed and readable.
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-450vw"]);
 
   // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -270,7 +270,8 @@ export default function Home() {
               {words.map((word, i) => {
                 const step = 1 / words.length;
                 const start = i * step;
-                const end = start + (step * 0.5); // Tight transition for sharp color locking
+                // Sharp transition for immediate purple locking as words are hit by scroll focus
+                const end = start + (step * 0.1); 
                 return (
                   <Word 
                     key={i} 
