@@ -201,7 +201,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-thunder uppercase text-7xl md:text-[16vw] leading-[0.85] text-primary text-center tracking-tighter"
+          className="font-playfair text-6xl md:text-[12vw] leading-[1.1] text-primary text-center font-light italic"
         >
           Let's create <br />
           things <br />
