@@ -438,7 +438,7 @@ export default function Home() {
       <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
         <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
           {/* Left Side: Heading */}
-          <div className="flex flex-col items-start gap-6">
+          <div className="flex flex-col items-start gap-6 md:pt-24">
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -450,7 +450,7 @@ export default function Home() {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-7xl md:text-[12vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
+              className="text-7xl md:text-[16vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
             >
               LET'S<br />TALK
             </motion.h2>
