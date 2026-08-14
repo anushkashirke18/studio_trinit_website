@@ -245,11 +245,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Narrative Banner Section with Staggered Effects */}
-      <section className="w-full py-24 px-6 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          {["CRAFTING UNFORGETTABLE", "DIGITAL EXPERIENCES", "FOR AMBITIOUS CLIENTS"].map((line, i) => (
-            <div key={i} className="overflow-hidden">
+      {/* Narrative Section: One word per line, huge, centered */}
+      <section className="w-full py-32 px-6 overflow-hidden bg-background">
+        <div className="flex flex-col items-center justify-center text-center">
+          {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => (
+            <div key={i} className="overflow-hidden w-full">
               <motion.h2
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
@@ -257,11 +257,11 @@ export default function Home() {
                 transition={{ 
                   duration: 1.2, 
                   ease: [0.16, 1, 0.3, 1], 
-                  delay: i * 0.1 
+                  delay: i * 0.08 
                 }}
-                className="text-4xl md:text-8xl font-thunder uppercase leading-[0.9] text-primary tracking-tighter"
+                className="text-[18vw] font-thunder uppercase leading-[0.8] text-primary tracking-tighter"
               >
-                {line}
+                {word}
               </motion.h2>
             </div>
           ))}
