@@ -459,11 +459,19 @@ export default function Home() {
             <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
               Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
             </p>
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-              <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
-                contact@trinit.co.in
-              </a>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
+                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                  contact@trinit.co.in
+                </a>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
+                <a href="tel:+919999999999" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                  +91 99999 99999
+                </a>
+              </div>
             </div>
           </div>
           <ScallopedBadge />
