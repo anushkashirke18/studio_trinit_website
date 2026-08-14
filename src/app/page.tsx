@@ -133,12 +133,6 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const trinitGroups = [
-    { chars: ["T", "R"], delay: 0.8 },
-    { chars: ["I", "N"], delay: 0.95 },
-    { chars: ["I", "T"], delay: 1.1 },
-  ];
-
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
@@ -211,35 +205,12 @@ export default function Home() {
         >
           Let's create things together
         </motion.p>
-
-        <div className="w-full pb-0 md:pb-2 flex justify-center">
-          {trinitGroups.map((group, groupIdx) => (
-            <div key={groupIdx} className="flex">
-              {group.chars.map((char, charIdx) => (
-                <motion.span
-                  key={charIdx}
-                  initial={{ opacity: 0, y: "100%" }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    delay: group.delay + (charIdx * 0.05), 
-                    duration: 1.6, 
-                    ease: [0.16, 1, 0.3, 1] 
-                  }}
-                  className="text-[22vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-center"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* Narrative Section */}
       <section className="w-full py-32 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
-            // Font sizes balanced for cinematic presence
             const fontSize = word === "UNFORGETTABLE" ? "text-[16.8vw]" : word === "EXPERIENCES" ? "text-[17.2vw]" : "text-[17.5vw]";
             
             return (
