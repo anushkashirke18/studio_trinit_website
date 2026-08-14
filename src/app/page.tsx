@@ -239,8 +239,7 @@ export default function Home() {
       <section className="w-full py-32 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
-            // Precise font-size management for cinematic balance. 
-            // "UNFORGETTABLE" is adjusted to 16.8vw to ensure it fits the viewport.
+            // Font sizes balanced for cinematic presence
             const fontSize = word === "UNFORGETTABLE" ? "text-[16.8vw]" : word === "EXPERIENCES" ? "text-[17.2vw]" : "text-[17.5vw]";
             
             return (
@@ -457,7 +456,7 @@ export default function Home() {
           </div>
 
           {/* Right Side: Info Text Block */}
-          <div className="flex flex-col gap-8 md:mt-24">
+          <div className="flex flex-col gap-8 md:mt-40">
             <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
               Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
             </p>
