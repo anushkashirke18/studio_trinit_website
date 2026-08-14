@@ -239,8 +239,8 @@ export default function Home() {
       <section className="w-full py-32 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
-            // Dynamic font sizing for visibility of long words
-            const fontSize = word === "UNFORGETTABLE" ? "text-[13vw]" : word === "EXPERIENCES" ? "text-[15.5vw]" : "text-[18vw]";
+            // Balanced font sizing to maintain visual scale across long and short words
+            const fontSize = word === "UNFORGETTABLE" ? "text-[15.5vw]" : word === "EXPERIENCES" ? "text-[16.5vw]" : "text-[17.5vw]";
             
             return (
               <div key={i} className="overflow-hidden w-full relative">
