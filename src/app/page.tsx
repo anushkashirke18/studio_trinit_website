@@ -461,8 +461,8 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-              <a href="mailto:hello@trinit.studio" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
-                hello@trinit.studio
+              <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                contact@trinit.co.in
               </a>
             </div>
           </div>
