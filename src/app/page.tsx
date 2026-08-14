@@ -43,7 +43,6 @@ function TripleVerticalReveal() {
  * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Color transforms from silver (#C0C0C0) to purple (#34192F)
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
@@ -134,14 +133,12 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  // Hero character groups logic
   const trinitGroups = [
     { chars: ["T", "R"], delay: 0.8 },
     { chars: ["I", "N"], delay: 0.95 },
     { chars: ["I", "T"], delay: 1.1 },
   ];
 
-  // About Us Horizontal Scroll Logic
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: horizontalRef,
@@ -154,14 +151,11 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Narrative text split into words
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const words = narrativeText.split(" ");
 
-  // Standard horizontal translation for narrative
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
 
-  // Services Scroll Logic
   const servicesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: servicesScrollProgress } = useScroll({
     target: servicesRef,
@@ -203,15 +197,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
-      {/* 3-Panel Vertical Reveal Animation */}
       <AnimatePresence>
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden bg-background">
-        
-        {/* CTA Text revealed just above TRINIT */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -221,7 +212,6 @@ export default function Home() {
           Let's create things together
         </motion.p>
 
-        {/* TRINIT Typography Reveal */}
         <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
           {trinitGroups.map((group, groupIdx) => (
             <div key={groupIdx} className="flex">
@@ -245,75 +235,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Narrative Section: One word per line, huge, centered */}
+      {/* Narrative Section */}
       <section className="w-full py-32 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
-          {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => (
-            <div key={i} className="overflow-hidden w-full relative">
-              <motion.h2
-                initial={{ y: "100%" }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: false }}
-                transition={{ 
-                  duration: 1.2, 
-                  ease: [0.16, 1, 0.3, 1], 
-                  delay: i * 0.08 
-                }}
-                className="text-[18vw] font-thunder uppercase leading-[0.8] text-primary tracking-tighter relative"
-              >
-                {word}
-                {word === "CRAFTING" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      designing
+          {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
+            // Dynamic font sizing for visibility of long words
+            const fontSize = word === "UNFORGETTABLE" ? "text-[13vw]" : word === "EXPERIENCES" ? "text-[15.5vw]" : "text-[18vw]";
+            
+            return (
+              <div key={i} className="overflow-hidden w-full relative">
+                <motion.h2
+                  initial={{ y: "100%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ 
+                    duration: 1.2, 
+                    ease: [0.16, 1, 0.3, 1], 
+                    delay: i * 0.08 
+                  }}
+                  className={`${fontSize} font-thunder uppercase leading-[0.8] text-primary tracking-tighter relative`}
+                >
+                  {word}
+                  {word === "CRAFTING" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        designing
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "UNFORGETTABLE" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      premium - luxury
+                  )}
+                  {word === "UNFORGETTABLE" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        premium - luxury
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "DIGITAL" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      web - mobile
+                  )}
+                  {word === "DIGITAL" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        web - mobile
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "EXPERIENCES" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      brands & websites
+                  )}
+                  {word === "EXPERIENCES" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        brands & websites
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "FOR" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      you
+                  )}
+                  {word === "FOR" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        you
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "AMBITIOUS" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      extraordinary
+                  )}
+                  {word === "AMBITIOUS" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        extraordinary
+                      </span>
                     </span>
-                  </span>
-                )}
-                {word === "CLIENTS" && (
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                      people
+                  )}
+                  {word === "CLIENTS" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                        people
+                      </span>
                     </span>
-                  </span>
-                )}
-              </motion.h2>
-            </div>
-          ))}
+                  )}
+                </motion.h2>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -340,7 +335,6 @@ export default function Home() {
               {words.map((word, i) => {
                 const step = 1 / words.length;
                 const start = i * step;
-                // Sharp transition for immediate purple locking
                 const end = start + (step * 0.1); 
                 return (
                   <Word 
