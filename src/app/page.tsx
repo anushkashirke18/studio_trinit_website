@@ -202,17 +202,17 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col items-start justify-end p-6 md:p-12 overflow-hidden bg-background">
+      <section className="relative w-full h-screen flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden bg-background">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-playfair italic text-xl md:text-2xl text-primary/70 mb-4 ml-[1vw]"
+          className="font-playfair italic text-xl md:text-2xl text-primary/70 mb-4 text-center"
         >
           Let's create things together
         </motion.p>
 
-        <div className="w-full pb-0 md:pb-2 flex justify-start -ml-[2vw]">
+        <div className="w-full pb-0 md:pb-2 flex justify-center">
           {trinitGroups.map((group, groupIdx) => (
             <div key={groupIdx} className="flex">
               {group.chars.map((char, charIdx) => (
@@ -225,7 +225,7 @@ export default function Home() {
                     duration: 1.6, 
                     ease: [0.16, 1, 0.3, 1] 
                   }}
-                  className="text-[32vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-left"
+                  className="text-[26vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-center"
                 >
                   {char}
                 </motion.span>
