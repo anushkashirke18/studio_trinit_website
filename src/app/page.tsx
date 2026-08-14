@@ -201,10 +201,10 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-playground text-7xl md:text-[14vw] leading-[1.05] text-primary text-center font-light italic"
+          className="font-playground text-7xl md:text-[12vw] leading-[1.15] text-primary text-center font-light italic tracking-tight"
         >
           Let's create <br />
-          things <br />
+          <span className="block my-[1vh]">things</span>
           together
         </motion.h1>
       </section>
