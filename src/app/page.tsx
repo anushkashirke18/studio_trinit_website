@@ -468,8 +468,8 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
-                <a href="tel:+919999999999" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
-                  +91 99999 99999
+                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                  +91 91120 74187
                 </a>
               </div>
             </div>
