@@ -197,14 +197,16 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden bg-background">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-playfair italic text-xl md:text-2xl text-primary/70 mb-4 text-center"
+          className="font-thunder uppercase text-7xl md:text-[16vw] leading-[0.85] text-primary text-center tracking-tighter"
         >
-          Let's create things together
-        </motion.p>
+          Let's create <br />
+          things <br />
+          together
+        </motion.h1>
       </section>
 
       {/* Narrative Section */}
