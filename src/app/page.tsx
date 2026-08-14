@@ -249,7 +249,7 @@ export default function Home() {
       <section className="w-full py-32 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => (
-            <div key={i} className="overflow-hidden w-full">
+            <div key={i} className="overflow-hidden w-full relative">
               <motion.h2
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
@@ -259,9 +259,16 @@ export default function Home() {
                   ease: [0.16, 1, 0.3, 1], 
                   delay: i * 0.08 
                 }}
-                className="text-[18vw] font-thunder uppercase leading-[0.8] text-primary tracking-tighter"
+                className="text-[18vw] font-thunder uppercase leading-[0.8] text-primary tracking-tighter relative"
               >
                 {word}
+                {word === "CRAFTING" && (
+                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
+                      designing
+                    </span>
+                  </span>
+                )}
               </motion.h2>
             </div>
           ))}
