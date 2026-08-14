@@ -436,26 +436,28 @@ export default function Home() {
 
       {/* Contact Section */}
       <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
-        <div className="flex flex-col items-start gap-6">
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
-          >
-            [contact us]
-          </motion.p>
-          <motion.h2 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-7xl md:text-[12vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
-          >
-            LET'S<br />TALK
-          </motion.h2>
-        </div>
-        
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-12 mt-8">
-          <div className="flex flex-col gap-8">
+        <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
+          {/* Left Side: Heading */}
+          <div className="flex flex-col items-start gap-6">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+            >
+              [contact us]
+            </motion.p>
+            <motion.h2 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="text-7xl md:text-[12vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
+            >
+              LET'S<br />TALK
+            </motion.h2>
+          </div>
+
+          {/* Right Side: Info Text Block */}
+          <div className="flex flex-col gap-8 md:mt-24">
             <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
               Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
             </p>
@@ -474,6 +476,9 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="flex justify-end w-full mt-8">
           <ScallopedBadge />
         </div>
       </section>
