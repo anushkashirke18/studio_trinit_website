@@ -225,7 +225,7 @@ export default function Home() {
                     duration: 1.6, 
                     ease: [0.16, 1, 0.3, 1] 
                   }}
-                  className="text-[26vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-center"
+                  className="text-[22vw] font-bold tracking-[0.1em] text-foreground font-thunder uppercase leading-[0.75] select-none inline-block text-center"
                 >
                   {char}
                 </motion.span>
