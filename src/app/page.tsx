@@ -214,8 +214,8 @@ export default function Home() {
               Let's create
             </span>
             
-            {/* Sans-serif bold line */}
-            <span className="font-headline font-bold lowercase text-[clamp(70px,22vw,320px)] leading-[0.75] -mt-[1vw] tracking-tighter z-20">
+            {/* Sans-serif bold line - Adjusted font size upper bound to make it 'shorter' */}
+            <span className="font-headline font-bold lowercase text-[clamp(70px,18vw,240px)] leading-[0.75] -mt-[1vw] tracking-tighter z-20">
               things
             </span>
             
