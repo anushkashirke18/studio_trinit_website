@@ -149,6 +149,32 @@ function CircularTrinit() {
   );
 }
 
+/**
+ * Circular rotating text component for "TRINIT" (Top variant).
+ * Positioned higher so only half is visible at the top of the container.
+ * Rotates in the opposite direction.
+ */
+function CircularTrinitTop() {
+  return (
+    <motion.div
+      animate={{ rotate: -360 }}
+      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      className="absolute bottom-full left-0 w-[20vw] h-[20vw] min-w-[200px] min-h-[200px] pointer-events-none z-10 mb-[18vh] -ml-[2vw]"
+    >
+      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+        <defs>
+          <path id="trinitCirclePathTop" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
+        </defs>
+        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#F3D4DF]">
+          <textPath href="#trinitCirclePathTop">
+            TRINIT • TRINIT • TRINIT •
+          </textPath>
+        </text>
+      </svg>
+    </motion.div>
+  );
+}
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [displayText, setDisplayText] = useState("things");
@@ -332,6 +358,7 @@ export default function Home() {
                 const start = i * step;
                 const end = start + (step * 0.1);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
+                const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
 
                 return (
                   <span key={i} className="relative inline-block">
@@ -342,6 +369,7 @@ export default function Home() {
                       {word}
                     </Word>
                     {isAgency && <CircularTrinit />}
+                    {isStory && <CircularTrinitTop />}
                   </span>
                 );
               })}
