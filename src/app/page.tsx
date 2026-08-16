@@ -215,10 +215,10 @@ export default function Home() {
               <motion.div 
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
-                className="absolute -right-[2px] top-0 h-full w-[4px] bg-accent-foreground"
+                className="absolute -right-[2px] top-0 h-full w-[4px] bg-primary"
               >
-                {/* Teardrop handle at the bottom of the cursor */}
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-accent-foreground rounded-full rounded-tr-none rotate-45" />
+                {/* Teardrop handle at the bottom of the cursor - using bg-primary for visibility */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full rounded-tr-none rotate-45" />
               </motion.div>
             </span>?
           </h1>
