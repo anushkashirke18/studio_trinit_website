@@ -192,7 +192,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
+  const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and banglore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
