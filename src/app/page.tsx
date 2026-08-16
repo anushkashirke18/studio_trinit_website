@@ -208,7 +208,7 @@ export default function Home() {
 
           {/* Centered "we create?" text with permanent highlight and handle */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
-            we <span className="relative inline-block bg-accent text-accent-foreground px-4">
+            we <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
               create
               <motion.div 
                 animate={{ opacity: [1, 0, 1] }}
