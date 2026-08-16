@@ -239,7 +239,8 @@ export default function Home() {
         >
           {/* Centered typing animation text with highlight */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none">
-            lets create <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
+            lets create <br />
+            <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
               {displayText}
               <motion.div 
                 animate={{ opacity: [1, 0, 1] }}
