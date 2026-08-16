@@ -201,7 +201,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-primary text-center flex flex-col items-center select-none"
+          className="text-primary text-center flex flex-col items-center"
         >
           {/* Decorative asterisk to match image style */}
           <div className="w-full max-w-[80vw] flex justify-start mb-[-2vw] ml-[-4vw]">
@@ -210,7 +210,7 @@ export default function Home() {
 
           {/* Centered "we create?" text */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
-            we create?
+            we <span className="selection:bg-accent selection:text-accent-foreground">create</span>?
           </h1>
         </motion.div>
       </section>
