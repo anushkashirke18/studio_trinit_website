@@ -195,7 +195,7 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and banglore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
-  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
+  const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-900vw"]);
 
   const servicesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: servicesScrollProgress } = useScroll({
