@@ -208,9 +208,19 @@ export default function Home() {
             <span className="text-4xl md:text-7xl font-playground">*</span>
           </div>
 
-          {/* Centered "we create?" text with permanent highlight */}
+          {/* Centered "we create?" text with permanent highlight and handle */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
-            we <span className="bg-accent text-accent-foreground">create</span>?
+            we <span className="relative inline-block bg-accent text-accent-foreground px-4">
+              create
+              <motion.div 
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
+                className="absolute -right-[2px] top-0 h-full w-[4px] bg-accent-foreground"
+              >
+                {/* Teardrop handle at the bottom of the cursor */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-accent-foreground rounded-full rounded-tr-none rotate-45" />
+              </motion.div>
+            </span>?
           </h1>
         </motion.div>
       </section>
