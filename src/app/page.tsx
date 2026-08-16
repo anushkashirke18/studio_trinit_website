@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -252,7 +251,7 @@ export default function Home() {
           className="text-primary text-center flex flex-col items-center"
         >
           {/* Centered typing animation text with highlight */}
-          <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none">
+          <h1 className="text-[clamp(48px,12vw,200px)] font-thunder text-primary lowercase tracking-tight leading-none">
             lets create <br />
             <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
               {displayText}
