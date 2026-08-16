@@ -124,6 +124,30 @@ function ScallopedBadge() {
   );
 }
 
+/**
+ * Circular rotating text component for "TRINIT".
+ */
+function CircularTrinit() {
+  return (
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      className="absolute top-full left-0 w-[6vw] h-[6vw] min-w-[60px] min-h-[60px] pointer-events-none z-10 -mt-[1vw]"
+    >
+      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+        <defs>
+          <path id="trinitCirclePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
+        </defs>
+        <text className="text-[12px] uppercase tracking-[0.15em] font-headline font-bold fill-accent opacity-80">
+          <textPath href="#trinitCirclePath">
+            TRINIT • TRINIT • TRINIT •
+          </textPath>
+        </text>
+      </svg>
+    </motion.div>
+  );
+}
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [displayText, setDisplayText] = useState("things");
@@ -305,15 +329,19 @@ export default function Home() {
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
                 const start = i * step;
-                const end = start + (step * 0.1); 
+                const end = start + (step * 0.1);
+                const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
+
                 return (
-                  <Word 
-                    key={i} 
-                    progress={smoothProgress} 
-                    range={[start, end]}
-                  >
-                    {word}
-                  </Word>
+                  <span key={i} className="relative inline-block">
+                    <Word 
+                      progress={smoothProgress} 
+                      range={[start, end]}
+                    >
+                      {word}
+                    </Word>
+                    {isAgency && <CircularTrinit />}
+                  </span>
                 );
               })}
             </h2>
