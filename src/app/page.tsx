@@ -126,10 +126,46 @@ function ScallopedBadge() {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [displayText, setDisplayText] = useState("things");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const words = ["things", "ideas"];
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    if (!mounted) return;
+
+    let timer: NodeJS.Timeout;
+    const currentWord = words[wordIndex];
+
+    if (isDeleting) {
+      if (displayText.length > 0) {
+        timer = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 100);
+      } else {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % words.length);
+      }
+    } else {
+      if (displayText.length < currentWord.length) {
+        timer = setTimeout(() => {
+          setDisplayText(currentWord.substring(0, displayText.length + 1));
+        }, 150);
+      } else {
+        // Pause before deleting
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, wordIndex, mounted, words]);
 
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -144,7 +180,7 @@ export default function Home() {
   });
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
-  const words = narrativeText.split(" ");
+  const wordsArray = narrativeText.split(" ");
 
   const xTranslate = useTransform(smoothProgress, [0, 1], ["0vw", "-700vw"]);
 
@@ -201,21 +237,21 @@ export default function Home() {
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
-          {/* Decorative asterisk to match image style */}
+          {/* Decorative asterisk */}
           <div className="w-full max-w-[80vw] flex justify-start mb-[-2vw] ml-[-4vw]">
             <span className="text-4xl md:text-7xl font-playground">*</span>
           </div>
 
-          {/* Centered "lets create things" text with permanent highlight on "things" */}
+          {/* Centered typing animation text with highlight */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
             lets create <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
-              things
+              {displayText}
               <motion.div 
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
                 className="absolute -right-[2px] top-0 h-full w-[4px] bg-primary"
               >
-                {/* Vertical teardrop handle pointing up towards the cursor - using bg-primary for contrast */}
+                {/* Vertical teardrop handle */}
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full rounded-tr-none -rotate-45" />
               </motion.div>
             </span>
@@ -270,8 +306,8 @@ export default function Home() {
             className="flex whitespace-nowrap px-[10vw]"
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
-              {words.map((word, i) => {
-                const step = 1 / words.length;
+              {wordsArray.map((word, i) => {
+                const step = 1 / wordsArray.length;
                 const start = i * step;
                 const end = start + (step * 0.1); 
                 return (
