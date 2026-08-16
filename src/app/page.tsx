@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -308,7 +309,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -341,7 +342,7 @@ export default function Home() {
       </section>
 
       {/* OUR SERVICES */}
-      <section ref={servicesRef} className="relative h-[600vh] w-full bg-background mt-24">
+      <section ref={servicesRef} className="relative h-[600vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
           <motion.div 
