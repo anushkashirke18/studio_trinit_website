@@ -208,9 +208,9 @@ export default function Home() {
             <span className="text-4xl md:text-7xl font-playground">*</span>
           </div>
 
-          {/* Centered "we create?" text */}
+          {/* Centered "we create?" text with permanent highlight */}
           <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
-            we <span className="selection:bg-accent selection:text-accent-foreground">create</span>?
+            we <span className="bg-accent text-accent-foreground">create</span>?
           </h1>
         </motion.div>
       </section>
