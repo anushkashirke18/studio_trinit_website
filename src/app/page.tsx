@@ -208,7 +208,10 @@ export default function Home() {
             <span className="text-4xl md:text-7xl font-playground">*</span>
           </div>
 
-          {/* Heading and sub-text removed for a clean slate */}
+          {/* Centered "we create?" text */}
+          <h1 className="text-[clamp(48px,15vw,240px)] font-playground italic text-primary lowercase tracking-tight leading-none mt-4">
+            we create?
+          </h1>
         </motion.div>
       </section>
 
