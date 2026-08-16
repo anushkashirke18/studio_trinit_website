@@ -129,7 +129,7 @@ export default function Home() {
   const [displayText, setDisplayText] = useState("things");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const words = ["things", "ideas"];
+  const words = ["things", "ideas", "designs", "softwares", "products", "apps", "systems", "experiences"];
 
   useEffect(() => {
     setMounted(true);
