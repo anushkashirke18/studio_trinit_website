@@ -209,7 +209,7 @@ export default function Home() {
           </div>
 
           {/* Centered "we create?" text */}
-          <h1 className="text-[clamp(48px,15vw,240px)] font-playground italic text-primary lowercase tracking-tight leading-none mt-4">
+          <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
             we create?
           </h1>
         </motion.div>
