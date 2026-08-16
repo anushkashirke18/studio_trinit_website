@@ -87,44 +87,6 @@ function ServiceChar({ children, i, total, progress }: { children: string, i: nu
 }
 
 /**
- * A smooth, rounded 8-petaled stamp badge with rotating text.
- */
-function ScallopedBadge() {
-  return (
-    <div className="relative w-[clamp(120px,25vw,240px)] h-[clamp(120px,25vw,240px)] flex items-center justify-center shrink-0">
-      <svg 
-        viewBox="0 0 100 100" 
-        className="absolute inset-0 w-full h-full text-[#D4C4FB]"
-        fill="currentColor"
-      >
-        <path d="M50,5 C58.2,5 64.9,11.7 64.9,20 C64.9,28.3 71.7,35.1 80,35.1 C88.3,35.1 95,41.8 95,50 C95,58.2 88.3,64.9 80,64.9 C71.7,64.9 64.9,71.7 64.9,80 C64.9,88.3 58.2,95 50,95 C41.8,95 35.1,88.3 35.1,80 C35.1,71.7 28.3,64.9 20,64.9 C11.7,64.9 5,58.2 5,50 C5,41.8 11.7,35.1 20,35.1 C28.3,35.1 35.1,28.3 35.1,20 C35.1,11.7 41.8,5 50,5 Z" />
-      </svg>
-      
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 w-full h-full"
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <defs>
-            <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
-          </defs>
-          <text className="text-[10px] uppercase tracking-[0.2em] font-medium fill-[#34192F]">
-            <textPath href="#circlePath">
-              REACH OUT • REACH OUT • REACH OUT •
-            </textPath>
-          </text>
-        </svg>
-      </motion.div>
-      
-      <div className="relative z-10 text-[#34192F]">
-        <Mail size={32} strokeWidth={1.2} />
-      </div>
-    </div>
-  );
-}
-
-/**
  * Circular rotating text component for "TRINIT".
  * Positioned lower so only half is visible at the bottom of the container.
  */
@@ -502,10 +464,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="flex justify-end w-full mt-8">
-          <ScallopedBadge />
         </div>
       </section>
 
