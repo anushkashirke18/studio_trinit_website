@@ -126,19 +126,20 @@ function ScallopedBadge() {
 
 /**
  * Circular rotating text component for "TRINIT".
+ * Larger size and partially visible (half-visible) below the text.
  */
 function CircularTrinit() {
   return (
     <motion.div
       animate={{ rotate: 360 }}
-      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-      className="absolute top-full left-0 w-[6vw] h-[6vw] min-w-[60px] min-h-[60px] pointer-events-none z-10 -mt-[1vw]"
+      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      className="absolute top-full left-0 w-[20vw] h-[20vw] min-w-[200px] min-h-[200px] pointer-events-none z-10 -mt-[10vw] -ml-[2vw]"
     >
       <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
         <defs>
           <path id="trinitCirclePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
         </defs>
-        <text className="text-[12px] uppercase tracking-[0.15em] font-headline font-bold fill-accent opacity-80">
+        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-accent opacity-60">
           <textPath href="#trinitCirclePath">
             TRINIT • TRINIT • TRINIT •
           </textPath>
