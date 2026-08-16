@@ -208,29 +208,7 @@ export default function Home() {
             <span className="text-4xl md:text-7xl font-playground">*</span>
           </div>
 
-          <h1 className="flex flex-col items-center">
-            {/* Serif line */}
-            <span className="font-playground italic text-[clamp(48px,12vw,180px)] leading-[0.8] z-10 tracking-tight">
-              Let's create
-            </span>
-            
-            {/* Sans-serif bold line - Adjusted font size upper bound to make it 'shorter' */}
-            <span className="font-headline font-bold lowercase text-[clamp(70px,18vw,240px)] leading-[0.75] -mt-[1vw] tracking-tighter z-20">
-              things
-            </span>
-            
-            {/* Serif line with extra offset */}
-            <span className="font-playground italic text-[clamp(52px,14vw,200px)] leading-[0.8] -mt-[3vw] z-10 tracking-tight">
-              together
-            </span>
-          </h1>
-
-          {/* Minimalist sub-text similar to image notes */}
-          <div className="w-full max-w-[70vw] flex justify-end mt-4 opacity-60">
-            <p className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] max-w-[150px] text-right">
-              1 DESIGNING<br />FOR AMBITIOUS<br />BRANDS & PEOPLE
-            </p>
-          </div>
+          {/* Heading and sub-text removed for a clean slate */}
         </motion.div>
       </section>
 
