@@ -39,8 +39,6 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * Revealed words turn and stay Deep Purple (#34192F).
- * Upcoming words remain Silver (#C0C0C0).
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
@@ -217,8 +215,8 @@ export default function Home() {
                 transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
                 className="absolute -right-[2px] top-0 h-full w-[4px] bg-primary"
               >
-                {/* Teardrop handle at the bottom of the cursor - using bg-primary for visibility */}
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full rounded-tr-none rotate-45" />
+                {/* Vertical teardrop handle pointing up towards the cursor - using bg-primary for contrast */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full rounded-tr-none -rotate-45" />
               </motion.div>
             </span>?
           </h1>
@@ -245,55 +243,6 @@ export default function Home() {
                   className={`${fontSize} font-thunder uppercase leading-[0.8] text-primary tracking-tighter relative`}
                 >
                   {word}
-                  {word === "CRAFTING" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        designing
-                      </span>
-                    </span>
-                  )}
-                  {word === "UNFORGETTABLE" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        premium - luxury
-                      </span>
-                    </span>
-                  )}
-                  {word === "DIGITAL" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        web - mobile
-                      </span>
-                    </span>
-                  )}
-                  {word === "EXPERIENCES" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        brands & websites
-                      </span>
-                    </span>
-                  )}
-                  {word === "FOR" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        you
-                      </span>
-                    </span>
-                  )}
-                  {word === "AMBITIOUS" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        extraordinary
-                      </span>
-                    </span>
-                  )}
-                  {word === "CLIENTS" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,120px)] mt-[2vw]">
-                        people
-                      </span>
-                    </span>
-                  )}
                 </motion.h2>
               </div>
             );
