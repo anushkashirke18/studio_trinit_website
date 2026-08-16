@@ -139,7 +139,7 @@ function CircularTrinit() {
         <defs>
           <path id="trinitCirclePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
         </defs>
-        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#B8D86B]">
+        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#FFF599]">
           <textPath href="#trinitCirclePath">
             TRINIT • TRINIT • TRINIT •
           </textPath>
@@ -259,7 +259,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 2.2, duration: 1.2, base: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
           {/* Centered typing animation text with highlight */}
