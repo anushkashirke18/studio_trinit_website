@@ -237,13 +237,8 @@ export default function Home() {
           transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
-          {/* Decorative asterisk */}
-          <div className="w-full max-w-[80vw] flex justify-start mb-[-2vw] ml-[-4vw]">
-            <span className="text-4xl md:text-7xl font-playground">*</span>
-          </div>
-
           {/* Centered typing animation text with highlight */}
-          <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none mt-4">
+          <h1 className="text-[clamp(48px,15vw,240px)] font-thunder text-primary lowercase tracking-tight leading-none">
             lets create <span className="relative inline-block bg-[#C0C0C0] text-accent px-4">
               {displayText}
               <motion.div 
