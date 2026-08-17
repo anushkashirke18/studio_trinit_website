@@ -102,7 +102,7 @@ function CircularTrinit() {
         <defs>
           <path id="trinitCirclePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
         </defs>
-        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#F3D4DF]">
+        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#DC9632]">
           <textPath href="#trinitCirclePath">
             TRINIT • TRINIT • TRINIT •
           </textPath>
@@ -128,7 +128,7 @@ function CircularTrinitTop() {
         <defs>
           <path id="trinitCirclePathTop" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
         </defs>
-        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#F3D4DF]">
+        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#DC9632]">
           <textPath href="#trinitCirclePathTop">
             TRINIT • TRINIT • TRINIT •
           </textPath>
