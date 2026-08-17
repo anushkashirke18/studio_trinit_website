@@ -275,6 +275,16 @@ export default function Home() {
               </motion.div>
             </span>
           </h1>
+
+          {/* CTA Text below heading */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3.4, duration: 1 }}
+            className="text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors"
+          >
+            make it happen -&gt;
+          </motion.p>
         </motion.div>
       </section>
 
