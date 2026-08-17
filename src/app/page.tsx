@@ -568,7 +568,7 @@ export default function Home() {
           </div>
 
           {/* Right Side: Info Text Block */}
-          <div className="flex flex-col gap-8 md:mt-64">
+          <div className="flex flex-col gap-8 md:mt-48">
             <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
               Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
             </p>
