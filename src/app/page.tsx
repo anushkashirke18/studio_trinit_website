@@ -546,7 +546,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
+      <section className="w-full max-w-7xl px-6 pt-12 pb-40 flex flex-col items-start gap-16">
         <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
           {/* Left Side: Heading */}
           <div className="flex flex-col items-start gap-6 md:pt-48">
