@@ -340,6 +340,13 @@ export default function Home() {
                       </span>
                     </span>
                   )}
+                  {word === "DIGITAL" && (
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                        web - mobile
+                      </span>
+                    </span>
+                  )}
                 </motion.h2>
               </div>
             );
