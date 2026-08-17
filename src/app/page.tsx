@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
-import { Mail } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
 
 /**
  * Triple Vertical Reveal Component
@@ -281,9 +281,9 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
-            className="text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors"
+            className="text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors inline-flex items-center gap-2"
           >
-            make it happen -&gt;
+            make it happen <ArrowRight className="w-4 h-4" />
           </motion.p>
         </motion.div>
       </section>
