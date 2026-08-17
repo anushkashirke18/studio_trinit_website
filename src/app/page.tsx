@@ -243,7 +243,7 @@ export default function Home() {
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
-      {/* Logo - Moved to top-leftmost corner */}
+      {/* Logo - Moved to absolute top-leftmost corner */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
