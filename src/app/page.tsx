@@ -355,8 +355,9 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                const start = i * step;
-                const end = start + (step * 0.1);
+                // Shifting 'start' to turn words purple as they cross a visual threshold
+                const start = Math.max(0, (i * step) - 0.12);
+                const end = start + (step * 0.8);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
 
