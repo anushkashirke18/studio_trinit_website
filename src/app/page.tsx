@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowRight, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 /**
  * Triple Vertical Reveal Component
@@ -163,6 +164,7 @@ function FlowerIcon({ className }: { className?: string }) {
 }
 
 export default function Home() {
+  const isMobile = useIsMobile();
   const [mounted, setMounted] = useState(false);
   const [displayText, setDisplayText] = useState("things");
   const [wordIndex, setWordIndex] = useState(0);
@@ -259,6 +261,13 @@ export default function Home() {
   const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
+
+  // For mobile "one after one" scrolling
+  const cardsHorizontalScroll = useTransform(
+    smoothServicesProgress, 
+    [0.4, 0.85], 
+    ["0vw", "-180vw"]
+  );
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -511,11 +520,14 @@ export default function Home() {
 
           {/* Cards revealing on scroll */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
-            <motion.div style={{ x: cardsExitX }} className="relative w-full h-full flex items-center justify-center gap-[2vw]">
+            <motion.div 
+              style={{ x: mounted && !!isMobile ? cardsHorizontalScroll : cardsExitX }} 
+              className="relative w-full h-full flex items-center justify-start md:justify-center gap-[5vw] md:gap-[2vw] px-[7.5vw] md:px-0"
+            >
               
               <motion.div 
                 style={{ y: card1Y, scale: card1Scale, opacity: card1Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
                   <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
@@ -527,7 +539,7 @@ export default function Home() {
 
               <motion.div 
                 style={{ y: card2Y, scale: card2Scale, opacity: card2Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
                   <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">WEB & APP</p>
@@ -539,7 +551,7 @@ export default function Home() {
 
               <motion.div 
                 style={{ y: card3Y, scale: card3Scale, opacity: card3Opacity }}
-                className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
+                className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
                   <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">SOLUTIONS</p>
