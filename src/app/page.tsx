@@ -248,25 +248,26 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  const card1Y = useTransform(smoothServicesProgress, [0.4, 0.55], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, [0.4, 0.55], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, [0.4, 0.5], [0, 1]);
+  // Card reveal ranges: Staggered for mobile and desktop
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.4, 0.55], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.4, 0.55], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.45] : [0.4, 0.5], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, [0.5, 0.65], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, [0.5, 0.65], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, [0.5, 0.6], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.6, 0.7] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.6, 0.7] : [0.5, 0.65], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.6, 0.65] : [0.5, 0.6], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.8, 0.9] : [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.8, 0.9] : [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.8, 0.85] : [0.6, 0.7], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
-  // For mobile "one after one" scrolling
+  // Optimized mobile horizontal scroll: Move only after a card is fully revealed
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
-    [0.4, 0.85], 
-    ["0vw", "-180vw"]
+    [0.5, 0.6, 0.7, 0.8], 
+    ["0vw", "-90vw", "-90vw", "-180vw"]
   );
 
   const scrollToContact = () => {
