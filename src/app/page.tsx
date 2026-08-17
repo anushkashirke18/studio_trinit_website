@@ -255,7 +255,7 @@ export default function Home() {
           alt="Trinit Logo" 
           width={180} 
           height={60} 
-          className="w-auto h-6 object-contain"
+          className="w-auto h-5 object-contain"
           priority
         />
       </motion.div>
