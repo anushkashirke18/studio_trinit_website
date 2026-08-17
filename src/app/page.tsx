@@ -253,9 +253,9 @@ export default function Home() {
         <Image 
           src="/trinit.png" 
           alt="Trinit Logo" 
-          width={180} 
-          height={60} 
-          className="w-auto h-12 object-contain"
+          width={240} 
+          height={80} 
+          className="w-auto h-16 object-contain"
           priority
         />
       </motion.div>
