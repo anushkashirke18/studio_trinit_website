@@ -440,7 +440,7 @@ export default function Home() {
       </section>
 
       {/* [about us] Label */}
-      <div className="w-full max-w-7xl px-6 pt-40 pb-12 flex justify-center text-center">
+      <div className="w-full max-w-7xl px-6 pt-12 md:pt-40 pb-2 md:pb-12 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
