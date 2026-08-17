@@ -260,6 +260,10 @@ export default function Home() {
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
       
@@ -323,6 +327,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
+            onClick={scrollToContact}
             className="text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
@@ -546,7 +551,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="w-full max-w-7xl px-6 pt-12 pb-40 flex flex-col items-start gap-16">
+      <section id="contact" className="w-full max-w-7xl px-6 pt-12 pb-40 flex flex-col items-start gap-16">
         <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
           {/* Left Side: Heading */}
           <div className="flex flex-col items-start gap-6 md:pt-48">
