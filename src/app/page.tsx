@@ -251,7 +251,7 @@ export default function Home() {
         className="fixed top-8 left-8 z-[60]"
       >
         <Image 
-          src="/logo.png" 
+          src="/trinit.png" 
           alt="Trinit Logo" 
           width={120} 
           height={40} 
