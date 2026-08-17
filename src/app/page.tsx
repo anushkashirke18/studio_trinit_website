@@ -445,7 +445,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false }}
-          className="text-[15px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+          className="text-[10px] md:text-[15px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
         >
           [about us]
         </motion.p>
