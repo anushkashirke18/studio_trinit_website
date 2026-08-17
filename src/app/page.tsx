@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -141,12 +142,12 @@ function CircularTrinitTop() {
 /**
  * Rotating flower icon component for the narrative section.
  */
-function FlowerIcon() {
+function FlowerIcon({ className }: { className?: string }) {
   return (
     <motion.div
       animate={{ rotate: 360 }}
       transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-      className="inline-block ml-4 w-[8vw] h-[8vw] min-w-[60px] min-h-[60px] align-middle"
+      className={`inline-block ml-4 w-[8vw] h-[8vw] min-w-[60px] min-h-[60px] align-middle ${className || ""}`}
     >
       <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
         {[0, 60, 120, 180, 240, 300].map((angle) => (
@@ -351,11 +352,14 @@ export default function Home() {
                 >
                   {word}
                   {word === "CRAFTING" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
-                        designing
+                    <>
+                      <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                          designing
+                        </span>
                       </span>
-                    </span>
+                      <FlowerIcon className="absolute -right-[4vw] top-1/2 -translate-y-1/2 scale-75" />
+                    </>
                   )}
                   {word === "UNFORGETTABLE" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
@@ -372,11 +376,14 @@ export default function Home() {
                     </span>
                   )}
                   {word === "EXPERIENCES" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
-                        brands & websites
+                    <>
+                      <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                          brands & websites
+                        </span>
                       </span>
-                    </span>
+                      <FlowerIcon className="absolute -left-[6vw] top-1/2 -translate-y-1/2 scale-50" />
+                    </>
                   )}
                   {word === "FOR" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
@@ -393,11 +400,14 @@ export default function Home() {
                     </span>
                   )}
                   {word === "CLIENTS" && (
-                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
-                        people
+                    <>
+                      <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                          people
+                        </span>
                       </span>
-                    </span>
+                      <FlowerIcon className="absolute -right-[2vw] top-0 scale-90" />
+                    </>
                   )}
                 </motion.h2>
               </div>
