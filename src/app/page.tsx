@@ -451,7 +451,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4 text-center">
                   <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">SOLUTIONS</p>
                   <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
-                    We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
+                    We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
                   </p>
                 </div>
               </motion.div>
