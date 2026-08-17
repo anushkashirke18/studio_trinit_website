@@ -452,7 +452,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[350vh] md:h-[500vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -488,7 +488,7 @@ export default function Home() {
       </section>
 
       {/* OUR SERVICES */}
-      <section ref={servicesRef} className="relative h-[600vh] w-full bg-background">
+      <section ref={servicesRef} className="relative h-[500vh] md:h-[600vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
           <motion.div 
