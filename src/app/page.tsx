@@ -248,7 +248,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="fixed top-6 left-8 z-[60]"
+        className="fixed top-6 left-4 z-[60]"
       >
         <Image 
           src="/trinit.png?v=3" 
