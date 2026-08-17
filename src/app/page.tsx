@@ -449,7 +449,7 @@ export default function Home() {
                 className="w-[32vw] h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto"
               >
                 <div className="flex flex-col gap-4 text-center">
-                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">BRANDING</p>
+                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">SOLUTIONS</p>
                   <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We define visual identities that tell your unique story. From strategy to logo design, we help ambitious brands connect with their global audience meaningfully.
                   </p>
