@@ -332,7 +332,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
             onClick={scrollToContact}
-            className="text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors inline-flex items-center gap-2"
+            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
           </motion.p>
