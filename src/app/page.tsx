@@ -138,6 +138,30 @@ function CircularTrinitTop() {
   );
 }
 
+/**
+ * Rotating flower icon component for the narrative section.
+ */
+function FlowerIcon() {
+  return (
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      className="inline-block ml-4 w-[8vw] h-[8vw] min-w-[60px] min-h-[60px] align-middle"
+    >
+      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+        {[0, 60, 120, 180, 240, 300].map((angle) => (
+          <path
+            key={angle}
+            d="M50 50 C40 40 35 15 50 5 C65 15 60 40 50 50"
+            fill="#DC9632"
+            transform={`rotate(${angle} 50 50)`}
+          />
+        ))}
+      </svg>
+    </motion.div>
+  );
+}
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [displayText, setDisplayText] = useState("things");
@@ -409,9 +433,10 @@ export default function Home() {
                 const end = start + (step * 0.8);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
+                const isTouchpoint = word.replace(/[.,—]/g, "").toLowerCase() === "touchpoint";
 
                 return (
-                  <span key={i} className="relative inline-block">
+                  <span key={i} className="relative inline-flex items-center">
                     <Word 
                       progress={smoothProgress} 
                       range={[start, end]}
@@ -420,6 +445,7 @@ export default function Home() {
                     </Word>
                     {isAgency && <CircularTrinit />}
                     {isStory && <CircularTrinitTop />}
+                    {isTouchpoint && <FlowerIcon />}
                   </span>
                 );
               })}
