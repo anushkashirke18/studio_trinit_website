@@ -250,6 +250,16 @@ export default function Home() {
           transition={{ delay: 2.2, duration: 1.2, base: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
+          {/* Introductory text */}
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3.2, duration: 1 }}
+            className="text-[12px] uppercase tracking-[1em] text-muted-foreground font-medium mb-6 mr-[-1em]"
+          >
+            The next idea starts here.
+          </motion.p>
+          
           {/* Centered typing animation text with highlight */}
           <h1 className="text-[clamp(48px,12vw,200px)] font-thunder text-primary lowercase tracking-tight leading-none">
             lets create <br />
