@@ -243,19 +243,19 @@ export default function Home() {
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
-      {/* Logo - Positioned in the top-left corner, moved slightly down and right */}
+      {/* Logo - Positioned in the top-left corner, adjusted to be smaller and further right */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="fixed top-6 left-2 z-[60]"
+        className="fixed top-8 left-8 z-[60]"
       >
         <Image 
           src="/trinit.png?v=2" 
           alt="Trinit Logo" 
           width={120} 
           height={40} 
-          className="w-auto h-6 object-contain"
+          className="w-auto h-4 object-contain"
           priority
         />
       </motion.div>
