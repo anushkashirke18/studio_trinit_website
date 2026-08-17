@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Triple Vertical Reveal Component
@@ -241,6 +242,23 @@ export default function Home() {
       <AnimatePresence>
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
+
+      {/* Logo */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.2, duration: 1 }}
+        className="fixed top-8 left-8 z-[60]"
+      >
+        <Image 
+          src="/logo.png" 
+          alt="Trinit Logo" 
+          width={120} 
+          height={40} 
+          className="w-auto h-8 object-contain"
+          priority
+        />
+      </motion.div>
 
       {/* Hero Section */}
       <section className="relative w-full h-screen flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden bg-background">
