@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
-import { Mail, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
 
 /**
@@ -262,6 +262,10 @@ export default function Home() {
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -592,6 +596,19 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Scroll to top button */}
+        <div className="w-full flex justify-center mt-20">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={scrollToTop}
+            className="p-4 rounded-full border border-primary/20 text-primary/60 hover:border-accent hover:text-accent transition-colors flex items-center justify-center"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
         </div>
       </section>
 
