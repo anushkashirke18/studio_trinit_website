@@ -243,12 +243,12 @@ export default function Home() {
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
-      {/* Logo - Moved to absolute top-leftmost corner */}
+      {/* Logo - Positioned at the absolute top-leftmost corner, shifted upwards */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="fixed top-0 left-0 z-[60]"
+        className="fixed -top-4 left-0 z-[60]"
       >
         <Image 
           src="/trinit.png" 
