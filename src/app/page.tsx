@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -550,7 +549,7 @@ export default function Home() {
       <section className="w-full max-w-7xl px-6 py-40 flex flex-col items-start gap-16">
         <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
           {/* Left Side: Heading */}
-          <div className="flex flex-col items-start gap-6 md:pt-24">
+          <div className="flex flex-col items-start gap-6 md:pt-48">
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
