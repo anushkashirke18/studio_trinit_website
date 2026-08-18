@@ -438,10 +438,10 @@ export default function Home() {
 
       {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
-        <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-center justify-center md:justify-start overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start overflow-hidden">
           
           {/* Mobile-only label placed directly above the marquee */}
-          <div className="md:hidden w-full flex justify-center mb-6">
+          <div className="md:hidden w-full flex justify-center mb-2">
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
