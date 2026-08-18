@@ -218,10 +218,11 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
+  // Increased range and adjusted translation to ensure full visibility and slower pace
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-500vw" : "-350vw"]
+    ["0vw", mounted && isMobile ? "-800vw" : "-600vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -248,30 +249,26 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic
-  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.4, 0.55], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.4, 0.55], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.3] : [0.4, 0.5], [0, 1]);
+  // Mobile View Cards Logic - Adjusted for better visibility and longer stickiness
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3] : [0.4, 0.55], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3] : [0.4, 0.55], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.25] : [0.4, 0.5], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.5, 0.65], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.45] : [0.5, 0.6], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.45] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.45] : [0.5, 0.65], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.4] : [0.5, 0.6], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.65] : [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.65] : [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.6] : [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.6] : [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.6] : [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.55] : [0.6, 0.7], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
-    isMobile ? [0.35, 0.45, 0.5, 0.6] : [0.5, 0.6, 0.7, 0.8], 
+    isMobile ? [0.3, 0.4, 0.45, 0.55] : [0.5, 0.6, 0.7, 0.8], 
     ["0vw", "-90vw", "-90vw", "-180vw"]
   );
-
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -335,7 +332,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
-            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer transition-colors inline-flex items-center gap-2"
+            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
           </motion.p>
@@ -439,8 +436,8 @@ export default function Home() {
         </motion.p>
       </div>
 
-      {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background overflow-visible">
+      {/* About Us Horizontal Scroll Section - Increased height for slower scroll */}
+      <section ref={horizontalRef} className="relative h-[700vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
