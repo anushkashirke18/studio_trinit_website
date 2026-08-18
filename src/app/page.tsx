@@ -239,17 +239,17 @@ export default function Home() {
 
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
-    [0, 0.2, 0.9, 1], 
+    [0, 0.1, 0.9, 1], 
     ["100vw", "0vw", "0vw", "-100vw"]
   );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
-  const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.1, 0.2, 0.85, 0.95], [0, 1, 1, 0]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, [0.1, 0.2, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic - Adjusted timings to keep the third card visible longer
+  // Mobile View Cards Logic
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.4, 0.5], [0, 1]);
@@ -425,7 +425,7 @@ export default function Home() {
       </section>
 
       {/* [about us] Label */}
-      <div className="w-full max-w-7xl px-6 pt-12 pb-2 flex justify-center text-center">
+      <div className="w-full max-w-7xl px-6 py-0 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -437,7 +437,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[1200vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[950vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -446,7 +446,6 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                // Center the purple color transition relative to word visibility
                 const start = Math.max(0, (i * step) - 0.08);
                 const end = Math.min(1, i * step);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
