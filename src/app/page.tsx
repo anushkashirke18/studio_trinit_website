@@ -41,7 +41,7 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * Animates from a light gray to a deep purple based on scroll progress.
+ * Animates from gray to deep purple based on scroll progress.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
@@ -457,10 +457,10 @@ export default function Home() {
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
-                const step = 1 / wordsArray.length;
-                // Calibrated ranges to ensure the color reveal is snappy yet visible as words pass through the viewport.
-                const start = Math.max(0, (i * step) - 0.05);
-                const end = Math.min(1, (i * step) + 0.05);
+                const step = i / wordsArray.length;
+                // Calibrated ranges: text turns purple (#34192F) as it enters/passes the viewport, upcoming is gray (#C0C0C0).
+                const start = Math.max(0, step - 0.02);
+                const end = Math.min(1, step + 0.02);
                 
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
