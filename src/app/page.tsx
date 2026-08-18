@@ -236,36 +236,37 @@ export default function Home() {
     restDelta: 0.001
   });
 
+  // Shifted ranges for mobile to prevent overlap with sticky "About Us" section
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
-    [0, 0.1, 0.9, 1], 
+    isMobile ? [0.2, 0.3, 0.9, 1] : [0, 0.1, 0.9, 1], 
     ["100vw", "0vw", "0vw", "-100vw"]
   );
   
   const servicesText = "OUR SERVICES";
   const serviceChars = servicesText.split("");
 
-  const whatWeDoOpacity = useTransform(smoothServicesProgress, [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
-  const whatWeDoScale = useTransform(smoothServicesProgress, [0, 0.1, 0.85, 0.95], [0.8, 1, 1, 0.8]);
+  const whatWeDoOpacity = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
+  const whatWeDoScale = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
   // Tightened Card Logic for better forward/reverse flow
-  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.2, 0.35], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.2, 0.35], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.1] : [0.2, 0.3], [0, 1]);
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.3], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.35, 0.5], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.35, 0.5], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.1] : [0.35, 0.45], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.5], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.5], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.45], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.12] : [0.5, 0.65], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.05, 0.1] : [0.5, 0.6], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.65], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.6], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
-    isMobile ? [0.15, 0.25, 0.35, 0.5, 0.6, 0.75] : [0.5, 0.55, 0.6, 0.65, 0.7, 0.8], 
+    isMobile ? [0.4, 0.5, 0.6, 0.7, 0.8, 0.9] : [0.5, 0.55, 0.6, 0.65, 0.7, 0.8], 
     ["0vw", "0vw", "-90vw", "-90vw", "-180vw", "-180vw"]
   );
 
