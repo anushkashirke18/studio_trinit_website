@@ -218,11 +218,11 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
-  // Extended translation and height for full visibility and slow pace
+  // Reduced range so "touchpoint" and flower stay visible at the end
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-1400vw" : "-1100vw"]
+    ["0vw", mounted && isMobile ? "-1100vw" : "-850vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -436,8 +436,8 @@ export default function Home() {
         </motion.p>
       </div>
 
-      {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[950vh] w-full bg-background overflow-visible">
+      {/* About Us Horizontal Scroll Section - Tightened Height */}
+      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -471,7 +471,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES */}
+      {/* OUR SERVICES - Moves up as space is removed */}
       <section ref={servicesRef} className="relative h-[300vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
