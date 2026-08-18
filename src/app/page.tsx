@@ -453,14 +453,14 @@ export default function Home() {
 
           <motion.div 
             style={{ x: xTranslate }} 
-            className="flex whitespace-nowrap px-[10vw]"
+            className="flex whitespace-nowrap px-[10vw] items-start md:items-center"
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                // Tightened ranges to ensure the color reveal is snappy and clearly visible as words pass through the center.
-                const start = Math.max(0, (i * step) - 0.03);
-                const end = Math.min(1, (i * step) + 0.03);
+                // Calibrated ranges to ensure the color reveal is snappy yet visible as words pass through the viewport.
+                const start = Math.max(0, (i * step) - 0.05);
+                const end = Math.min(1, (i * step) + 0.05);
                 
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
