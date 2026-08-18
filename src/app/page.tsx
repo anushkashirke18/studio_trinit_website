@@ -210,8 +210,8 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 25,
-    damping: 35,
+    stiffness: 15,
+    damping: 40,
     restDelta: 0.001
   });
 
@@ -222,7 +222,7 @@ export default function Home() {
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-800vw" : "-600vw"]
+    ["0vw", mounted && isMobile ? "-950vw" : "-750vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -249,25 +249,25 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic - Adjusted for better visibility and longer stickiness
-  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3] : [0.4, 0.55], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3] : [0.4, 0.55], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.25] : [0.4, 0.5], [0, 1]);
+  // Mobile View Cards Logic - Refined timings for mobile visibility
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.4, 0.5], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.45] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.45] : [0.5, 0.65], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.35, 0.4] : [0.5, 0.6], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.5, 0.65], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.35] : [0.5, 0.6], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.6] : [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.6] : [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.5, 0.55] : [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.5] : [0.6, 0.7], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
-    isMobile ? [0.3, 0.4, 0.45, 0.55] : [0.5, 0.6, 0.7, 0.8], 
-    ["0vw", "-90vw", "-90vw", "-180vw"]
+    isMobile ? [0.2, 0.3, 0.35, 0.45, 0.5, 0.6] : [0.5, 0.55, 0.6, 0.65, 0.7, 0.8], 
+    ["0vw", "-90vw", "-90vw", "-180vw", "-180vw", "-270vw"]
   );
 
   const scrollToTop = () => {
@@ -302,7 +302,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 1.2, base: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 2.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
           <motion.p 
@@ -436,8 +436,8 @@ export default function Home() {
         </motion.p>
       </div>
 
-      {/* About Us Horizontal Scroll Section - Increased height for slower scroll */}
-      <section ref={horizontalRef} className="relative h-[700vh] w-full bg-background overflow-visible">
+      {/* About Us Horizontal Scroll Section */}
+      <section ref={horizontalRef} className="relative h-[900vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -581,13 +581,13 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-pinyon transition-colors">
+                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
                   contact@trinit.co.in
                 </a>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
-                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-pinyon transition-colors">
+                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
                   +91 91120 74187
                 </a>
               </div>
