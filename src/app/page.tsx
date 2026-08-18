@@ -210,8 +210,8 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 40,
+    stiffness: 25,
+    damping: 35,
     restDelta: 0.001
   });
 
@@ -221,7 +221,7 @@ export default function Home() {
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-800vw" : "-500vw"]
+    ["0vw", mounted && isMobile ? "-500vw" : "-350vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -248,24 +248,24 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Adjusting mobile ranges to trigger earlier and provide more rest time for the last card
+  // Mobile View Cards Logic
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.3] : [0.4, 0.5], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.5, 0.65], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.5] : [0.5, 0.6], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.5, 0.65], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.45] : [0.5, 0.6], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.65, 0.75] : [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.65, 0.75] : [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.65, 0.7] : [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.65] : [0.6, 0.75], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.65] : [0.6, 0.75], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.55, 0.6] : [0.6, 0.7], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
-    isMobile ? [0.35, 0.45, 0.55, 0.65] : [0.5, 0.6, 0.7, 0.8], 
+    isMobile ? [0.35, 0.45, 0.5, 0.6] : [0.5, 0.6, 0.7, 0.8], 
     ["0vw", "-90vw", "-90vw", "-180vw"]
   );
 
@@ -335,7 +335,6 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
-            onClick={scrollToContact}
             className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
@@ -376,7 +375,7 @@ export default function Home() {
                   {word === "UNFORGETTABLE" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
                       <span className="font-pinyon lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
-                        premium - luxury
+                        luxury
                       </span>
                     </span>
                   )}
@@ -441,7 +440,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[200vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[500vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
