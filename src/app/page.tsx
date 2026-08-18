@@ -201,7 +201,7 @@ export default function Home() {
     }
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, wordIndex, mounted, words]);
+  }, [displayText, isDeleting, wordIndex, mounted]);
 
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -218,8 +218,7 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
-  // Increased range and adjusted translation to ensure full visibility and slower pace
-  // The vertical container is now h-[1200vh] to allow for full revelation.
+  // Extended translation and height for full visibility and slow pace
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
@@ -250,7 +249,7 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic
+  // Mobile View Cards Logic - Adjusted timings to keep the third card visible longer
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.4, 0.5], [0, 1]);
@@ -447,8 +446,9 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                const start = Math.max(0, (i * step) - 0.12);
-                const end = start + (step * 0.8);
+                // Center the purple color transition relative to word visibility
+                const start = Math.max(0, (i * step) - 0.08);
+                const end = Math.min(1, i * step);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
                 const isTouchpoint = word.replace(/[.,—]/g, "").toLowerCase() === "touchpoint";
