@@ -347,7 +347,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
             onClick={scrollToContact}
-            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent transition-colors inline-flex items-center gap-2"
+            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent hover:font-playground transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
           </motion.p>
@@ -440,7 +440,7 @@ export default function Home() {
       </section>
 
       {/* [about us] Label */}
-      <div className="w-full max-w-7xl px-6 pt-12 md:pt-40 pb-2 md:pb-12 flex justify-center text-center">
+      <div className="w-full max-w-7xl px-6 pt-12 pb-2 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -452,7 +452,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[200vh] md:h-[500vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[200vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
@@ -488,7 +488,7 @@ export default function Home() {
       </section>
 
       {/* OUR SERVICES */}
-      <section ref={servicesRef} className="relative h-[300vh] md:h-[600vh] w-full bg-background">
+      <section ref={servicesRef} className="relative h-[300vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
           <motion.div 
@@ -602,13 +602,13 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
                   contact@trinit.co.in
                 </a>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
-                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent transition-colors">
+                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
                   +91 91120 74187
                 </a>
               </div>
