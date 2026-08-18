@@ -210,8 +210,8 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 50,
+    damping: 40,
     restDelta: 0.001
   });
 
@@ -221,7 +221,7 @@ export default function Home() {
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-1500vw" : "-900vw"]
+    ["0vw", mounted && isMobile ? "-800vw" : "-500vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
