@@ -64,7 +64,7 @@ const pinyonScript = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: 'Fresh Start | Next.js Project',
+  title: 'Innovation starts here',
   description: 'A clean start for your new application.',
 };
 
