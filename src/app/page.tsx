@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -347,7 +348,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 3.4, duration: 1 }}
             onClick={scrollToContact}
-            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent hover:font-playground transition-colors inline-flex items-center gap-2"
+            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 cursor-pointer hover:text-accent hover:font-canela hover:italic transition-colors inline-flex items-center gap-2"
           >
             make it happen <ArrowRight className="w-4 h-4" />
           </motion.p>
@@ -377,7 +378,7 @@ export default function Home() {
                   {word === "CRAFTING" && (
                     <>
                       <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                        <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                           designing
                         </span>
                       </span>
@@ -386,14 +387,14 @@ export default function Home() {
                   )}
                   {word === "UNFORGETTABLE" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                      <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                         premium - luxury
                       </span>
                     </span>
                   )}
                   {word === "DIGITAL" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                      <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                         web - mobile
                       </span>
                     </span>
@@ -401,7 +402,7 @@ export default function Home() {
                   {word === "EXPERIENCES" && (
                     <>
                       <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                        <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                           brands & websites
                         </span>
                       </span>
@@ -410,14 +411,14 @@ export default function Home() {
                   )}
                   {word === "FOR" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                      <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                         you
                       </span>
                     </span>
                   )}
                   {word === "AMBITIOUS" && (
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                      <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                         extraordinary
                       </span>
                     </span>
@@ -425,7 +426,7 @@ export default function Home() {
                   {word === "CLIENTS" && (
                     <>
                       <span className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                        <span className="font-playground italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
+                        <span className="font-canela italic lowercase text-accent text-[clamp(24px,8vw,140px)] mt-[0.1em]">
                           people
                         </span>
                       </span>
@@ -517,7 +518,7 @@ export default function Home() {
                 style={{ opacity: whatWeDoOpacity, scale: whatWeDoScale }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
               >
-                <span className="font-playground italic lowercase text-accent whitespace-nowrap" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
+                <span className="font-canela italic lowercase text-accent whitespace-nowrap" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
                   what we do
                 </span>
               </motion.div>
@@ -602,13 +603,13 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
+                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-canela hover:italic transition-colors">
                   contact@trinit.co.in
                 </a>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
-                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
+                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-canela hover:italic transition-colors">
                   +91 91120 74187
                 </a>
               </div>
@@ -633,3 +634,4 @@ export default function Home() {
     </div>
   );
 }
+

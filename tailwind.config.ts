@@ -16,6 +16,7 @@ export default {
         thunder: ['var(--font-anton)', 'Anton', 'Impact', 'sans-serif'],
         macker: ['var(--font-bebas)', 'Bebas Neue', 'Impact', 'sans-serif'],
         playground: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        canela: ['var(--font-cormorant)', 'serif'],
         playfair: ['var(--font-playfair)', 'Playfair Display', 'serif'],
         dmsans: ['var(--font-dm-sans)', 'DM Sans', 'sans-serif'],
         code: ['monospace'],
