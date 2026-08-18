@@ -219,10 +219,11 @@ export default function Home() {
   const wordsArray = narrativeText.split(" ");
 
   // Increased range and adjusted translation to ensure full visibility and slower pace
+  // The vertical container is now h-[1200vh] to allow for full revelation.
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
-    ["0vw", mounted && isMobile ? "-950vw" : "-750vw"]
+    ["0vw", mounted && isMobile ? "-1400vw" : "-1100vw"]
   );
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -249,7 +250,7 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic - Refined timings for mobile visibility
+  // Mobile View Cards Logic
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.4, 0.5], [0, 1]);
@@ -437,7 +438,7 @@ export default function Home() {
       </div>
 
       {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[900vh] w-full bg-background overflow-visible">
+      <section ref={horizontalRef} className="relative h-[1200vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
             style={{ x: xTranslate }} 
