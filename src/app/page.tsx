@@ -210,15 +210,14 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 15,
-    damping: 40,
+    stiffness: 40,
+    damping: 30,
     restDelta: 0.001
   });
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
-  // Reduced range so "touchpoint" and flower stay visible at the end
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
@@ -232,7 +231,7 @@ export default function Home() {
   });
 
   const smoothServicesProgress = useSpring(servicesScrollProgress, {
-    stiffness: 35,
+    stiffness: 40,
     damping: 30,
     restDelta: 0.001
   });
@@ -249,18 +248,18 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.1, 0.2, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.1, 0.2, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Mobile View Cards Logic
-  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.4, 0.55], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.4, 0.5], [0, 1]);
+  // Tightened Card Logic for better forward/reverse flow
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.2, 0.35], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.25] : [0.2, 0.35], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.15, 0.2] : [0.2, 0.3], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.5, 0.65], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.35] : [0.5, 0.6], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.35, 0.5], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.4] : [0.35, 0.5], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.3, 0.35] : [0.35, 0.45], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.6, 0.75], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.6, 0.75], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.5] : [0.6, 0.7], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.5, 0.65], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.55] : [0.5, 0.65], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.45, 0.5] : [0.5, 0.6], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
@@ -339,8 +338,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Narrative Section */}
-      <section className="w-full py-32 px-6 overflow-hidden bg-background">
+      {/* Narrative Section - Tightened Bottom Padding */}
+      <section className="w-full pt-32 pb-8 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
             const fontSize = word === "UNFORGETTABLE" ? "text-[16.8vw]" : word === "EXPERIENCES" ? "text-[17.2vw]" : "text-[17.5vw]";
@@ -424,7 +423,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* [about us] Label */}
+      {/* [about us] Label - Tightened */}
       <div className="w-full max-w-7xl px-6 py-0 flex justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -436,7 +435,7 @@ export default function Home() {
         </motion.p>
       </div>
 
-      {/* About Us Horizontal Scroll Section - Tightened Height */}
+      {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <motion.div 
@@ -471,7 +470,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - Moves up as space is removed */}
+      {/* OUR SERVICES - Entrance begins immediately */}
       <section ref={servicesRef} className="relative h-[300vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
