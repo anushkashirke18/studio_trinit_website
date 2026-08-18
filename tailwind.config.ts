@@ -19,6 +19,7 @@ export default {
         canela: ['var(--font-cormorant)', 'serif'],
         playfair: ['var(--font-playfair)', 'Playfair Display', 'serif'],
         dmsans: ['var(--font-dm-sans)', 'DM Sans', 'sans-serif'],
+        pinyon: ['var(--font-pinyon)', 'cursive'],
         code: ['monospace'],
       },
       colors: {

@@ -10,7 +10,8 @@ import {
   Space_Grotesk, 
   Cormorant_Garamond, 
   Playfair_Display, 
-  DM_Sans 
+  DM_Sans,
+  Pinyon_Script
 } from 'next/font/google';
 
 const anton = Anton({
@@ -56,6 +57,12 @@ const dmSans = DM_Sans({
   variable: '--font-dm-sans',
 });
 
+const pinyonScript = Pinyon_Script({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-pinyon',
+});
+
 export const metadata: Metadata = {
   title: 'Fresh Start | Next.js Project',
   description: 'A clean start for your new application.',
@@ -68,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${anton.variable} ${bebasNeue.variable} ${spaceGrotesk.variable} ${cormorantGaramond.variable} ${playfairDisplay.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${inter.variable} ${anton.variable} ${bebasNeue.variable} ${spaceGrotesk.variable} ${cormorantGaramond.variable} ${playfairDisplay.variable} ${dmSans.variable} ${pinyonScript.variable} antialiased`}>
         <FirebaseClientProvider>
           {children}
           <Toaster />
