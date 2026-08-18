@@ -44,6 +44,7 @@ function TripleVerticalReveal() {
  * Animates from gray to deep purple based on scroll progress.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
+  // Animates from upcoming gray (#C0C0C0) to brand purple (#34192F)
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
@@ -210,8 +211,9 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
+  // Use tighter spring for better sync between scroll and animation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
+    stiffness: 50,
     damping: 30,
     restDelta: 0.001
   });
@@ -423,18 +425,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* [about us] Label */}
-      <div className="hidden md:flex w-full max-w-7xl px-6 py-0 justify-center text-center">
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false }}
-          className="text-[10px] md:text-[15px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
-        >
-          [about us]
-        </motion.p>
-      </div>
-
       {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
         <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start overflow-hidden">
@@ -458,10 +448,11 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = i / wordsArray.length;
-                // Calibrated ranges: text turns purple (#34192F) as it enters the viewport from the right.
-                // end is shifted by 0.05 to ensure it turns purple well before hitting the left edge.
-                const end = Math.max(0, step - 0.05);
-                const start = Math.max(0, step - 0.15);
+                // Calibrated ranges: text turns purple (#34192F) as it enters the viewport.
+                // We turn it purple slightly before it hits the right edge for a smoother reveal.
+                const offset = isMobile ? 0.08 : 0.12; 
+                const start = Math.max(0, step - offset);
+                const end = Math.max(0.001, step - (offset * 0.5));
                 
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
