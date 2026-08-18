@@ -458,9 +458,9 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = i / wordsArray.length;
-                // Calibrated ranges: text turns purple (#34192F) as it enters/passes the viewport, upcoming is gray (#C0C0C0).
-                const start = Math.max(0, step - 0.02);
-                const end = Math.min(1, step + 0.02);
+                // Calibrated ranges: text turns purple (#34192F) as it enters the viewport, upcoming is gray (#C0C0C0).
+                const start = Math.max(0, step - 0.015);
+                const end = step;
                 
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
