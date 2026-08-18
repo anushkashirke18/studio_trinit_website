@@ -504,7 +504,7 @@ export default function Home() {
                 style={{ opacity: whatWeDoOpacity, scale: whatWeDoScale }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
               >
-                <span className="font-pinyon lowercase text-accent whitespace-nowrap font-playground" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
+                <span className="font-pinyon lowercase text-accent whitespace-nowrap" style={{ fontSize: "clamp(24px, 8vw, 140px)" }}>
                   what we do
                 </span>
               </motion.div>
@@ -584,13 +584,13 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Email us at</span>
-                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
+                <a href="mailto:contact@trinit.co.in" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-pinyon transition-colors">
                   contact@trinit.co.in
                 </a>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Call us at</span>
-                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-playground transition-colors">
+                <a href="tel:+919112074187" className="text-2xl md:text-3xl font-headline font-bold hover:text-accent hover:font-pinyon transition-colors">
                   +91 91120 74187
                 </a>
               </div>
