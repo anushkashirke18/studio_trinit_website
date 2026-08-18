@@ -41,6 +41,7 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
+ * Animates from a light gray to a deep purple based on scroll progress.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
@@ -236,7 +237,6 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  // Shifted ranges for mobile to prevent overlap with sticky "About Us" section
   const servicesTranslateX = useTransform(
     smoothServicesProgress, 
     isMobile ? [0.2, 0.3, 0.9, 1] : [0, 0.1, 0.9, 1], 
@@ -249,7 +249,6 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Tightened Card Logic for better forward/reverse flow
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.3], [0, 1]);
@@ -339,7 +338,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Narrative Section - Tightened Bottom Padding */}
+      {/* Narrative Section */}
       <section className="w-full pt-32 pb-0 px-6 overflow-hidden bg-background">
         <div className="flex flex-col items-center justify-center text-center">
           {["CRAFTING", "UNFORGETTABLE", "DIGITAL", "EXPERIENCES", "FOR", "AMBITIOUS", "CLIENTS"].map((word, i) => {
@@ -424,7 +423,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* [about us] Label - Tightened */}
+      {/* [about us] Label */}
       <div className="hidden md:flex w-full max-w-7xl px-6 py-0 justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
@@ -459,8 +458,10 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                const start = Math.max(0, (i * step) - 0.05);
-                const end = Math.min(1, (i * step) + 0.05);
+                // Tightened ranges to ensure the color reveal is snappy and clearly visible as words pass through the center.
+                const start = Math.max(0, (i * step) - 0.03);
+                const end = Math.min(1, (i * step) + 0.03);
+                
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
                 const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
                 const isTouchpoint = word.replace(/[.,—]/g, "").toLowerCase() === "touchpoint";
@@ -484,7 +485,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES - Entrance begins immediately */}
+      {/* OUR SERVICES Section */}
       <section ref={servicesRef} className="relative h-[400vh] w-full bg-background">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           
