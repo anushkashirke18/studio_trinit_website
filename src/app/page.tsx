@@ -49,7 +49,7 @@ function Word({ children, progress, range }: { children: string, progress: any, 
   return (
     <motion.span 
       style={{ color }} 
-      className="inline-block whitespace-nowrap transition-colors duration-300"
+      className="inline-block whitespace-nowrap"
     >
       {children}&nbsp;
     </motion.span>
@@ -210,15 +210,26 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  // Use tighter spring for better sync between scroll and animation
+  // Use precise spring for synchronized reveal
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
+    stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
+  
+  // Pre-calculate character-based steps for accurate color reveal
+  const wordsWithSteps = React.useMemo(() => {
+    let currentLength = 0;
+    const totalLength = narrativeText.length;
+    return wordsArray.map(word => {
+      const step = currentLength / totalLength;
+      currentLength += word.length + 1;
+      return { word, step };
+    });
+  }, [wordsArray, narrativeText]);
 
   const xTranslate = useTransform(
     smoothProgress, 
@@ -445,17 +456,16 @@ export default function Home() {
             className="flex whitespace-nowrap px-[10vw] items-start md:items-center"
           >
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
-              {wordsArray.map((word, i) => {
-                const step = i / wordsArray.length;
-                // Calibrated ranges: text turns purple (#34192F) as it enters the viewport.
-                // Text remains gray (#C0C0C0) when upcoming.
-                const offset = isMobile ? 0.08 : 0.12; 
+              {wordsWithSteps.map(({ word, step }, i) => {
+                // Calibrated offsets: Word turns purple just before it enters the viewport (around 110-120vw)
+                const offset = isMobile ? 0.11 : 0.14; 
                 const start = Math.max(0, step - offset);
-                const end = Math.max(0.001, step - (offset * 0.5));
+                const end = Math.max(0.001, step - (offset - 0.02)); // Fast transition
                 
-                const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
-                const isStory = word.replace(/[.,—]/g, "").toLowerCase() === "story";
-                const isTouchpoint = word.replace(/[.,—]/g, "").toLowerCase() === "touchpoint";
+                const cleanWord = word.replace(/[.,—]/g, "").toLowerCase();
+                const isAgency = cleanWord === "agency";
+                const isStory = cleanWord === "story";
+                const isTouchpoint = cleanWord === "touchpoint";
 
                 return (
                   <span key={i} className="relative inline-flex items-center">
