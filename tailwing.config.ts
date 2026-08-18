@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -10,12 +11,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Space Grotesk', 'sans-serif'],
-        thunder: ['Anton', 'Impact', 'sans-serif'],
-        playground: ['"Cormorant Garamond"', 'serif'],
-        playfair: ['"Playfair Display"', 'serif'],
-        dmsans: ['"DM Sans"', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        headline: ['var(--font-space)', 'Space Grotesk', 'sans-serif'],
+        thunder: ['var(--font-anton)', 'Anton', 'Impact', 'sans-serif'],
+        macker: ['var(--font-bebas)', 'Bebas Neue', 'Impact', 'sans-serif'],
+        playground: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        canela: ['var(--font-cormorant)', 'serif'],
+        playfair: ['var(--font-playfair)', 'Playfair Display', 'serif'],
+        dmsans: ['var(--font-dm-sans)', 'DM Sans', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
