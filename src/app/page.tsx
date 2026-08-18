@@ -425,7 +425,7 @@ export default function Home() {
       </section>
 
       {/* [about us] Label - Tightened */}
-      <div className="w-full max-w-7xl px-6 py-0 flex justify-center text-center">
+      <div className="hidden md:flex w-full max-w-7xl px-6 py-0 justify-center text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -438,7 +438,20 @@ export default function Home() {
 
       {/* About Us Horizontal Scroll Section */}
       <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
-        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-center justify-center md:justify-start overflow-hidden">
+          
+          {/* Mobile-only label placed directly above the marquee */}
+          <div className="md:hidden w-full flex justify-center mb-6">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              className="text-[10px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+            >
+              [about us]
+            </motion.p>
+          </div>
+
           <motion.div 
             style={{ x: xTranslate }} 
             className="flex whitespace-nowrap px-[10vw]"
