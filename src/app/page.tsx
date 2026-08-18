@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -360,7 +359,7 @@ export default function Home() {
                     ease: [0.16, 1, 0.3, 1], 
                     delay: i * 0.08 
                   }}
-                  className={`${fontSize} font-thunder font-normal uppercase leading-[0.8] text-primary tracking-tight relative`}
+                  className={`${fontSize} font-thunder font-normal uppercase leading-[0.9] text-primary tracking-tight relative`}
                 >
                   {word}
                   {word === "CRAFTING" && (
