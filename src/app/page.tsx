@@ -41,16 +41,15 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the horizontal scroll section.
- * Animates from gray to deep purple based on scroll progress.
+ * Animates from gray (#C0C0C0) to deep purple (#34192F) as it enters the viewport.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
-  // Animates from upcoming gray (#C0C0C0) to brand purple (#34192F)
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
 
   return (
     <motion.span 
       style={{ color }} 
-      className="inline-block whitespace-nowrap"
+      className="inline-block whitespace-nowrap transition-colors duration-300"
     >
       {children}&nbsp;
     </motion.span>
@@ -213,7 +212,7 @@ export default function Home() {
 
   // Use tighter spring for better sync between scroll and animation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
+    stiffness: 40,
     damping: 30,
     restDelta: 0.001
   });
@@ -251,17 +250,17 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, isMobile ? [0.2, 0.3, 0.85, 0.95] : [0, 0.1, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], ["100vh", "0vh"]);
-  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.35], [0.8, 1]);
-  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.2, 0.3], [0, 1]);
+  const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.15, 0.3], ["100vh", "0vh"]);
+  const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.15, 0.3], [0.8, 1]);
+  const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.15, 0.3], [0, 1]);
 
-  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.5], ["100vh", "0vh"]);
-  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.5], [0.8, 1]);
-  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.35, 0.45], [0, 1]);
+  const card2Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.3, 0.45], ["100vh", "0vh"]);
+  const card2Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.3, 0.45], [0.8, 1]);
+  const card2Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.3, 0.4], [0, 1]);
 
-  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.65], ["100vh", "0vh"]);
-  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.65], [0.8, 1]);
-  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.5, 0.6], [0, 1]);
+  const card3Y = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.45, 0.6], ["100vh", "0vh"]);
+  const card3Scale = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.45, 0.6], [0.8, 1]);
+  const card3Opacity = useTransform(smoothServicesProgress, isMobile ? [0.25, 0.35] : [0.45, 0.55], [0, 1]);
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
@@ -449,7 +448,7 @@ export default function Home() {
               {wordsArray.map((word, i) => {
                 const step = i / wordsArray.length;
                 // Calibrated ranges: text turns purple (#34192F) as it enters the viewport.
-                // We turn it purple slightly before it hits the right edge for a smoother reveal.
+                // Text remains gray (#C0C0C0) when upcoming.
                 const offset = isMobile ? 0.08 : 0.12; 
                 const start = Math.max(0, step - offset);
                 const end = Math.max(0.001, step - (offset * 0.5));
