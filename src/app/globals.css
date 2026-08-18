@@ -58,6 +58,7 @@
     @apply bg-background text-foreground antialiased font-body;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
   /* Ensure display fonts that only have weight 400 match correctly even in headers */
   .font-thunder, .font-macker {
     font-weight: 400 !important;

@@ -91,7 +91,6 @@ function ServiceChar({ children, i, total, progress }: { children: string, i: nu
 
 /**
  * Circular rotating text component for "TRINIT".
- * Positioned lower so only half is visible at the bottom of the container.
  */
 function CircularTrinit() {
   return (
@@ -116,8 +115,6 @@ function CircularTrinit() {
 
 /**
  * Circular rotating text component for "TRINIT" (Top variant).
- * Positioned higher so only half is visible at the top of the container.
- * Rotates in the opposite direction.
  */
 function CircularTrinitTop() {
   return (
@@ -198,7 +195,6 @@ export default function Home() {
           setDisplayText(currentWord.substring(0, displayText.length + 1));
         }, 150);
       } else {
-        // Pause before deleting
         timer = setTimeout(() => {
           setIsDeleting(true);
         }, 2000);
@@ -223,7 +219,6 @@ export default function Home() {
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
   const wordsArray = narrativeText.split(" ");
 
-  // Fix: Use a larger translation distance for mobile to ensure "every touchpoint" is revealed
   const xTranslate = useTransform(
     smoothProgress, 
     [0, 1], 
@@ -254,7 +249,6 @@ export default function Home() {
   const whatWeDoOpacity = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0, 1, 1, 0]);
   const whatWeDoScale = useTransform(smoothServicesProgress, [0.2, 0.3, 0.85, 0.95], [0.8, 1, 1, 0.8]);
 
-  // Card reveal ranges: Staggered for mobile and desktop
   const card1Y = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.4, 0.55], ["100vh", "0vh"]);
   const card1Scale = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.5] : [0.4, 0.55], [0.8, 1]);
   const card1Opacity = useTransform(smoothServicesProgress, isMobile ? [0.4, 0.45] : [0.4, 0.5], [0, 1]);
@@ -269,7 +263,6 @@ export default function Home() {
 
   const cardsExitX = useTransform(smoothServicesProgress, [0.9, 1], ["0%", "-100%"]);
 
-  // Optimized mobile horizontal scroll: Move only after a card is fully revealed
   const cardsHorizontalScroll = useTransform(
     smoothServicesProgress, 
     [0.5, 0.6, 0.7, 0.8], 
@@ -291,7 +284,6 @@ export default function Home() {
         {mounted && <TripleVerticalReveal />}
       </AnimatePresence>
 
-      {/* Logo - Positioned in the top-left corner */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -316,7 +308,6 @@ export default function Home() {
           transition={{ delay: 2.2, duration: 1.2, base: [0.16, 1, 0.3, 1] }}
           className="text-primary text-center flex flex-col items-center"
         >
-          {/* Introductory text */}
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -326,8 +317,7 @@ export default function Home() {
             The next idea starts here.
           </motion.p>
           
-          {/* Centered typing animation text with highlight */}
-          <h1 className="text-[clamp(48px,12vw,200px)] font-thunder text-primary tracking-tight leading-none">
+          <h1 className="text-[clamp(48px,12vw,200px)] font-thunder font-normal text-primary tracking-tight leading-none">
             Let's create <br />
             <span className="relative inline-block bg-[#C0C0C0] text-[#DC9632] px-4">
               {displayText}
@@ -336,13 +326,11 @@ export default function Home() {
                 transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
                 className="absolute -right-[2px] top-0 h-full w-[4px] bg-primary"
               >
-                {/* Vertical teardrop handle */}
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full rounded-tr-none -rotate-45" />
               </motion.div>
             </span>
           </h1>
 
-          {/* CTA Text below heading */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -372,7 +360,7 @@ export default function Home() {
                     ease: [0.16, 1, 0.3, 1], 
                     delay: i * 0.08 
                   }}
-                  className={`${fontSize} font-thunder uppercase leading-[0.8] text-primary tracking-tighter relative`}
+                  className={`${fontSize} font-thunder font-normal uppercase leading-[0.8] text-primary tracking-tighter relative`}
                 >
                   {word}
                   {word === "CRAFTING" && (
@@ -462,7 +450,6 @@ export default function Home() {
             <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
               {wordsArray.map((word, i) => {
                 const step = 1 / wordsArray.length;
-                // Shifting 'start' to turn words purple as they cross a visual threshold
                 const start = Math.max(0, (i * step) - 0.12);
                 const end = start + (step * 0.8);
                 const isAgency = word.replace(/[.,—]/g, "").toLowerCase() === "agency";
@@ -501,7 +488,7 @@ export default function Home() {
                 <div key={i} className="flex items-center">
                   <span 
                     style={{ fontSize: `clamp(60px, 20vw, 260px)`, lineHeight: "1" }}
-                    className="font-thunder uppercase tracking-tighter text-foreground select-none flex"
+                    className="font-thunder font-normal uppercase tracking-tighter text-foreground select-none flex"
                   >
                     <ServiceChar 
                       i={i} 
@@ -525,19 +512,17 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Cards revealing on scroll */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden px-[2vw]">
             <motion.div 
               style={{ x: mounted && !!isMobile ? cardsHorizontalScroll : cardsExitX }} 
               className="relative w-full h-full flex items-center justify-start md:justify-center gap-[5vw] md:gap-[2vw] px-[7.5vw] md:px-0"
             >
-              
               <motion.div 
                 style={{ y: card1Y, scale: card1Scale, opacity: card1Opacity }}
                 className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
-                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
+                  <p className="font-thunder font-normal text-2xl md:text-3xl uppercase tracking-widest text-primary">UI/UX DESIGN</p>
                   <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We design clean and user-focused interfaces that enhance usability and engagement. By combining creativity with strategic thinking, we deliver experiences that are both functional and visually compelling.
                   </p>
@@ -549,7 +534,7 @@ export default function Home() {
                 className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
-                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">WEB & APP</p>
+                  <p className="font-thunder font-normal text-2xl md:text-3xl uppercase tracking-widest text-primary">WEB & APP</p>
                   <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We build high-performance applications with robust code and seamless UX. Our digital solutions are built to scale and engage users across all devices globally.
                   </p>
@@ -561,13 +546,12 @@ export default function Home() {
                 className="w-[85vw] md:w-[32vw] h-[60vh] md:h-[40vw] bg-white shadow-2xl rounded-sm overflow-hidden p-8 flex flex-col justify-center gap-8 pointer-events-auto shrink-0"
               >
                 <div className="flex flex-col gap-4 text-center">
-                  <p className="font-thunder text-2xl md:text-3xl uppercase tracking-widest text-primary">SOLUTIONS</p>
+                  <p className="font-thunder font-normal text-2xl md:text-3xl uppercase tracking-widest text-primary">SOLUTIONS</p>
                   <p className="font-playfair italic text-[12pt] md:text-[13pt] leading-relaxed text-primary/80">
                     We provide software solutions to startups and industries who want to land in IT. This helps clients to acheive tremendous. Technology solutions for both platforms mobile and web.
                   </p>
                 </div>
               </motion.div>
-
             </motion.div>
           </div>
         </div>
@@ -576,7 +560,6 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="w-full max-w-7xl px-6 pt-12 pb-40 flex flex-col items-start gap-16">
         <div className="flex flex-col md:flex-row items-start justify-between w-full gap-12">
-          {/* Left Side: Heading */}
           <div className="flex flex-col items-start gap-6 md:pt-48">
             <motion.p 
               initial={{ opacity: 0 }}
@@ -589,13 +572,12 @@ export default function Home() {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-7xl md:text-[16vw] font-thunder uppercase tracking-tighter leading-[0.85] text-primary"
+              className="text-7xl md:text-[16vw] font-thunder font-normal uppercase tracking-tighter leading-[0.85] text-primary"
             >
               LET'S<br />TALK
             </motion.h2>
           </div>
 
-          {/* Right Side: Info Text Block */}
           <div className="flex flex-col gap-8 md:mt-48">
             <p className="text-xl md:text-2xl font-playfair italic text-primary/60 max-w-md leading-relaxed">
               Have a project in mind or just want to say hi? We'd love to hear from you. Let's create something extraordinary together.
@@ -617,7 +599,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll to top button */}
         <div className="w-full flex justify-center mt-20">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -630,7 +611,6 @@ export default function Home() {
           </motion.button>
         </div>
       </section>
-
     </div>
   );
 }
