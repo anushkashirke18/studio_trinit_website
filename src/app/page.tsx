@@ -358,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* About Us Static Typing Section */}
-      <section className="relative w-full py-40 bg-background overflow-hidden px-6">
+      <section className="relative w-full py-40 bg-[#34192F] overflow-hidden px-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
           
           <div className="w-full flex justify-center mb-12">
@@ -366,7 +366,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: false }}
-              className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+              className="text-[12px] uppercase tracking-[1.2em] text-white/60 font-medium mr-[-1.2em]"
             >
               [about us]
             </motion.p>
@@ -374,13 +374,13 @@ export default function Home() {
 
           <TextType 
             text={narrativeText}
-            className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-primary"
+            className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
             typingSpeed={25}
             startOnVisible={true}
             loop={false}
             showCursor={true}
             cursorCharacter="_"
-            textColors={["#34192F"]}
+            textColors={["#FFFFFF"]}
           />
         </div>
       </section>
