@@ -92,12 +92,12 @@ function ServiceChar({ children, i, total, progress }: { children: string, i: nu
 /**
  * Circular rotating text component for "TRINIT".
  */
-function CircularTrinit() {
+function CircularTrinit({ className }: { className?: string }) {
   return (
     <motion.div
       animate={{ rotate: 360 }}
       transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      className="absolute top-full left-0 w-[20vw] h-[20vw] min-w-[200px] min-h-[200px] pointer-events-none z-10 mt-[18vh] -ml-[2vw]"
+      className={`absolute top-full left-1/2 -translate-x-1/2 w-[15vw] h-[15vw] min-w-[150px] min-h-[150px] pointer-events-none z-10 mt-4 ${className || ""}`}
     >
       <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
         <defs>
@@ -116,12 +116,12 @@ function CircularTrinit() {
 /**
  * Circular rotating text component for "TRINIT" (Top variant).
  */
-function CircularTrinitTop() {
+function CircularTrinitTop({ className }: { className?: string }) {
   return (
     <motion.div
       animate={{ rotate: -360 }}
       transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      className="absolute bottom-full left-0 w-[20vw] h-[20vw] min-w-[200px] min-h-[200px] pointer-events-none z-10 mb-[18vh] -ml-[2vw]"
+      className={`absolute bottom-full left-1/2 -translate-x-1/2 w-[15vw] h-[15vw] min-w-[150px] min-h-[150px] pointer-events-none z-10 mb-4 ${className || ""}`}
     >
       <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
         <defs>
@@ -230,12 +230,6 @@ export default function Home() {
       return { word, step };
     });
   }, [wordsArray, narrativeText]);
-
-  const xTranslate = useTransform(
-    smoothProgress, 
-    [0, 1], 
-    ["0vw", mounted && isMobile ? "-1100vw" : "-850vw"]
-  );
 
   const servicesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: servicesScrollProgress } = useScroll({
@@ -435,32 +429,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us Horizontal Scroll Section */}
-      <section ref={horizontalRef} className="relative h-[800vh] w-full bg-background overflow-visible">
-        <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start overflow-hidden">
+      {/* About Us Static Reveal Section */}
+      <section ref={horizontalRef} className="relative h-[400vh] w-full bg-background overflow-visible">
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6">
           
-          {/* Mobile-only label placed directly above the marquee */}
-          <div className="md:hidden w-full flex justify-center mb-2">
+          <div className="w-full flex justify-center mb-8">
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: false }}
-              className="text-[10px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
+              className="text-[12px] uppercase tracking-[1.2em] text-muted-foreground font-medium mr-[-1.2em]"
             >
               [about us]
             </motion.p>
           </div>
 
-          <motion.div 
-            style={{ x: xTranslate }} 
-            className="flex whitespace-nowrap px-[10vw] items-start md:items-center"
-          >
-            <h2 className="text-[10vw] md:text-[8vw] font-headline font-bold uppercase tracking-tight leading-none flex flex-nowrap items-center">
+          <motion.div className="flex items-center justify-center w-full">
+            <h2 className="text-[7vw] md:text-[5vw] font-headline font-bold uppercase tracking-tight leading-[1.1] flex flex-wrap justify-center text-center max-w-7xl">
               {wordsWithSteps.map(({ word, step }, i) => {
-                // Calibrated offsets: Word turns purple just before it enters the viewport (around 110-120vw)
-                const offset = isMobile ? 0.11 : 0.14; 
-                const start = Math.max(0, step - offset);
-                const end = Math.max(0.001, step - (offset - 0.02)); // Fast transition
+                // Proportional reveal logic for static multiline text
+                const start = step * 0.85; 
+                const end = start + 0.1;
                 
                 const cleanWord = word.replace(/[.,—]/g, "").toLowerCase();
                 const isAgency = cleanWord === "agency";
@@ -468,16 +457,16 @@ export default function Home() {
                 const isTouchpoint = cleanWord === "touchpoint";
 
                 return (
-                  <span key={i} className="relative inline-flex items-center">
+                  <span key={i} className="relative inline-flex items-center mx-[0.2em] my-[0.05em]">
                     <Word 
                       progress={smoothProgress} 
                       range={[start, end]}
                     >
                       {word}
                     </Word>
-                    {isAgency && <CircularTrinit />}
-                    {isStory && <CircularTrinitTop />}
-                    {isTouchpoint && <FlowerIcon />}
+                    {isAgency && <CircularTrinit className="scale-50 md:scale-75 origin-center" />}
+                    {isStory && <CircularTrinitTop className="scale-50 md:scale-75 origin-center" />}
+                    {isTouchpoint && <FlowerIcon className="w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] scale-75" />}
                   </span>
                 );
               })}
