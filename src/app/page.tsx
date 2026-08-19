@@ -267,7 +267,7 @@ export default function Home() {
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, color: "hsl(var(--accent))" }}
             whileTap={{ scale: 0.95 }}
             onClick={scrollToContact}
             transition={{ delay: 3.4, duration: 1 }}
@@ -364,14 +364,14 @@ export default function Home() {
       </section>
 
       {/* About Us Static Typing Section */}
-      <section className="relative w-full h-[150vh] bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,#34192F_10%,#34192F_90%,hsl(var(--background))_100%)] overflow-hidden px-6 flex flex-col items-center justify-start pt-[20vh]">
+      <section className="relative w-full h-[150vh] bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,#34192F_10%,#34192F_90%,hsl(var(--background))_100%)] overflow-hidden px-6 flex flex-col items-center justify-center">
         {/* Decorative Flower Components */}
         <FlowerIcon className="absolute top-[15%] left-[5%] opacity-20 scale-150 pointer-events-none" />
         <FlowerIcon className="absolute top-[40%] right-[8%] opacity-15 scale-110 pointer-events-none" />
         <FlowerIcon className="absolute bottom-[20%] left-[12%] opacity-10 scale-90 pointer-events-none" />
         <FlowerIcon className="absolute bottom-[10%] right-[5%] opacity-25 scale-125 pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-start text-center w-full z-10">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full z-10">
           
           <div className="w-full flex justify-center mb-12">
             <motion.p 
@@ -384,7 +384,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="w-full flex flex-col items-center justify-start text-center">
+          <div className="w-full flex flex-col items-center justify-center text-center">
             <TextType 
               text={narrativeText}
               className="text-[clamp(24px,4.5vw,48px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
