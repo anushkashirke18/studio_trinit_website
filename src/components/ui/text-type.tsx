@@ -74,9 +74,8 @@ const TextType: React.FC<TextTypeProps> = ({
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
+          // Set visibility based on intersection state to allow re-triggering
+          setIsVisible(entry.isIntersecting);
         });
       },
       { threshold: 0.1 }
@@ -85,6 +84,16 @@ const TextType: React.FC<TextTypeProps> = ({
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [startOnVisible]);
+
+  // Reset state when the component leaves the viewport if startOnVisible is active
+  useEffect(() => {
+    if (!isVisible && startOnVisible) {
+      setDisplayedText('');
+      setCurrentCharIndex(0);
+      setIsDeleting(false);
+      setCurrentTextIndex(0);
+    }
+  }, [isVisible, startOnVisible]);
 
   useEffect(() => {
     if (showCursor && cursorRef.current) {
