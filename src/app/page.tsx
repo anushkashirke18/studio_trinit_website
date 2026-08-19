@@ -267,11 +267,11 @@ export default function Home() {
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            whileHover={{ scale: 1.05, color: "hsl(var(--accent))" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={scrollToContact}
             transition={{ delay: 3.4, duration: 1 }}
-            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground font-medium mt-12 transition-colors inline-flex items-center gap-2 cursor-pointer outline-none"
+            className="text-[10px] md:text-[14px] uppercase tracking-[0.4em] text-muted-foreground hover:text-accent font-medium mt-12 transition-colors inline-flex items-center gap-2 cursor-pointer outline-none"
           >
             make it happen <ArrowRight className="w-4 h-4" />
           </motion.button>
@@ -384,7 +384,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="w-full flex flex-col items-center justify-start">
+          <div className="w-full flex flex-col items-center justify-start text-center">
             <TextType 
               text={narrativeText}
               className="text-[clamp(24px,4.5vw,48px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
