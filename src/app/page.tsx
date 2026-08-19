@@ -371,7 +371,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="w-full h-[50vh] flex flex-col items-center justify-center">
+          <div className="w-full h-[50vh] flex flex-col items-center justify-start">
             <TextType 
               text={narrativeText}
               className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
