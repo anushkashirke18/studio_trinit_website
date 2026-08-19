@@ -371,7 +371,7 @@ export default function Home() {
         <FlowerIcon className="absolute bottom-[20%] left-[12%] opacity-10 scale-90 pointer-events-none" />
         <FlowerIcon className="absolute bottom-[10%] right-[5%] opacity-25 scale-125 pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full z-10">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-start text-center w-full z-10 min-h-[70vh]">
           
           <div className="w-full flex justify-center mb-12">
             <motion.p 
@@ -384,7 +384,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="w-full flex flex-col items-center justify-center text-center">
+          <div className="w-full flex flex-col items-center justify-start text-center">
             <TextType 
               text={narrativeText}
               className="text-[clamp(24px,4.5vw,48px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
