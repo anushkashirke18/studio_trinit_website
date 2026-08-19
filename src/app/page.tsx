@@ -372,16 +372,18 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <TextType 
-            text={narrativeText}
-            className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
-            typingSpeed={25}
-            startOnVisible={true}
-            loop={false}
-            showCursor={true}
-            cursorCharacter="_"
-            textColors={["#FFFFFF"]}
-          />
+          <div className="w-full min-h-[30vh] flex flex-col items-center justify-center">
+            <TextType 
+              text={narrativeText}
+              className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
+              typingSpeed={25}
+              startOnVisible={true}
+              loop={false}
+              showCursor={true}
+              cursorCharacter="_"
+              textColors={["#FFFFFF"]}
+            />
+          </div>
         </div>
       </section>
 
