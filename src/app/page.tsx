@@ -1,10 +1,12 @@
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Mail, ArrowRight, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
 import { useIsMobile } from '@/hooks/use-mobile';
+import TextType from '@/components/ui/text-type';
 
 /**
  * Triple Vertical Reveal Component
@@ -41,7 +43,6 @@ function TripleVerticalReveal() {
 
 /**
  * Word component for the text reveal sections.
- * Animates from gray (#C0C0C0) to deep purple (#34192F) as it enters the viewport.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
   const color = useTransform(progress, range, ["#C0C0C0", "#34192F"]);
@@ -156,32 +157,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, wordIndex, mounted]);
 
-  const horizontalRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: horizontalRef,
-    offset: ["start start", "end end"]
-  });
-
-  // Use precise spring for synchronized reveal
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
   const narrativeText = "We’re Trinit — an independent creative agency based in Nasik and Bangalore. We help brands shape their identity, tell their story, and create work that connects across every touchpoint.";
-  const wordsArray = narrativeText.split(" ");
-  
-  // Pre-calculate character-based steps for accurate color reveal
-  const wordsWithSteps = React.useMemo(() => {
-    let currentLength = 0;
-    const totalLength = narrativeText.length;
-    return wordsArray.map(word => {
-      const step = currentLength / totalLength;
-      currentLength += word.length + 1;
-      return { word, step };
-    });
-  }, [wordsArray, narrativeText]);
 
   const servicesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: servicesScrollProgress } = useScroll({
@@ -381,11 +357,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us Static Reveal Section */}
-      <section ref={horizontalRef} className="relative h-[400vh] w-full bg-background overflow-visible">
-        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6">
+      {/* About Us Static Typing Section */}
+      <section className="relative w-full py-40 bg-background overflow-hidden px-6">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
           
-          <div className="w-full flex justify-center mb-8">
+          <div className="w-full flex justify-center mb-12">
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -396,29 +372,16 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <motion.div className="flex items-center justify-center w-full">
-            <h2 className="text-[7vw] md:text-[5vw] font-headline font-bold uppercase tracking-tight leading-[1.1] flex flex-wrap justify-center text-center max-w-7xl">
-              {wordsWithSteps.map(({ word, step }, i) => {
-                const start = step * 0.85; 
-                const end = start + 0.1;
-                
-                const cleanWord = word.replace(/[.,—]/g, "").toLowerCase();
-                const isTouchpoint = cleanWord === "touchpoint";
-
-                return (
-                  <span key={i} className="relative inline-flex items-center mx-[0.2em] my-[0.05em]">
-                    <Word 
-                      progress={smoothProgress} 
-                      range={[start, end]}
-                    >
-                      {word}
-                    </Word>
-                    {isTouchpoint && <FlowerIcon className="w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] scale-75" />}
-                  </span>
-                );
-              })}
-            </h2>
-          </motion.div>
+          <TextType 
+            text={narrativeText}
+            className="text-[clamp(32px,11vw,140px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-primary"
+            typingSpeed={25}
+            startOnVisible={true}
+            loop={false}
+            showCursor={true}
+            cursorCharacter="_"
+            textColors={["#34192F"]}
+          />
         </div>
       </section>
 
