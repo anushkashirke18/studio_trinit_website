@@ -357,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* About Us Static Typing Section */}
-      <section className="relative w-full h-[150vh] bg-gradient-to-b from-background from-0% via-[#34192F] via-10% via-[#34192F] via-90% to-background to-100% overflow-hidden px-6 flex flex-col items-center justify-center">
+      <section className="relative w-full h-[150vh] bg-gradient-to-b from-background from-0% via-[#34192F] via-[10%] via-[#34192F] via-[90%] to-background to-100% overflow-hidden px-6 flex flex-col items-center justify-center">
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full">
           
           <div className="w-full flex justify-center mb-12">
