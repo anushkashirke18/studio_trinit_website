@@ -374,7 +374,7 @@ export default function Home() {
 
           <TextType 
             text={narrativeText}
-            className="text-[clamp(32px,11vw,140px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-primary"
+            className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-primary"
             typingSpeed={25}
             startOnVisible={true}
             loop={false}
