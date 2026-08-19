@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -358,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* About Us Static Typing Section */}
-      <section className="relative w-full min-h-screen py-40 bg-[#34192F] bg-gradient-to-b from-background via-[#34192F] via-[#34192F] to-background overflow-hidden px-6 flex flex-col items-center justify-center">
+      <section className="relative w-full h-screen bg-[#34192F] bg-gradient-to-b from-background via-[#34192F] via-[#34192F] to-background overflow-hidden px-6 flex flex-col items-center justify-center">
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full">
           
           <div className="w-full flex justify-center mb-12">
@@ -372,7 +371,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="w-full min-h-[30vh] flex flex-col items-center justify-center">
+          <div className="w-full h-[50vh] flex flex-col items-center justify-center">
             <TextType 
               text={narrativeText}
               className="text-[clamp(24px,6vw,64px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
