@@ -374,7 +374,7 @@ export default function Home() {
           <div className="w-full h-[50vh] flex flex-col items-center justify-start">
             <TextType 
               text={narrativeText}
-              className="text-[clamp(18px,4.5vw,48px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
+              className="text-[clamp(30px,4.5vw,48px)] font-headline font-bold uppercase tracking-tight leading-[1.05] text-white"
               typingSpeed={25}
               startOnVisible={true}
               loop={false}
