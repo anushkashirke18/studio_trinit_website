@@ -40,7 +40,7 @@ function TripleVerticalReveal() {
 }
 
 /**
- * Word component for the horizontal scroll section.
+ * Word component for the text reveal sections.
  * Animates from gray (#C0C0C0) to deep purple (#34192F) as it enters the viewport.
  */
 function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
@@ -86,54 +86,6 @@ function ServiceChar({ children, i, total, progress }: { children: string, i: nu
         {children === " " ? "\u00A0" : children}
       </motion.span>
     </span>
-  );
-}
-
-/**
- * Circular rotating text component for "TRINIT".
- */
-function CircularTrinit({ className }: { className?: string }) {
-  return (
-    <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      className={`absolute top-full left-1/2 -translate-x-1/2 w-[15vw] h-[15vw] min-w-[150px] min-h-[150px] pointer-events-none z-10 mt-4 ${className || ""}`}
-    >
-      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
-        <defs>
-          <path id="trinitCirclePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
-        </defs>
-        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#DC9632]">
-          <textPath href="#trinitCirclePath">
-            TRINIT • TRINIT • TRINIT •
-          </textPath>
-        </text>
-      </svg>
-    </motion.div>
-  );
-}
-
-/**
- * Circular rotating text component for "TRINIT" (Top variant).
- */
-function CircularTrinitTop({ className }: { className?: string }) {
-  return (
-    <motion.div
-      animate={{ rotate: -360 }}
-      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      className={`absolute bottom-full left-1/2 -translate-x-1/2 w-[15vw] h-[15vw] min-w-[150px] min-h-[150px] pointer-events-none z-10 mb-4 ${className || ""}`}
-    >
-      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
-        <defs>
-          <path id="trinitCirclePathTop" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
-        </defs>
-        <text className="text-[12px] uppercase tracking-[0.2em] font-headline font-bold fill-[#DC9632]">
-          <textPath href="#trinitCirclePathTop">
-            TRINIT • TRINIT • TRINIT •
-          </textPath>
-        </text>
-      </svg>
-    </motion.div>
   );
 }
 
@@ -447,13 +399,10 @@ export default function Home() {
           <motion.div className="flex items-center justify-center w-full">
             <h2 className="text-[7vw] md:text-[5vw] font-headline font-bold uppercase tracking-tight leading-[1.1] flex flex-wrap justify-center text-center max-w-7xl">
               {wordsWithSteps.map(({ word, step }, i) => {
-                // Proportional reveal logic for static multiline text
                 const start = step * 0.85; 
                 const end = start + 0.1;
                 
                 const cleanWord = word.replace(/[.,—]/g, "").toLowerCase();
-                const isAgency = cleanWord === "agency";
-                const isStory = cleanWord === "story";
                 const isTouchpoint = cleanWord === "touchpoint";
 
                 return (
@@ -464,8 +413,6 @@ export default function Home() {
                     >
                       {word}
                     </Word>
-                    {isAgency && <CircularTrinit className="scale-50 md:scale-75 origin-center" />}
-                    {isStory && <CircularTrinitTop className="scale-50 md:scale-75 origin-center" />}
                     {isTouchpoint && <FlowerIcon className="w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] scale-75" />}
                   </span>
                 );
