@@ -358,8 +358,8 @@ export default function Home() {
       </section>
 
       {/* About Us Static Typing Section */}
-      <section className="relative w-full py-40 bg-[#34192F] overflow-hidden px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
+      <section className="relative w-full min-h-screen py-40 bg-[#34192F] bg-gradient-to-b from-background via-[#34192F] via-[#34192F] to-background overflow-hidden px-6 flex flex-col items-center justify-center">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full">
           
           <div className="w-full flex justify-center mb-12">
             <motion.p 
